@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inforum</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <!-- Enlace a Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Inforum</a>
+
+      <div class="ml-auto dropdown">
+        <button
+          class="btn dropdown-toggle btn-profile"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            src="./images/perfil.jpg"
+            class="rounded-circle"
+            alt="Perfil"
+            style="width: 30px; height: 30px"
+          />
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <a class="dropdown-item" href="#">View Profile</a>
+          <a class="dropdown-item" href="#">Edit Profile</a>
+          <a class="dropdown-item" href="#">Statistics</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item btn-delete" href="#">Log Out</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- contenido -->
+    <div class="container mt-5 flex-grow-1">
+      <h2 class="text-center">Post Statistics</h2>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+          <div class="btn-group">
+            <button id="botonSemanal" class="btn btn-primary">Weekly</button>
+            <button id="botonMensual" class="btn btn-primary">Monthly</button>
+            <button id="botonAnual" class="btn btn-primary">Annual</button>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+          <canvas id="statics"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-dark text-white text-center py-3">
+      <p>© 2024 Inforum. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Datos para el gráfico de barras
+      var data = {
+        labels: [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ],
+        datasets: [
+          {
+            label: 'Monthly Posts',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            data: [12, 19, 3, 5, 2],
+          },
+        ],
+      };
+
+      // Configuración del gráfico
+      var options = {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      };
+
+      // Crear el gráfico de barras
+      var ctx = document.getElementById('statics').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options,
+      });
+    </script>
+
+    <!-- Bootstrap JS, Popper.js, y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inforum</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Inforum</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-light" href="#">Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4 flex-grow-1">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="registration-form bg-light mt-4 p-4">
+            <form action="" method="" class="row g-3">
+              <div class="col-12 d-flex justify-content-center">
+                <h4 class="text-center mb-3">User Registration</h4>
+              </div>
+
+              <div class="col-12">
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div class="col-12 mt-2">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="col-12 mt-2">
+                <label>Email Verification</label>
+                <input
+                  type="email"
+                  name="email_verification"
+                  class="form-control"
+                  placeholder="Confirm Email"
+                  required
+                />
+              </div>
+              <div class="col-12 mt-2">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="col-12 mt-2">
+                <label>Password Verification</label>
+                <input
+                  type="password"
+                  name="password_verification"
+                  class="form-control"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+              <div class="col-12 d-flex justify-content-center mt-3">
+                <button type="submit" class="btn btn-primary col-12">Register</button>
+              </div>
+            </form>
+            <hr class="mt-4" />
+            <div class="col-12 text-center">
+              <p class="mb-0">
+                Already have an account? <a href="#">Log in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+      <p>© 2024 Inforum. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
