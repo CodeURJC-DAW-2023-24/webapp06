@@ -1,48 +1,54 @@
-# Nombre de la aplicación
-
-The online forum
+# Inforum
 
 ## Our team
 
-Jorge Carbonero Asín
+**Jorge Carbonero Asín**
 
 - <j.carbonero.2021@alumnos.urjc.es>
-- JorgeCarbonero
+- <u>Github:</u> JorgeCarbonero
 
-Juan Salguero Ibarrola
+**Juan Salguero Ibarrola**
 
 - <j.salguero.2023@alumnos.urjc.es>
-- jsalgueroibarrola
+- <u>Github:</u> jsalgueroibarrola
 
-Adrián Dueñas Minguez
+**Adrián Dueñas Minguez**
 
 - <a.duenas.2021@alumnos.urjc.es>
-- AdriDM-urjc
+- <u>Github:</u> AdriDM-urjc
 
-Miguel Quero
+**Miguel Quero**
 
 - <m.quero.2021@alumnos.urjc.es>
-- miguel-quero
+- <u>Github:</u> miguel-quero
 
-David Moreno Martín
+**David Moreno Martín**
 
 - <d.moreno1.2019@alumnos.urjc.es>
-- DavidMorenoo
+- <u>Github:</u> DavidMorenoo
 
 ## Tools
 
-- [Trello](https://trello.com/invite/b/ksrW93aZ/ATTI1ca6baa39a3f324678d4723093a3aec66E26A903/fase-0)
+- [Trello](https://trello.com/invite/espaciodetrabajodeuser7a9834432e7b029c3b125e94682e86cc/ATTI8fd1de6f9901d870951c48995f21a12bA10FBC62)
 - Confluence
 
 ## Entities
 
-![Class diagram]()
+![Class diagram](./images/phase_0/entities.jpg)
+
+- **User:** The User entity contains personal and authentication information about the user.
+
+- **Thread:** Represents a conversation within a Forum.
+
+- **Post:** Represents a message within a Thread.
+
+- **Forum:** Represents a specific category where users can create threads.
 
 ## User permissions
 
-- Anonymous: The basic user, does not have an account. Can enter forums, read threads and register an account.
-- Registered: Has created an account and is logged in. Can read and take part in forums by creating threads and posts and edit and delete his account.
-- Administrator: Has all the functionality of a registered user plus the ability to create, edit or delete forums, threads and messages.
+- **Anonymous**: The basic user, does not have an account. Can enter forums, read threads and register an account.
+- **Registered**: Has created an account and is logged in. Can read and take part in forums by creating threads and posts and edit and delete his account.
+- **Administrator**: Has all the functionality of a registered user plus the ability to create, edit or delete forums, threads and messages.
 
 ## Images
 
