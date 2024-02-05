@@ -48,6 +48,11 @@
 - Anonymous users will be shown a list of the most trending threads in the last 2 days.
 - For registered users, this list will be filtered to only show threads from forums where they are active.
 
+
+
+<br><br>
+
+# Phase 1
 ## Screens
 
 ### Home Screen
