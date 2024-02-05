@@ -57,7 +57,7 @@
 
 ### Home Screen
 
-Home screen of our application, from here, we will be able to enter to any of the available categories, and in addition, we will also be able to observe the categories in trendig. This home screen also has 2 buttons at the top right, these buttons are to log in or register if the user wishes.
+Home screen of our application, from here, we will be able to enter any of the available categories, and in addition, we will also be able to observe the categories in trendig. This home screen also has 2 buttons at the top right, these buttons are to log in or register if the user wishes.
 
 Note that it is not necessary to be registered to navigate between the categories, but your actions will be limited.
 
@@ -108,3 +108,21 @@ Introducir imagen
 Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
 
 Introducir imagen
+
+### Thread Screen
+
+Anonymous users can see all post made in the thread but cant interact with them nor can they add posts. They can also navigate to other forum categories from here.
+
+![Thread Screen](./images/phase_1/thread.png)
+
+### Thread Screen (Registered)
+
+Registered users will be able to see, interact and report all posts from the thread and contribute with their own post which they then can edit or delete. They can also navigate to other forum categories from here.
+
+![Thread Screen](./images/phase_1/thread_registered.png)
+
+### Thread Screen (Admin)
+
+Administrators can contribute to threads the same way registered users can. In addition, they can delete the thread and edit or delete any post within it. They can also navigate to other forum categories from here.
+
+![Thread Screen](./images/phase_1/thread_admin.png)
