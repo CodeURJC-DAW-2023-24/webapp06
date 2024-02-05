@@ -74,11 +74,19 @@ In case we do not have an account, we will also have the option to go to the reg
 
 ### Register Screen
 
-Introducir breve descipción
+Registration screen, from here, we can register on the web, and thus, to create threads and posts, as well as to write messages within the posts.
+
+To register you will need a username, which you will enter when you log in, an email and a password, it is important to have access to the email because it will be necessary to perform a verification before you can create the account.
+
+In case you already have an account, you can go to the login tab from this same screen.
 
 ![Register Screen](./images/phase_1/signup.png)
 
 ### forum Screen
-Introducir breve descipción
+
+Forum screen, here we can see the list of threads created in the selected forum, whether you are a registered user or not, you can click on one of these threads and access it, but to participate you will need to have an account.
+Next to the thread name, you will also see the number of posts it has.
+
+In this screen we also have a shortcut to the categories/forums, so we don't have to go back to the home screen if we want to change it.
 
 ![Forum Screen](./images/phase_1/forum.png)
