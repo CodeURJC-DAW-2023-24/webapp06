@@ -47,3 +47,9 @@
 
 - Anonymous users will be shown a list of the most trending threads in the last 2 days.
 - For registered users, this list will be filtered to only show threads from forums where they are active.
+
+## Screens
+
+### Home Screen
+Introducir breve descipción
+![Home Screen](./images/phase_0/entities.jpg)
