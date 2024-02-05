@@ -56,5 +56,29 @@
 ## Screens
 
 ### Home Screen
+
+Home screen of our application, from here, we will be able to enter to any of the available categories, and in addition, we will also be able to observe the categories in trendig. This home screen also has 2 buttons at the top right, these buttons are to log in or register if the user wishes.
+
+Note that it is not necessary to be registered to navigate between the categories, but your actions will be limited.
+
+
+![Home Screen](./images/phase_1/home.png)
+
+### Login Screen
+
+Login screen, here we can log in if we already have an account created, to do so, we must enter our username and password, once logged in, the user will be moved back to the home screen.
+
+In case we do not have an account, we will also have the option to go to the registration screen from this same screen.
+
+![Login Screen](./images/phase_1/login.png)
+
+### Register Screen
+
 Introducir breve descipción
-![Home Screen](./images/phase_0/entities.jpg)
+
+![Register Screen](./images/phase_1/signup.png)
+
+### forum Screen
+Introducir breve descipción
+
+![Forum Screen](./images/phase_1/forum.png)
