@@ -90,3 +90,21 @@ Next to the thread name, you will also see the number of posts it has.
 In this screen we also have a shortcut to the categories/forums, so we don't have to go back to the home screen if we want to change it.
 
 ![Forum Screen](./images/phase_1/forum.png)
+
+### Charts Screen
+
+Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
+
+Introducir imagen
+
+### Profile Screen Registered
+
+Profile Screen Registered, this page displays the profile of the registered user. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published.
+
+Introducir imagen
+
+### Profile Screen Admin
+
+Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
+
+Introducir imagen
