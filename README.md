@@ -95,19 +95,19 @@ In this screen we also have a shortcut to the categories/forums, so we don't hav
 
 Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
 
-![Charts Screen](./images/phase_1/charts screen.PNG)
+![Charts Screen]([./images/phase_1/](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/images/phase_1/profile%20screen%20admin.PNG))
 
 ### Profile Screen Registered
 
 Profile Screen Registered, this page displays the profile of the registered user. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published.
 
-![Profile Screen Registered](./images/phase_1/profile screen registered.PNG)
+![Profile Screen Registered](./images/phase_1/)
 
 ### Profile Screen Admin
 
 Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
 
-![Profile Screen Admin](./images/phase_1/profile screen admin.PNG)
+![Profile Screen Admin](./images/phase_1/)
 
 ### Thread Screen
 
