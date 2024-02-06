@@ -95,19 +95,19 @@ In this screen we also have a shortcut to the categories/forums, so we don't hav
 
 Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
 
-Introducir imagen
+![Charts Screen](./images/phase_1/charts screen.PNG)
 
 ### Profile Screen Registered
 
 Profile Screen Registered, this page displays the profile of the registered user. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published.
 
-Introducir imagen
+![Profile Screen Registered](./images/phase_1/profile screen registered.PNG)
 
 ### Profile Screen Admin
 
 Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
 
-Introducir imagen
+![Profile Screen Admin](./images/phase_1/profile screen admin.PNG)
 
 ### Thread Screen
 
