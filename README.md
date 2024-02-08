@@ -119,10 +119,28 @@ Anonymous users can see all post made in the thread but cant interact with them 
 
 Registered users will be able to see, interact and report all posts from the thread and contribute with their own post which they then can edit or delete. They can also navigate to other forum categories from here.
 
-![Thread Screen](./images/phase_1/thread_registered.png)
+![Thread Screen Registered](./images/phase_1/thread_registered.png)
 
 ### Thread Screen (Admin)
 
 Administrators can contribute to threads the same way registered users can. In addition, they can delete the thread and edit or delete any post within it. They can also navigate to other forum categories from here.
 
-![Thread Screen](./images/phase_1/thread_admin.png)
+![Thread Screen Admin](./images/phase_1/thread_admin.png)
+
+### Edit Profile Screen
+
+Users can update their profile anytime they want. They can change their current username and/or upload a new profile picture. When the updated version of their profile is ready, they can click in update in order to register the changes they made.
+
+![Edit Profile Screen](./images/phase_1/Edit_profile_screen.png)
+
+### Users Screen (Admin)
+
+Administrators can manage other users freely. There is a searchbar to find specific users or they can browse the whole list. They can view users profile, modify it and even delete it if its needed.
+
+![Users Screen Admin](./images/phase_1/Users_screen_admin.png)
+
+### Reports Screen
+
+Here there will be displayed a list of recently reported posts and how many reports each one of them has. There is also a link to each respective post and a shortcut to modify or delete the post.
+
+![Reports Screen](./images/phase_1/Reports_screen.png)
