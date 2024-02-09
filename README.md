@@ -2,13 +2,13 @@
 
 ## 🚀 Our Team
 
-| Nombre                 | Email                             | Github                |
-|------------------------|-----------------------------------|-----------------------|
-| Jorge Carbonero Asín   | <j.carbonero.2021@alumnos.urjc.es>| JorgeCarbonero        |
-| Juan Salguero Ibarrola | <j.salguero.2023@alumnos.urjc.es> | jsalgueroibarrola     |
-| Adrián Dueñas Minguez  | <a.duenas.2021@alumnos.urjc.es>   | AdriDM-urjc           |
-| Miguel Quero           | <m.quero.2021@alumnos.urjc.es>    | miguel-quero          |
-| David Moreno Martín    | <d.moreno1.2019@alumnos.urjc.es>  | DavidMorenoo          |
+| Nombre                 | Email                              | Github            |
+| ---------------------- | ---------------------------------- | ----------------- |
+| Jorge Carbonero Asín   | <j.carbonero.2021@alumnos.urjc.es> | JorgeCarbonero    |
+| Juan Salguero Ibarrola | <j.salguero.2023@alumnos.urjc.es>  | jsalgueroibarrola |
+| Adrián Dueñas Minguez  | <a.duenas.2021@alumnos.urjc.es>    | AdriDM-urjc       |
+| Miguel Quero           | <m.quero.2021@alumnos.urjc.es>     | miguel-quero      |
+| David Moreno Martín    | <d.moreno1.2019@alumnos.urjc.es>   | DavidMorenoo      |
 
 ## 🛠️ Tools
 
@@ -49,18 +49,17 @@
 - For registered users, this list will be filtered to only show threads from forums where they are active.
 
 
-
-<br><br>
+---
 
 # Phase 1
-## Screens
+
+## 🖥️ Screens
 
 ### Home Screen
 
 Home screen of our application, from here, we will be able to enter any of the available categories, and in addition, we will also be able to observe the categories in trendig. This home screen also has 2 buttons at the top right, these buttons are to log in or register if the user wishes.
 
 Note that it is not necessary to be registered to navigate between the categories, but your actions will be limited.
-
 
 ![Home Screen](./images/phase_1/home.png)
 
@@ -144,3 +143,8 @@ Administrators can manage other users freely. There is a searchbar to find speci
 Here there will be displayed a list of recently reported posts and how many reports each one of them has. There is also a link to each respective post and a shortcut to modify or delete the post.
 
 ![Reports Screen](./images/phase_1/Reports_screen.png)
+
+## 🗺️ Navigation Diagram
+
+![Reports Screen](./images/phase_1/navigation_diagram.png)
+ 
