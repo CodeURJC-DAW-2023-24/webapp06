@@ -90,23 +90,6 @@ In this screen we also have a shortcut to the categories/forums, so we don't hav
 
 ![Forum Screen](./images/phase_1/forum.png)
 
-### Charts Screen
-
-Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
-
-![Charts Screen](./images/phase_1/chartsscreen.png)
-
-### Profile Screen Registered
-
-Profile Screen Registered, this page displays the profile of the registered user. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published.
-
-![Profile Screen Registered](./images/phase_1/profilescreenregistered.png)
-
-### Profile Screen Admin
-
-Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
-
-![Profile Screen Admin](./images/phase_1/profilescreenadmin.png)
 
 ### Thread Screen
 
@@ -126,11 +109,34 @@ Administrators can contribute to threads the same way registered users can. In a
 
 ![Thread Screen Admin](./images/phase_1/thread_admin.png)
 
+
 ### Edit Profile Screen
 
 Users can update their profile anytime they want. They can change their current username and/or upload a new profile picture. When the updated version of their profile is ready, they can click in update in order to register the changes they made.
 
 ![Edit Profile Screen](./images/phase_1/Edit_profile_screen.png)
+
+### Profile Screen Registered
+
+Profile Screen Registered, this page displays the profile of the registered user. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published.
+
+![Profile Screen Registered](./images/phase_1/profilescreenregistered.png)
+
+### Profile Screen Admin
+
+Profile Screen Registered, this page displays the administrator's profile. It consists of a user image, username, number of posts created, and number of threads. In addition, you can see the threads in which the user has participated along with the number of posts published. Finally, the administrator will have an option to delete the account since they have permissions to do so.
+
+![Profile Screen Admin](./images/phase_1/profilescreenadmin.png)
+
+
+### Charts Screen
+
+Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
+
+![Charts Screen](./images/phase_1/chartsscreen.png)
+
+
+
 
 ### Users Screen (Admin)
 
