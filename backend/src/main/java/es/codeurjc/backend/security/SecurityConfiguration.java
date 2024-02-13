@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
 					.requestMatchers("/").permitAll()
+					.requestMatchers("/css/**").permitAll()
 					// PRIVATE PAGES
 					.requestMatchers("/greeting").hasAnyRole("USER")
 					//.requestMatchers("/admin").hasAnyRole("ADMIN")
@@ -47,7 +48,7 @@ public class SecurityConfiguration {
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/private")
+					.defaultSuccessUrl("/greeting")
 					.permitAll()
 			)
 			.logout(logout -> logout
