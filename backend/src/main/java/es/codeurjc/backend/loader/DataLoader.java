@@ -7,14 +7,26 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import es.codeurjc.backend.repository.UserRepository;
+import es.codeurjc.backend.repository.*;
 import es.codeurjc.backend.model.User;
+import es.codeurjc.backend.model.Post;
+import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.model.Forum;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private ThreadRepository threadRepository;
+
+    @Autowired
+    private ForumRepository forumRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -30,5 +42,18 @@ public class DataLoader implements CommandLineRunner {
 
         // O si prefieres guardarlos todos a la vez
         // userRepository.saveAll(Arrays.asList(user1, user2, ...));
+        
+        Post post1 = new Post("hola", null, user1, 20, 10, 1);
+        Post post2 = new Post("adios", null, user2, 10, 20, 3);
+
+        //postRepository.saveAll(Arrays.asList(post1, post2));
+
+        Thread thread1 = new Thread("Saludos", Arrays.asList(post1, post2), user1);
+
+        //threadRepository.save(thread1);
+
+        Forum forum1 = new Forum("Libros", Arrays.asList(thread1), "test");
+
+        forumRepository.save(forum1);
     }
 }
