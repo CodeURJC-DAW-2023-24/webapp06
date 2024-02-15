@@ -6,8 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -28,8 +29,9 @@ public class Thread {
     @Column(nullable = false)
     private List<Post> posts;
 
-    @OneToOne
-    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
@@ -39,10 +41,10 @@ public class Thread {
     public Thread() {
     }
 
-    public Thread(String name, List<Post> posts, User creator) {
+    public Thread(String name, List<Post> posts, User owner) {
         this.name = name;
         this.posts = posts;
-        this.creator = creator;
+        this.owner = owner;
     }
 
     // Getters and Setters
@@ -71,11 +73,11 @@ public class Thread {
     }
 
     public User getCreator() {
-        return creator;
+        return owner;
     }
 
     public void setCreator(User creator) {
-        this.creator = creator;
+        this.owner = creator;
     }
 
     public Date getCreatedAt() {
@@ -93,7 +95,7 @@ public class Thread {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", posts=" + posts +
-                ", creator=" + creator +
+                ", creator=" + owner +
                 ", createdAt=" + createdAt +
                 '}';
     }

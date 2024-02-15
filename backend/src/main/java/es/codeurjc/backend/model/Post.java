@@ -5,7 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,8 +24,9 @@ public class Post {
     
     private String image;
     
-    @OneToOne
-    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
@@ -44,10 +46,10 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String text, String image, User creator, int likes, int dislikes, int reports) {
+    public Post(String text, String image, User owner, int likes, int dislikes, int reports) {
         this.text = text;
         this.image = image;
-        this.creator = creator;
+        this.owner = owner;
         this.likes = likes;
         this.dislikes = dislikes;
         this.reports = reports;
@@ -78,12 +80,12 @@ public class Post {
         this.image = image;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setOwner(User creator) {
+        this.owner = creator;
     }
 
     public Date getCreatedAt() {
