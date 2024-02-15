@@ -8,7 +8,7 @@ import es.codeurjc.backend.model.User;
 
 
 public interface ThreadRepository extends JpaRepository<Thread, Long> {
-    //Optional<Thread> findByUser(User user);
+    Optional<Thread> findByUser(User user);
 
     Optional<Thread> findByName(String name);
 }

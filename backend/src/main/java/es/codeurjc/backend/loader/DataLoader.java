@@ -18,13 +18,13 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-
+/*
     @Autowired
     private PostRepository postRepository;
 
     @Autowired
     private ThreadRepository threadRepository;
-
+*/
     @Autowired
     private ForumRepository forumRepository;
 

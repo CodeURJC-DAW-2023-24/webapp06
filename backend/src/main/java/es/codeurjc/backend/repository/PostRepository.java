@@ -8,7 +8,7 @@ import es.codeurjc.backend.model.User;
 
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-  //Optional<Post> findByUser(User user);
+  Optional<Post> findByUser(User user);
 
   Optional<Post> findByText(String text);
 }
