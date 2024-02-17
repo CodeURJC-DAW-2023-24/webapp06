@@ -22,14 +22,15 @@
           <h2>Threads</h2>
           <!-- Lista de Threads -->
           <div class="list-group mb-3">
+            {{#threads}}
             <a
               href="url-del-hilo-2"
               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
             >
-              The Evolution of Social Media: Impacts on Communication and
-              Culture
-              <span class="badge badge-primary badge-pill">10 posts</span>
+              {{name}}
+              <span class="badge badge-primary badge-pill">1 posts</span>
             </a>
+            {{/threads}}
             <a
               href="url-del-hilo-2"
               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
