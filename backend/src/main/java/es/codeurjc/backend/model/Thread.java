@@ -14,6 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "threads")
@@ -37,6 +38,9 @@ public class Thread {
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
+    @Transient
+    private int numberPosts;
+
     // Constructors
     public Thread() {
     }
@@ -45,6 +49,7 @@ public class Thread {
         this.name = name;
         this.posts = posts;
         this.owner = owner;
+        this.numberPosts = posts.size();
     }
 
     // Getters and Setters
@@ -70,6 +75,7 @@ public class Thread {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+        this.numberPosts = posts.size();
     }
 
     public User getCreator() {
@@ -88,6 +94,14 @@ public class Thread {
         this.createdAt = createdAt;
     }
 
+    public int getNumberPosts() {
+        return numberPosts;
+    }
+
+    public void setNumberPosts(int numberPosts) {
+        this.numberPosts = numberPosts;
+    }
+
     // toString method
     @Override
     public String toString() {
@@ -100,4 +114,3 @@ public class Thread {
                 '}';
     }
 }
-

@@ -28,7 +28,7 @@ public class UserController {
     private PostRepository postRepository;
 
     @GetMapping("/profile/{username}")
-    public String UserProfile(Model model, @PathVariable String username){
+    public String UserProfile(Model model, @PathVariable String username) {
         User user = userRepository.findByUsername(username).orElseThrow();
         List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
         List<Post> post = postRepository.findByOwner(user).orElseThrow();
@@ -37,8 +37,12 @@ public class UserController {
         model.addAttribute("numberPosts", post.size());
         model.addAttribute("numberThreads", threads.size());
         model.addAttribute("threads", threads);
-        
+
+        for (Thread thread : threads) {
+            thread.setNumberPosts(thread.getPosts().size());
+        }
+
         return "profile";
     }
-    
+
 }
