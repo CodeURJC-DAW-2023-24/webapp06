@@ -7,11 +7,15 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "users")
@@ -36,6 +40,10 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
+
+    @Lob
+    @JsonIgnore
+    private Blob imageFile;
 
     public User() {
         // Constructor por defecto
@@ -96,6 +104,14 @@ public class User {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public Blob getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(Blob image) {
+		this.imageFile = image;
 	}
 
     // Método toString() para imprimir los detalles del usuario
