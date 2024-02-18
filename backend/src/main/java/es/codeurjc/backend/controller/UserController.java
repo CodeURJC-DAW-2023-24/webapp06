@@ -39,7 +39,7 @@ public class UserController {
         model.addAttribute("threads", threads);
 
         for (Thread thread : threads) {
-            thread.setNumberPosts(thread.getPosts().size());
+            thread.setNumberPosts();
         }
 
         return "profile";

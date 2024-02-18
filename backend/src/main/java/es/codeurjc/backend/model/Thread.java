@@ -98,8 +98,8 @@ public class Thread {
         return numberPosts;
     }
 
-    public void setNumberPosts(int numberPosts) {
-        this.numberPosts = numberPosts;
+    public void setNumberPosts() {
+        this.numberPosts = this.posts.size();
     }
 
     // toString method
