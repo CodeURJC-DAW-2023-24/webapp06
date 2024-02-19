@@ -27,7 +27,8 @@ public class SecurityConfiguration {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() { 
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailService); authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setUserDetailsService(userDetailService); 
+		authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
@@ -50,7 +51,7 @@ public class SecurityConfiguration {
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/loginerror")
-					.defaultSuccessUrl("/greeting")
+					.defaultSuccessUrl("/")
 					.permitAll()
 			)
 			.logout(logout -> logout

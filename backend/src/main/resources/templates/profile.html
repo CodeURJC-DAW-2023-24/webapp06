@@ -1,101 +1,49 @@
 {{>header}}
 
-    <!-- contenido -->
-    <div class="container mt-5 flex-grow-1">
-      <div class="row">
-        <!-- Columna de Perfil -->
-        <div class="col-md-4">
-          <div class="text-center">
-            <img
-              src="/image/user/{{username}}"
-              class="rounded-circle mb-3"
-              alt="Imagen Perfil"
-              style="width: 150px; height: 150px"
-            />
-            <h3>{{username}}</h3>
-            <p>{{numberPosts}} Post</p>
-            <p>{{numberThreads}} Threads</p>
-          </div>
-        </div>
-        <!-- Columna de Threads -->
-        <div class="col-md-8">
-          <h2>Threads</h2>
-          <!-- Lista de Threads -->
-          <div class="list-group mb-3">
-            {{#threads}}
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              {{name}}
-              <span class="badge badge-primary badge-pill">{{numberPosts}} posts</span>
-            </a>
-            {{/threads}}
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Traveling the World on a Budget: Tips and Tricks for Adventurous
-              Souls
-              <span class="badge badge-primary badge-pill">20 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Unraveling the Mysteries of Quantum Computing: Future Prospects
-              <span class="badge badge-primary badge-pill">330 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Eco-Friendly Living: Simple Steps to Reduce Your Carbon Footprint
-              <span class="badge badge-primary badge-pill">230 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              The Rise of Indie Gaming: A New Era for Developers and Gamers
-              Alike
-              <span class="badge badge-primary badge-pill">30 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Culinary Fusion: Blending Traditional Cuisines for Innovative
-              Dishes
-              <span class="badge badge-primary badge-pill">430 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Exploring the Depths: Recent Discoveries in Deep Sea Exploration
-              <span class="badge badge-primary badge-pill">320 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Virtual Reality: The Future of Entertainment and Education
-              <span class="badge badge-primary badge-pill">30 posts</span>
-            </a>
-            <a
-              href="url-del-hilo-2"
-              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              From Page to Screen: Discussing the Latest Book-to-Movie
-              Adaptations
-              <span class="badge badge-primary badge-pill">30 posts</span>
-            </a>
-            <!-- Repetir para cada thread -->
-          </div>
-        </div>
+<!-- contenido -->
+<div class="container mt-5 flex-grow-1">
+  <div class="row">
+    <!-- Columna de Perfil -->
+    <div class="col-md-4">
+      <div class="text-center">
+        <img
+          src="/image/user/{{username}}"
+          class="rounded-circle mb-3"
+          alt="Imagen Perfil"
+          style="width: 150px; height: 150px"
+        />
+        <h3>{{username}}</h3>
+        <p>{{numberPosts}} Post</p>
+        <p>{{numberThreads}} Threads</p>
+        {{#equalUserOrAdmin}}
+        <button
+          type="button"
+          class="btn btn-link text-decoration-none btn-delete"
+        >
+          <i class="fas fa-trash btn-delete"></i> Delete Account
+        </button>
+        {{/equalUserOrAdmin}}
       </div>
     </div>
-
+    <!-- Columna de Threads -->
+    <div class="col-md-8">
+      <h2>Threads</h2>
+      <!-- Lista de Threads -->
+      <div class="list-group mb-3">
+        {{#threads}}
+        <a
+          href="url-del-hilo-2"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+        >
+          {{name}}
+          <span class="badge badge-primary badge-pill"
+            >{{numberPosts}} posts</span
+          >
+        </a>
+        {{/threads}}
+      </div>
+    </div>
+  </div>
+</div>
 
 {{>footer}}
