@@ -8,36 +8,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Post;
-import es.codeurjc.backend.repository.PostRepository;
-import es.codeurjc.backend.repository.ThreadRepository;
-import es.codeurjc.backend.repository.UserRepository;
+import es.codeurjc.backend.service.PostService;
+import es.codeurjc.backend.service.ThreadService;
+import es.codeurjc.backend.service.UserService;
 import org.springframework.stereotype.Controller;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private ThreadService threadService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private ThreadRepository threadRepository;
-
-    @Autowired
-    private PostRepository postRepository;
+    private PostService postService;
 
     @GetMapping("/profile/{username}")
     public String UserProfile(Model model, Principal principal, @PathVariable String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
-        List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
-        List<Post> post = postRepository.findByOwner(user).orElseThrow();
-        boolean equalUserOrAdmin = getEqualUserOrAdmin(principal, username);
+        User user = userService.getUserByUsername(username);
+        List<Thread> threads = threadService.getThreadsByOwner(user);
+        List<Post> post = postService.getPostByOwner(user);
+        boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal, username);
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("numberPosts", post.size());
@@ -54,48 +49,13 @@ public class UserController {
 
     @GetMapping("/delete/{username}")
     public String DeleteProfile(Model model, Principal principal, @PathVariable String username) {
-        boolean equalUserOrAdmin = getEqualUserOrAdmin(principal, username);
-        if(equalUserOrAdmin){
-            User user = userRepository.findByUsername(username).orElseThrow();
-            User deleteUser = userRepository.findByUsername("delete").orElseThrow();
-            List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
-            List<Post> posts = postRepository.findByOwner(user).orElseThrow();
-            for (Thread i : threads) {
-                i.setCreator(deleteUser);
-                threadRepository.save(i);
-            }
-            for (Post i : posts) {
-                i.setOwner(deleteUser);
-                postRepository.save(i);
-            }
-            userRepository.delete(user);
-        }
-        return "home";
-    }
-
-    private boolean getEqualUserOrAdmin(Principal principal, String username) {
-        boolean equalUserOrAdmin = false;
-        try{
-            String nameUserSesion = principal.getName();
-            nameUserSesion = principal.getName();
-            if(nameUserSesion != null){
-                if (nameUserSesion.equals(username)) {
-                    equalUserOrAdmin = true;
-                 }
-                 else{
-                    Optional<User> userSesion = userRepository.findByUsername(nameUserSesion);
-                    if(userSesion.isPresent() && userSesion.get().getRoles().contains("ADMIN")){
-                        equalUserOrAdmin = true;
-                    }
-                 }
+        boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal, username);
+        if (equalUserOrAdmin) {
+            if (userService.deleteUser(username)) {
+                return "home";
             }
         }
-        catch(Exception e){}
-        return equalUserOrAdmin;
-    }
-
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+        
+        return UserProfile(model, principal, username); // back?
     }
 }
