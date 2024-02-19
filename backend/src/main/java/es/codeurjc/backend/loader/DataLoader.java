@@ -61,9 +61,10 @@ public class DataLoader implements CommandLineRunner {
                 passwordEncoder.encode("securePass10"), "USER");
         User user11 = new User("NinjaPixel", "ninjapixel@example.com", passwordEncoder.encode("securePass1"), "USER");
         User user12 = new User("DragonRider", "dragonrider@example.com", passwordEncoder.encode("securePass2"), "USER");
+        User user13 = new User("delete", "delete@example.com", passwordEncoder.encode("securePass2"), "USER");
 
         userRepository.saveAll(
-                Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12));
+                Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12, user13));
         // ... guardar más usuarios si has creado más
 
         // O si prefieres guardarlos todos a la vez

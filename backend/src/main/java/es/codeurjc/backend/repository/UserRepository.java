@@ -8,4 +8,5 @@ import es.codeurjc.backend.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
    Optional<User> findByUsername(String username);
+   void deleteByUsername(String username);
 }

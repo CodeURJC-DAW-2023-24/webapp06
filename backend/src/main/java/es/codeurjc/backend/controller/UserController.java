@@ -11,10 +11,7 @@ import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 import es.codeurjc.backend.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +52,27 @@ public class UserController {
         return "profile";
     }
 
+    @GetMapping("/delete/{username}")
+    public String DeleteProfile(Model model, Principal principal, @PathVariable String username) {
+        boolean equalUserOrAdmin = getEqualUserOrAdmin(principal, username);
+        if(equalUserOrAdmin){
+            User user = userRepository.findByUsername(username).orElseThrow();
+            User deleteUser = userRepository.findByUsername("delete").orElseThrow();
+            List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
+            List<Post> posts = postRepository.findByOwner(user).orElseThrow();
+            for (Thread i : threads) {
+                i.setCreator(deleteUser);
+                threadRepository.save(i);
+            }
+            for (Post i : posts) {
+                i.setOwner(deleteUser);
+                postRepository.save(i);
+            }
+            userRepository.delete(user);
+        }
+        return "home";
+    }
+
     private boolean getEqualUserOrAdmin(Principal principal, String username) {
         boolean equalUserOrAdmin = false;
         try{
@@ -80,7 +98,4 @@ public class UserController {
     public String getMethodName(@RequestParam String param) {
         return new String();
     }
-    
-
-
 }
