@@ -12,13 +12,14 @@ import java.util.Arrays;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import es.codeurjc.backend.repository.*;
+import jakarta.annotation.PostConstruct;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Forum;
 
 @Component
-public class DataLoader implements CommandLineRunner {
+public class DataLoader  {
 
         @Autowired
         private UserRepository userRepository;
@@ -36,8 +37,8 @@ public class DataLoader implements CommandLineRunner {
         @Autowired
         private PasswordEncoder passwordEncoder;
 
-        @Override
-        public void run(String... args) throws Exception {
+        @PostConstruct
+        public void run() throws Exception {
 
                 Resource imageUser1 = new ClassPathResource("example/user/user1.png");
                 Blob blobImageUser1 = BlobProxy.generateProxy(imageUser1.getInputStream(), imageUser1.contentLength());
