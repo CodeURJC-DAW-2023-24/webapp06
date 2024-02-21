@@ -48,6 +48,7 @@ public class SecurityConfiguration {
 					.requestMatchers("/greeting").hasAnyRole("USER")
 					.requestMatchers("/user/delete/{username}").hasAnyRole("USER")
 					//.requestMatchers("/admin").hasAnyRole("ADMIN")
+					.anyRequest().authenticated()	
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")

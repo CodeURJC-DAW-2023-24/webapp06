@@ -13,8 +13,5 @@ public class GreetingController {
         return "greeting_template";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login_template";
-    }
+    
 }
