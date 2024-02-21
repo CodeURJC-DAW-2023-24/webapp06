@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String Users(Model model, Principal principal,
+    public String Users(Model model,
             @RequestParam(value = "username", required = false) String username) {
         List<User> users;
         if (username != null && !username.isEmpty()) {
