@@ -70,4 +70,8 @@ public class UserService {
         return userRepository.findByUsername(username).orElseThrow();
     }
 
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
 }

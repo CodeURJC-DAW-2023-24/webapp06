@@ -51,11 +51,15 @@ public class UserController {
     public String DeleteProfile(Model model, Principal principal, @PathVariable String username) {
         boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal, username);
         if (equalUserOrAdmin) {
-            if (userService.deleteUser(username)) {
-                return "home";
-            }
+            userService.deleteUser(username);
         }
-        
-        return UserProfile(model, principal, username); // back?
+        return "redirect:/";
+    }
+
+    @GetMapping("/users")
+    public String UserProfile(Model model, Principal principal) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users_template";
     }
 }
