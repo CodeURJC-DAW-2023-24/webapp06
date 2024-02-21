@@ -16,6 +16,10 @@ import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Blob;
 
@@ -40,7 +44,6 @@ public class User {
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
-    
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -55,11 +58,13 @@ public class User {
     }
 
     // Constructor con parámetros
-    public User(String username, String email, String password, String... roles) {
+    public User(String username, String email, String password, String... roles) throws Exception {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = List.of(roles);
+        Resource imageUser = new ClassPathResource("example/user/user_profile.webp");
+        this.imageFile = BlobProxy.generateProxy(imageUser.getInputStream(), imageUser.contentLength());
     }
 
     // Getters y setters
@@ -104,20 +109,20 @@ public class User {
     }
 
     public List<String> getRoles() {
-		return roles;
-	}
+        return roles;
+    }
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
-	public Blob getImageFile() {
-		return imageFile;
-	}
+    public Blob getImageFile() {
+        return imageFile;
+    }
 
-	public void setImageFile(Blob image) {
-		this.imageFile = image;
-	}
+    public void setImageFile(Blob image) {
+        this.imageFile = image;
+    }
 
     // Método toString() para imprimir los detalles del usuario
     @Override
