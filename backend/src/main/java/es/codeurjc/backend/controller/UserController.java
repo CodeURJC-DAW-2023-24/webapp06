@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Post;
@@ -57,8 +59,14 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String UserProfile(Model model, Principal principal) {
-        List<User> users = userService.getAllUsers();
+    public String Users(Model model, Principal principal,
+            @RequestParam(value = "username", required = false) String username) {
+        List<User> users;
+        if (username != null && !username.isEmpty()) {
+            users = userService.getUsersByUsernameStartingWith(username);
+        } else {
+            users = userService.getAllUsers();
+        }
         model.addAttribute("users", users);
         return "users_template";
     }

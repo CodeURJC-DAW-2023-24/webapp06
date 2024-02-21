@@ -74,4 +74,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getUsersByUsernameStartingWith(String prefix){
+        return userRepository.findByUsernameStartingWith(prefix);
+    }
+
 }
