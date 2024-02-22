@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.User;
@@ -28,7 +30,7 @@ public class UserService {
 
     public Boolean deleteUser(String username) {
         try {
-            User user = userRepository.findByUsername(username).orElseThrow();
+            User user = getUserByUsername(username);
             User deleteUser = userRepository.findByUsername("delete").orElseThrow();
             List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
             List<Post> posts = postRepository.findByOwner(user).orElseThrow();
@@ -47,15 +49,14 @@ public class UserService {
         }
     }
 
-    public boolean getEqualUserOrAdmin(Principal principal, String username) {
+    public boolean getEqualUserOrAdmin(String usernameLogin, String username) {
         boolean equalUserOrAdmin = false;
         try {
-            String nameUserSesion = principal.getName();
-            if (nameUserSesion != null) {
-                if (nameUserSesion.equals(username)) {
+            if (usernameLogin != null) {
+                if (usernameLogin.equals(username)) {
                     equalUserOrAdmin = true;
                 } else {
-                    Optional<User> userSesion = userRepository.findByUsername(nameUserSesion);
+                    Optional<User> userSesion = userRepository.findByUsername(usernameLogin);
                     if (userSesion.isPresent() && userSesion.get().getRoles().contains("ADMIN")) {
                         equalUserOrAdmin = true;
                     }
@@ -66,16 +67,24 @@ public class UserService {
         return equalUserOrAdmin;
     }
 
-    public User getUserByUsername(String username){
-        return userRepository.findByUsername(username).orElseThrow();
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public List<User> getUsersByUsernameStartingWith(String prefix){
+    public List<User> getUsersByUsernameStartingWith(String prefix) {
         return userRepository.findByUsernameStartingWith(prefix);
     }
 
+    public Boolean isAdmin(String username) {
+        User userSesion = getUserByUsername(username);
+        return userSesion.getRoles().contains("ADMIN");
+    }
+
+    public void update(User user) {
+        userRepository.save(user);
+    }
 }

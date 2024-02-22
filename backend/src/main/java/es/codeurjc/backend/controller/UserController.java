@@ -1,18 +1,21 @@
 package es.codeurjc.backend.controller;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import java.security.Principal;
 import java.util.List;
@@ -34,7 +37,11 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         List<Thread> threads = threadService.getThreadsByOwner(user);
         List<Post> post = postService.getPostByOwner(user);
-        boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal, username);
+        boolean equalUserOrAdmin = false;
+
+        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
+            equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
+        }
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("numberPosts", post.size());
@@ -51,7 +58,7 @@ public class UserController {
 
     @GetMapping("/delete/{username}")
     public String DeleteProfile(Model model, Principal principal, @PathVariable String username) {
-        boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal, username);
+        boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
         if (equalUserOrAdmin) {
             userService.deleteUser(username);
         }
@@ -69,5 +76,55 @@ public class UserController {
         }
         model.addAttribute("users", users);
         return "users_template";
+    }
+
+    @GetMapping("/edit-profile")
+    public String getMethodName(Model model, Principal principal,
+            @RequestParam(value = "username", required = false) String username,
+            HttpServletRequest request) {
+        if (username != null || username != "") {
+            if(!userService.isAdmin(principal.getName())){
+                String referrer = request.getHeader("Referer");
+                return "redirect:" + referrer;
+            }
+            userService.getUserByUsername(username); // check user exist
+        }
+
+        model.addAttribute("username", username != null ? username : principal.getName());
+        return "edit_profile_template";
+    }
+
+    @PostMapping("/update-profile/{usernameEdit}")
+    public String updateProfile(
+            Principal principal,
+            @PathVariable String usernameEdit,
+            @RequestParam(name = "username", required = false) String username,
+            @RequestParam(name = "imageFile", required = false) MultipartFile imageFile,
+            HttpServletRequest request) {
+        if (userService.getEqualUserOrAdmin(principal.getName(), usernameEdit)) {
+            User user = userService.getUserByUsername(usernameEdit);
+            Boolean anyChange = false;
+            if (username != null && !username.isEmpty()) {
+                user.setUsername(username);
+                anyChange = true;
+            }
+            if (imageFile != null && !imageFile.isEmpty()) {
+                try {
+                    user.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
+                    anyChange = true;
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+            }
+            if (anyChange) {
+                userService.update(user);
+                return "redirect:/user/profile/" + user.getUsername();
+            } else {
+                String referrer = request.getHeader("Referer");
+                return "redirect:" + referrer;
+            }
+
+        }
+        return "redirect:/home"; // TODO: cant update, where navigate?
     }
 }
