@@ -44,5 +44,24 @@
         </ul>
       </div>
       {{/logged}}
-      
+      {{#logged}}
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <button class="btn btn-info mr-2">
+              {{userName}}
+            </button>
+          </li>
+          <li class="nav-item">
+            <form action="/logout" method="post">
+              <button class="btn btn-danger" type="submit">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+
+
+
+
+      {{/logged}}
     </nav>
