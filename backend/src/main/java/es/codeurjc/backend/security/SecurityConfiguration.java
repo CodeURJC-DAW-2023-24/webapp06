@@ -51,6 +51,10 @@ public class SecurityConfiguration {
 						.requestMatchers("/chart").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/threads/weekly").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/threads/monthly").hasAnyRole("USER")
+						.requestMatchers("/chart-rest/threads/annually").hasAnyRole("USER")
+						.requestMatchers("/chart-rest/posts/weekly").hasAnyRole("USER")
+						.requestMatchers("/chart-rest/posts/monthly").hasAnyRole("USER")
+						.requestMatchers("/chart-rest/posts/annually").hasAnyRole("USER")
 						.requestMatchers("/user/users").hasAnyRole("ADMIN")
 						.anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin
