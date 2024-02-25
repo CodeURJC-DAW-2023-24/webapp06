@@ -1,6 +1,5 @@
 package es.codeurjc.backend.service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.User;
-import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 import es.codeurjc.backend.repository.UserRepository;
@@ -32,16 +28,8 @@ public class UserService {
         try {
             User user = getUserByUsername(username);
             User deleteUser = userRepository.findByUsername("delete").orElseThrow();
-            List<Thread> threads = threadRepository.findByOwner(user).orElseThrow();
-            List<Post> posts = postRepository.findByOwner(user).orElseThrow();
-            for (Thread i : threads) {
-                i.setCreator(deleteUser);
-                threadRepository.save(i);
-            }
-            for (Post i : posts) {
-                i.setOwner(deleteUser);
-                postRepository.save(i);
-            }
+            threadRepository.changeOwnerOfThreads(user.getId(), deleteUser.getId());
+            postRepository.changeOwnerOfPosts(user.getId(), deleteUser.getId());
             userRepository.delete(user);
             return true;
         } catch (Exception e) {

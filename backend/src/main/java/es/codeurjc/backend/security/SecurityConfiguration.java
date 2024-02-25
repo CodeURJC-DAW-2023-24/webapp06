@@ -51,8 +51,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/chart").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/threads/weekly").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/threads/monthly").hasAnyRole("USER")
-						// .requestMatchers("/admin").hasAnyRole("ADMIN")
-						.requestMatchers("/users").hasAnyRole("ADMIN")
+						.requestMatchers("/user/users").hasAnyRole("ADMIN")
 						.anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")
