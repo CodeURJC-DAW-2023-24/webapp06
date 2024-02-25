@@ -5,6 +5,20 @@
     <!-- Categories -->
     <h2>Categories</h2>
     <div class="row">
+      {{#forums}}
+      <div class="col-md-4 mb-3">
+        <a href="#" class="card text-decoration-none text-dark">
+          <div class="card-body text-center">
+            <i class="fas fa-laptop-code fa-3x"> </i>
+            <h5 class="card-title mt-2">{{name}}</h5>
+          </div>
+        </a>
+      </div>
+      {{/forums}}
+      {{^forums}}
+      <div class="card-body text-center"><h5>No categories yet</h5></div>
+      {{/forums}}
+<!--
       <div class="col-md-4 mb-3">
         <a href="#" class="card text-decoration-none text-dark">
           <div class="card-body text-center">
@@ -13,6 +27,8 @@
           </div>
         </a>
       </div>
+
+      
 
       <div class="col-md-4 mb-3">
         <a href="#" class="card text-decoration-none text-dark">
@@ -49,7 +65,7 @@
           </div>
         </a>
       </div>
-
+ 
       <div class="col-md-4 mb-3">
         <a
           href="./forum_screen/forum_screen.html"
@@ -88,10 +104,14 @@
           </div>
         </a>
       </div>
+      -->
     </div>
-
+  
     <!-- Trending Categories -->
+    
     <h2 class="mt-4">Trending Categories</h2>
+    <div class="card-body text-center"><h5>No trending categories yet</h5></div>
+    <!--
     <div class="row mb-3">
       <div class="col-md-4 mb-3">
         <a href="#" class="card text-decoration-none text-dark">
@@ -122,7 +142,8 @@
           </div>
         </a>
       </div>
+-->
     </div>
   </div>
-
+ */
   {{>footer}}
