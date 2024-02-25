@@ -1,3 +1,6 @@
+const THREAD_INDEX = 0;
+const POST_INDEX = 1;
+
 var data = {
   labels: [
     "Monday",
@@ -14,7 +17,14 @@ var data = {
       backgroundColor: "rgba(75, 192, 192, 0.2)",
       borderColor: "rgba(75, 192, 192, 1)",
       borderWidth: 1,
-      data: getWeekly(convertDateFormatBackend(formatDate(new Date()))),
+      data: [],
+    },
+    {
+      label: "Weekly Posts",
+      backgroundColor: "rgba(180, 180, 180, 0.2)",
+      borderColor: "rgba(180, 180, 180, 1)",
+      borderWidth: 1,
+      data: [],
     },
   ],
 };
@@ -28,24 +38,28 @@ var options = {
 };
 
 var ctx = document.getElementById("statics").getContext("2d");
-var myChart = new Chart(ctx, {
+
+var chart = new Chart(ctx, {
   type: "bar",
   data: data,
   options: options,
 });
 
-async function getMonthly(date) {
-  document.getElementById("monthlyButton").className = "btn btn-primary";
+setInitialWeekRange();
+getWeekly(convertDateFormatBackend(formatDate(new Date())));
+
+async function getAnnually(date) {
   document.getElementById("weeklyButton").className = "btn btn-outline-primary";
-  document.getElementById("annuallyButton").className =
+  document.getElementById("monthlyButton").className =
     "btn btn-outline-primary";
+  document.getElementById("annuallyButton").className = "btn btn-primary";
 
   var weekPicker = document.getElementById("weekPicker");
   weekPicker.style.display = "none";
 
   try {
-    const response = await fetch(
-      `https://localhost:8443/chart-rest/threads/monthly?date=${date}`,
+    const responseThread = await fetch(
+      `https://localhost:8443/chart-rest/threads/annually?date=${date}`,
       {
         method: "GET",
         headers: {
@@ -53,31 +67,41 @@ async function getMonthly(date) {
         },
       }
     );
-    if (!response.ok) {
+    if (!responseThread.ok) {
       throw new Error("Network response was not ok");
     }
-    const data = await response.json();
 
-    myChart.data.datasets[0].data = data;
-    myChart.data.labels = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    myChart.data.datasets[0].label = "Monthly Threads";
+    const responsePost = await fetch(
+      `https://localhost:8443/chart-rest/posts/annually?date=${date}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!responsePost.ok) {
+      throw new Error("Network response was not ok");
+    }
 
-    myChart.update();
+    const dataThread = await responseThread.json();
+    const dataPost = await responsePost.json();
+
+    const years = Object.keys(dataThread).map(Number);
+    const countsThread = Object.values(dataThread);
+    const countsPost = Object.values(dataPost);
+
+    chart.data.labels = years;
+
+    chart.data.datasets[THREAD_INDEX].data = countsThread;
+    chart.data.datasets[THREAD_INDEX].label = "Annually Threads";
+
+    chart.data.datasets[POST_INDEX].data = countsPost;
+    chart.data.datasets[POST_INDEX].label = "Annually Posts";
+
+    chart.update();
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error(error);
   }
 }
 
@@ -91,79 +115,76 @@ async function getWeekly(date) {
   var weekPicker = document.getElementById("weekPicker");
   weekPicker.style.display = "block";
 
+  const theadUrl = `https://localhost:8443/chart-rest/threads/weekly?date=${date}`;
+  const postUrl = `https://localhost:8443/chart-rest/threads/weekly?date=${date}`;
+
+  chart.data.labels = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  fetchDataAndUpdateChart(theadUrl, "Weekly Threads", THREAD_INDEX);
+  fetchDataAndUpdateChart(postUrl, "Weekly Posts", POST_INDEX);
+}
+
+async function getMonthly(date) {
+  document.getElementById("weeklyButton").className = "btn btn-outline-primary";
+  document.getElementById("monthlyButton").className = "btn btn-primary";
+  document.getElementById("annuallyButton").className =
+    "btn btn-outline-primary";
+
+  var weekPicker = document.getElementById("weekPicker");
+  weekPicker.style.display = "none";
+
+  const theadUrl = `https://localhost:8443/chart-rest/threads/monthly?date=${date}`;
+  const postUrl = `https://localhost:8443/chart-rest/posts/monthly?date=${date}`;
+  chart.data.labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  fetchDataAndUpdateChart(theadUrl, "Weekly Threads", THREAD_INDEX);
+  fetchDataAndUpdateChart(postUrl, "Weekly Posts", POST_INDEX);
+}
+
+async function fetchDataAndUpdateChart(url, label, index) {
   try {
-    const response = await fetch(
-      `https://localhost:8443/chart-rest/threads/weekly?date=${date}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-
-    myChart.data.datasets[0].data = data;
-    myChart.data.labels = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ];
-    myChart.data.datasets[0].label = "Weekly Threads";
-
-    myChart.update();
+    updateChart(data, label, index);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-async function getAnnually(date) {
-  document.getElementById("weeklyButton").className = "btn btn-outline-primary";
-  document.getElementById("monthlyButton").className =
-    "btn btn-outline-primary";
-  document.getElementById("annuallyButton").className = "btn btn-primary";
-
-  var weekPicker = document.getElementById("weekPicker");
-  weekPicker.style.display = "none";
-
-  try {
-    const response = await fetch(
-      `https://localhost:8443/chart-rest/threads/annually?date=${date}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-
-    const years = Object.keys(data).map(Number);
-    const counts = Object.values(data);
-
-    myChart.data.datasets[0].data = counts;
-    myChart.data.labels = years;
-    myChart.data.datasets[0].label = "Annually Threads";
-
-    myChart.update();
-  } catch (error) {
-    console.error(error);
-  }
+function updateChart(data, label, index) {
+  chart.data.datasets[index].data = data;
+  chart.data.datasets[index].label = label;
+  chart.update();
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  setInitialWeekRange();
-});
 
 function setInitialWeekRange() {
   const today = new Date();
@@ -175,6 +196,18 @@ function setInitialWeekRange() {
 
   document.getElementById("weekRange").textContent =
     formatDate(startDate) + " - " + formatDate(endDate);
+}
+
+function getDateWeek() {
+  const weekRangeElement = document.getElementById("weekRange");
+  const dates = weekRangeElement.textContent.split(" - ");
+  const startDate = parseDate(dates[0]);
+
+  startDate.setDate(startDate.getDate());
+
+  startDateStr = formatDate(startDate);
+
+  return convertDateFormatBackend(startDateStr);
 }
 
 function changeWeek(direction) {

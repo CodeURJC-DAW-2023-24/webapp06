@@ -1,28 +1,28 @@
 {{>header}}
 <!-- contenido -->
 <div class="container mt-5 flex-grow-1">
-  <h2 class="text-center">Thread Statistics</h2>
+  <h2 class="text-center">Thread and Post Statistics</h2>
   <div class="row justify-content-center mt-4">
     <div class="col-md-6 text-center">
       <div class="btn-group">
         <button
           id="weeklyButton"
           class="btn btn-primary"
-          onclick="getWeekly('2024-02-24')"
+          onclick="getWeekly(getDateWeek())"
         >
           Weekly
         </button>
         <button
           id="monthlyButton"
           class="btn btn-outline-primary"
-          onclick="getMonthly('2024-02-24')"
+          onclick="getMonthly(convertDateFormatBackend(formatDate(new Date())))"
         >
           Monthly
         </button>
         <button
           id="annuallyButton"
           class="btn btn-outline-primary"
-          onclick="getAnnually('2024-02-24')"
+          onclick="getAnnually(convertDateFormatBackend(formatDate(new Date())))"
         >
           Annual
         </button>
