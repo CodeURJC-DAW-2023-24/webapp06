@@ -8,7 +8,7 @@ public class registerController {
 
   @GetMapping("/register")
   public String register() {
-    return "register";
+    return "home";
   }
   
 }

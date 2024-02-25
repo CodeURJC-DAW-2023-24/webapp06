@@ -122,7 +122,19 @@ public class DataLoader  {
                 // threadRepository.save(thread1);
 
                 Forum forum1 = new Forum("Libros", Arrays.asList(thread1, thread2), "test");
+                Forum forum2 = new Forum("Tecnología",null, "test");
+                Forum forum3 = new Forum("Ciencia",null, "test");
+                Forum forum4 = new Forum("Deportes",null, "test");
+                Forum forum5 = new Forum("Música",null, "test");
 
+                
                 forumRepository.save(forum1);
+                forumRepository.save(forum2);
+                forumRepository.save(forum3);
+                forumRepository.save(forum4);
+                forumRepository.save(forum5);
+        
+            
+
         }
 }
