@@ -42,6 +42,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/register").permitAll()
+						.requestMatchers("/user/activation/{username}").permitAll()
 						.requestMatchers("/user/profile/{username}").permitAll()
 						.requestMatchers("/image/user/{username}").permitAll()
 						// PRIVATE PAGES

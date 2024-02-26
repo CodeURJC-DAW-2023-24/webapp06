@@ -83,7 +83,7 @@ public class UserController {
             @RequestParam(value = "username", required = false) String username,
             HttpServletRequest request) {
         if (username != null || username != "") {
-            if(!userService.isAdmin(principal.getName())){
+            if (!userService.isAdmin(principal.getName())) {
                 String referrer = request.getHeader("Referer");
                 return "redirect:" + referrer;
             }
@@ -127,4 +127,18 @@ public class UserController {
         }
         return "redirect:/home"; // TODO: cant update, where navigate?
     }
+
+    @GetMapping("activation/{username}")
+    public String getMethodName(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+
+        if (user.getIsActive()) {
+            return "already_active_template";
+        } else {
+            user.setIsActive(true);
+            userService.update(user);
+            return "activation_template";
+        }
+    }
+
 }

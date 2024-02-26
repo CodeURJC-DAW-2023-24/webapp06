@@ -1,43 +1,58 @@
 package es.codeurjc.backend.service;
 
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
+
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 
 @Service
 public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
-    
+
     @Value("${spring.mail.username}")
     private String from;
 
-    public void sendHtmlMessage(String to, String subject, String templateName) throws IOException {
+    final private String BASE_URL = "https://localhost:8443";
+
+    @Autowired
+    private MustacheResourceTemplateLoader mustacheTemplateLoader;
+
+    public void sendActivation(String to, String username) {
+        // "jakuru888@gmail.com", "inforum", "email_template.html"
+        Map<String, Object> context = new HashMap<>();
+        context.put("activationUrl", BASE_URL + "/user/activation/" + username);
+        sendHtmlMessage(to, "Activation account", "email_template", context);
+    }
+
+    public void sendHtmlMessage(String to, String subject, String templateName, Map<String, Object> context) {
         try {
-            ClassPathResource htmlResource = new ClassPathResource("templates/" + templateName);
-            String htmlContent = StreamUtils.copyToString(htmlResource.getInputStream(), StandardCharsets.UTF_8);
+            Template template = Mustache.compiler().compile(mustacheTemplateLoader.getTemplate(templateName));
+
+            StringWriter writer = new StringWriter();
+            template.execute(context, writer);
+            String htmlContent = writer.toString();
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            
+
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
-            
+
             mailSender.send(message);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

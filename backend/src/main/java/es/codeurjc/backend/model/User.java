@@ -15,11 +15,9 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Blob;
 
@@ -39,6 +37,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private Boolean isActive;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
@@ -65,6 +66,7 @@ public class User {
         this.roles = List.of(roles);
         Resource imageUser = new ClassPathResource("example/user/user_profile.webp");
         this.imageFile = BlobProxy.generateProxy(imageUser.getInputStream(), imageUser.contentLength());
+        this.isActive = false;
     }
 
     // Getters y setters
@@ -122,6 +124,14 @@ public class User {
 
     public void setImageFile(Blob image) {
         this.imageFile = image;
+    }
+
+    public Boolean getIsActive(){
+        return isActive;
+    }
+
+    public Boolean setIsActive(boolean isActive){
+        return this.isActive = isActive;
     }
 
     // Método toString() para imprimir los detalles del usuario
