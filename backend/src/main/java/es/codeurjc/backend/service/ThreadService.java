@@ -14,6 +14,10 @@ public class ThreadService {
     @Autowired
     private ThreadRepository threadRepository;
 
+    public Thread getThreadByName(String name) {
+        return threadRepository.findByName(name).orElseThrow();
+    }
+
     public List<Thread> getThreadsByOwner(User owner) {
         return threadRepository.findByOwner(owner).orElseThrow();
     }
