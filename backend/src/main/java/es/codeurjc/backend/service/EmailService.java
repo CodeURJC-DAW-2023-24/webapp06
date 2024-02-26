@@ -3,11 +3,16 @@ package es.codeurjc.backend.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
 @Service
 public class EmailService {
@@ -18,19 +23,21 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String from;
 
-    public void sendHtmlMessage(String to, String subject, String htmlBody) {
+    public void sendHtmlMessage(String to, String subject, String templateName) throws IOException {
         try {
+            ClassPathResource htmlResource = new ClassPathResource("templates/" + templateName);
+            String htmlContent = StreamUtils.copyToString(htmlResource.getInputStream(), StandardCharsets.UTF_8);
+
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(htmlBody, true);
+            helper.setText(htmlContent, true);
             
             mailSender.send(message);
         } catch (MessagingException e) {
-            // Manejar la excepción
             e.printStackTrace();
         }
     }
