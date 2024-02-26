@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import java.sql.Blob;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Forum;
 
 @Component
-public class DataLoader  {
+public class DataLoader {
 
         @Autowired
         private UserRepository userRepository;
@@ -72,9 +73,14 @@ public class DataLoader  {
                                 "USER");
                 User user13 = new User("delete", "delete@example.com", passwordEncoder.encode("securePass2"), "USER");
 
-                userRepository.saveAll(
-                                Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10,
-                                                user11, user12, user13));
+                List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10,
+                                user11, user12, user13);
+
+                for (User i : users) {
+                        i.setIsActive(true);
+                }
+
+                userRepository.saveAll(users);
                 // ... guardar más usuarios si has creado más
 
                 // O si prefieres guardarlos todos a la vez
@@ -122,15 +128,15 @@ public class DataLoader  {
                 // threadRepository.save(thread1);
 
                 Forum forum1 = new Forum("Books and Literature", Arrays.asList(thread1, thread2), "book");
-                Forum forum2 = new Forum("Technology",null, "laptop-code");
-                Forum forum3 = new Forum("Science",null, "flask");
-                Forum forum4 = new Forum("Sports",null, "football-ball");
-                Forum forum5 = new Forum("Music",null, "music");
-                Forum forum6 = new Forum("Movies and Television",null, "film");
-                Forum forum7 = new Forum("Gastronomy",null, "utensils");
-                Forum forum8 = new Forum("Travel",null, "plane");
-                Forum forum9 = new Forum("Gaming",null, "gamepad");
-                
+                Forum forum2 = new Forum("Technology", null, "laptop-code");
+                Forum forum3 = new Forum("Science", null, "flask");
+                Forum forum4 = new Forum("Sports", null, "football-ball");
+                Forum forum5 = new Forum("Music", null, "music");
+                Forum forum6 = new Forum("Movies and Television", null, "film");
+                Forum forum7 = new Forum("Gastronomy", null, "utensils");
+                Forum forum8 = new Forum("Travel", null, "plane");
+                Forum forum9 = new Forum("Gaming", null, "gamepad");
+
                 forumRepository.save(forum1);
                 forumRepository.save(forum2);
                 forumRepository.save(forum3);
