@@ -121,20 +121,25 @@ public class DataLoader  {
                 Thread thread2 = new Thread("Pruebas", Arrays.asList(post5, post6, post7), user1);
                 // threadRepository.save(thread1);
 
-                Forum forum1 = new Forum("Libros", Arrays.asList(thread1, thread2), "test");
-                Forum forum2 = new Forum("Tecnología",null, "test");
-                Forum forum3 = new Forum("Ciencia",null, "test");
-                Forum forum4 = new Forum("Deportes",null, "test");
-                Forum forum5 = new Forum("Música",null, "test");
-
+                Forum forum1 = new Forum("Books and Literature", Arrays.asList(thread1, thread2), "book");
+                Forum forum2 = new Forum("Technology",null, "laptop-code");
+                Forum forum3 = new Forum("Science",null, "flask");
+                Forum forum4 = new Forum("Sports",null, "football-ball");
+                Forum forum5 = new Forum("Music",null, "music");
+                Forum forum6 = new Forum("Movies and Television",null, "film");
+                Forum forum7 = new Forum("Gastronomy",null, "utensils");
+                Forum forum8 = new Forum("Travel",null, "plane");
+                Forum forum9 = new Forum("Gaming",null, "gamepad");
                 
                 forumRepository.save(forum1);
                 forumRepository.save(forum2);
                 forumRepository.save(forum3);
                 forumRepository.save(forum4);
                 forumRepository.save(forum5);
-        
-            
+                forumRepository.save(forum6);
+                forumRepository.save(forum7);
+                forumRepository.save(forum8);
+                forumRepository.save(forum9);
 
         }
 }
