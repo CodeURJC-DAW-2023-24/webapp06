@@ -50,7 +50,7 @@ public class RegisterController {
 
     // User user = (User) userService.getUserByUsername(username);
     // User user2 = (User) userService.getUserByEmail(email);
-    return "register_done";
+    return "register_error_template";
   }
 
 }
