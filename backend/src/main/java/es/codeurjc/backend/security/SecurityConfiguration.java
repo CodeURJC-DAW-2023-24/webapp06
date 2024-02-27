@@ -47,6 +47,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/image/user/*").permitAll()
 						.requestMatchers("/f/*").permitAll()
 						.requestMatchers("/f/*/t/*").permitAll()
+						.requestMatchers("/error").permitAll()
 						// PRIVATE PAGES
 						.requestMatchers("/user/edit-profile/*").hasAnyRole("USER")
 						.requestMatchers("/user/update-profile").hasAnyRole("USER")
