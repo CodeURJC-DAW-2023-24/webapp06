@@ -3,6 +3,7 @@ package es.codeurjc.backend.controller;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    
     @Autowired
     private ThreadService threadService;
 
@@ -31,6 +33,22 @@ public class UserController {
 
     @Autowired
     private PostService postService;
+
+     @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+
+			model.addAttribute("logged", true);
+			model.addAttribute("username", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
 
     @GetMapping("/profile/{username}")
     public String UserProfile(Model model, Principal principal, @PathVariable String username) {
@@ -82,7 +100,7 @@ public class UserController {
     public String getMethodName(Model model, Principal principal,
             @RequestParam(value = "username", required = false) String username,
             HttpServletRequest request) {
-        if (username != null || username != "") {
+        if (username != null && username != "") {
             if (!userService.isAdmin(principal.getName())) {
                 String referrer = request.getHeader("Referer");
                 return "redirect:" + referrer;
@@ -128,7 +146,7 @@ public class UserController {
         return "redirect:/home"; // TODO: cant update, where navigate?
     }
 
-    @GetMapping("activation/{username}")
+    @GetMapping("/activation/{username}")
     public String getMethodName(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
 

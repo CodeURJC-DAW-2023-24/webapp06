@@ -15,7 +15,10 @@ import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
@@ -31,6 +34,21 @@ public class ForumController {
 
     @Autowired
     private PostService postService;
+
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if (principal != null) {
+			model.addAttribute("logged", true);
+			model.addAttribute("username", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
 
     @RequestMapping("/f/{forum}")
     public String getForum(Model model, Principal principal, @PathVariable String forum) {
