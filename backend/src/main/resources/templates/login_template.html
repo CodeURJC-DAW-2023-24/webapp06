@@ -1,17 +1,41 @@
 {{>header}}
-  <div class="container mt-5 flex-grow-1">
-    <div class="container mt-5">
-      <form action="/login" method="post">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" class="form-control" id="username" name="username" required>
+
+<div class="container mt-4 flex-grow-1">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="login-form bg-light mt-4 p-4">
+        <h4 class="text-center mb-3">Welcome</h4>
+        <form action="/login" method="post" class="row g-3">
+          <div class="col-12">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              placeholder="Username"
+            />
+          </div>
+          <div class="col-12 mt-3">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+            />
+          </div>
+          <div class="col-12 d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-primary col-12">Login</button>
+          </div>
+        </form>
+        <hr class="mt-4" />
+        <div class="text-center">
+          <p class="mb-0">
+            Don't have an account? <a href="/register">Sign Up</a>
+          </p>
         </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <button type="submit" value="Sign In "class="btn btn-primary">Sign In</button>
-      </form>
+      </div>
     </div>
   </div>
+</div>
 {{>footer}}
