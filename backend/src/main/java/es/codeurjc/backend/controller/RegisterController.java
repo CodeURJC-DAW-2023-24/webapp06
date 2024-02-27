@@ -49,9 +49,16 @@ public class RegisterController {
       @RequestParam(value = "password") String password,
       @RequestParam(value = "email") String email) {
 
-    // User user = userService.getUserByUsername(username);
-    // User user2 = (User) userService.getUserByEmail(email);
-    return "register_error_template";
+    Optional<User> user = userService.getUserByUsernameNoException(username);
+    Optional<User> user2 = userService.getUserByEmail(email);
+
+    if (user.isPresent() || user2.isPresent()) {
+      return "register_error_template";
+    } else {
+
+      return "register_done";
+    }
+
   }
 
 }
