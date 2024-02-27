@@ -20,6 +20,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">Inforum</a>
+      {{^logged}}
       <button
         class="navbar-toggler"
         type="button"
@@ -31,7 +32,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      {{^logged}}
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
@@ -66,7 +67,9 @@
           class="dropdown-menu dropdown-menu-right"
           aria-labelledby="dropdownMenuButton"
         >
-          <a class="dropdown-item" href="/user/profile/{{username}}">View Profile</a>
+          <a class="dropdown-item" href="/user/profile/{{username}}"
+            >View Profile</a
+          >
           <a class="dropdown-item" href="/user/edit-profile">Edit Profile</a>
           <a class="dropdown-item" href="/chart">Statistics</a>
           {{#admin}}
