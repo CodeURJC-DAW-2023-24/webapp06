@@ -9,10 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import es.codeurjc.backend.model.User;
 
-
 public interface UserRepository extends JpaRepository<User, Long> {
    Optional<User> findByUsername(String username);
+
+   Optional<User> findByEmail(String email);
+
    void deleteByUsername(String username);
+
    @Query("SELECT u FROM User u WHERE u.username LIKE :prefix%")
    List<User> findByUsernameStartingWith(@Param("prefix") String prefix);
 }

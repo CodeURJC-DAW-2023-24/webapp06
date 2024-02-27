@@ -56,7 +56,12 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow();
     }
 
     public List<User> getAllUsers() {
