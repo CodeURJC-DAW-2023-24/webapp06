@@ -3,8 +3,8 @@ package es.codeurjc.backend.controller;
 import java.security.Principal;
 import java.util.Optional;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -48,7 +49,7 @@ public class RegisterController {
       @RequestParam(value = "password") String password,
       @RequestParam(value = "email") String email) {
 
-    // User user = (User) userService.getUserByUsername(username);
+    // User user = userService.getUserByUsername(username);
     // User user2 = (User) userService.getUserByEmail(email);
     return "register_error_template";
   }
