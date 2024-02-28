@@ -10,7 +10,7 @@
       >
         <!-- Título de la Categoría con Icono -->
         <h2 class="mb-0 col-8">
-          <i class="fas fa-book fa-lg"></i> {{threadName}}
+          <i class="fas fa-{{forumIcon}} fa-lg"></i> {{threadName}}
         </h2>
         <!-- Botón post -->
         <div class="">
@@ -92,10 +92,12 @@
               </button>
               <!-- Espaciador para empujar el siguiente botón hacia la derecha -->
               <div class="ml-auto"></div>
-              <!-- Text Button al lado derecho -->              
+              <!-- Text Button al lado derecho -->  
+              {{#logged}}            
               <button type="button" class="btn btn-link text-decoration-none">
                 <i class="fas fa-exclamation-circle"></i>
               </button>
+              {{/logged}}
               {{#isOwner}}
               <button
                 type="button"

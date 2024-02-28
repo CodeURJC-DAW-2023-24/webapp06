@@ -16,4 +16,8 @@ public class ForumService {
     public List<Forum> getAllForums() {
         return forumRepository.findAll();
     }
+
+    public Forum getForumByName(String name) {
+        return forumRepository.findByName(name).orElseThrow();
+    }
 }
