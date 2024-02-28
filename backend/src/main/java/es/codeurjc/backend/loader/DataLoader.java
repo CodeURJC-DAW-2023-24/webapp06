@@ -123,11 +123,13 @@ public class DataLoader {
 
                 // postRepository.saveAll(Arrays.asList(post1, post2));
                 //
-                Thread thread1 = new Thread("Saludos", Arrays.asList(post1, post2, post3, post4), user1);
-                Thread thread2 = new Thread("Pruebas", Arrays.asList(post5, post6, post7), user1);
+                Forum forum1 = new Forum("Books and Literature", null, "book");;
+
+                Thread thread1 = new Thread("Saludos", forum1, Arrays.asList(post1, post2, post3, post4), user1);
+                Thread thread2 = new Thread("Pruebas", forum1, Arrays.asList(post5, post6, post7), user2);
                 // threadRepository.save(thread1);
 
-                Forum forum1 = new Forum("Books and Literature", Arrays.asList(thread1, thread2), "book");
+                forum1.setThreads(Arrays.asList(thread1, thread2));
                 Forum forum2 = new Forum("Technology", null, "laptop-code");
                 Forum forum3 = new Forum("Science", null, "flask");
                 Forum forum4 = new Forum("Sports", null, "football-ball");

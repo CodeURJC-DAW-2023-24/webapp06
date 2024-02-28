@@ -26,6 +26,10 @@ public class Thread {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "forum_id")
+    private Forum forum;
+
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
     private List<Post> posts;
@@ -45,8 +49,9 @@ public class Thread {
     public Thread() {
     }
 
-    public Thread(String name, List<Post> posts, User owner) {
+    public Thread(String name, Forum forum, List<Post> posts, User owner) {
         this.name = name;
+        this.forum = forum;
         this.posts = posts;
         this.owner = owner;
         this.numberPosts = posts.size();
@@ -67,6 +72,14 @@ public class Thread {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Forum getForum() {
+        return forum;
+    }
+
+    public void setForum(Forum forum) {
+        this.forum = forum;
     }
 
     public List<Post> getPosts() {
