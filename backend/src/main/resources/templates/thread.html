@@ -21,8 +21,7 @@
           >
             Delete Thread
           </button>
-          {{/isOwnerOrAdmin}}
-          {{#logged}}
+          {{/isOwnerOrAdmin}} {{#logged}}
           <button
             type="button"
             class="btn btn-outline-primary"
@@ -59,9 +58,7 @@
 
             <div class="card-body">
               <!-- Contenido del Post -->
-              <p class="card-text">
-                {{text}}
-              </p>
+              <p class="card-text">{{text}}</p>
             </div>
 
             <!-- Imagen Principal del Post, ahora más pequeña y al final del card -->
@@ -94,13 +91,12 @@
               </button>
               <!-- Espaciador para empujar el siguiente botón hacia la derecha -->
               <div class="ml-auto"></div>
-              <!-- Text Button al lado derecho -->  
-              {{#logged}}            
+              <!-- Text Button al lado derecho -->
+              {{#logged}}
               <button type="button" class="btn btn-link text-decoration-none">
                 <i class="fas fa-exclamation-circle"></i>
               </button>
-              {{/logged}}
-              {{#isOwner}}
+              {{/logged}} {{#isOwner}}
               <button
                 type="button"
                 class="btn btn-link text-decoration-none text-dark"
@@ -122,61 +118,15 @@
     <div class="col-md-4 mb-3">
       <h2 class="">Categories</h2>
       <div class="list-group mb-3">
-        <!-- Categoría 1 -->
+        <!-- Categorías -->
+        {{#forums}}
         <a
-          href="url-categoria-1"
+          href="/f/{{name}}"
           class="list-group-item list-group-item-action d-flex align-items-center"
         >
-          <i class="fas fa-laptop-code mr-2"></i> Technology
+          <i class="fas fa-{{icon}} mr-2"></i> {{name}}
         </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-flask mr-2"></i> Science
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-football-ball mr-2"></i> Sports
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-music mr-2"></i> Music
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-film mr-2"></i> Movies and Television
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-book mr-2"></i> Books and Literature
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-utensils mr-2"></i> Gastronomy
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-plane mr-2"></i> Travel
-        </a>
-        <a
-          href="url-categoria-2"
-          class="list-group-item list-group-item-action d-flex align-items-center"
-        >
-          <i class="fas fa-gamepad mr-2"></i> Gaming
-        </a>
+        {{/forums}}
       </div>
     </div>
   </div>

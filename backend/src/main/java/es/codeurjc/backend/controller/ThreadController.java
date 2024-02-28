@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.Post;
+import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,9 @@ public class ThreadController {
 
     @Autowired
     private ThreadService threadService;
+
+    @Autowired
+    private ForumService forumService;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -113,6 +117,7 @@ public class ThreadController {
         model.addAttribute("forumIcon", thread.getForum().getIcon());
         model.addAttribute("isOwnerOrAdmin", isThreadOwner || isAdmin);
         model.addAttribute("posts", postsInfo);
+        model.addAttribute("forums", forumService.getAllForums());
 
         return "thread";
     }
