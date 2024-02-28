@@ -51,7 +51,7 @@ public class UserController {
 	}
 
     @GetMapping("/profile/{username}")
-    public String UserProfile(Model model, Principal principal, @PathVariable String username) {
+    public String userProfile(Model model, Principal principal, @PathVariable String username) {
         User user = userService.getUserByUsername(username);
         List<Thread> threads = threadService.getThreadsByOwner(user);
         List<Post> post = postService.getPostByOwner(user);
@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/delete/{username}")
-    public String DeleteProfile(Model model, Principal principal, @PathVariable String username) {
+    public String deleteProfile(Model model, Principal principal, @PathVariable String username) {
         boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
         if (equalUserOrAdmin) {
             userService.deleteUser(username);
@@ -84,20 +84,13 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String Users(Model model,
+    public String users(Model model,
             @RequestParam(value = "username", required = false) String username) {
-        List<User> users;
-        if (username != null && !username.isEmpty()) {
-            users = userService.getUsersByUsernameStartingWith(username);
-        } else {
-            users = userService.getAllUsers();
-        }
-        model.addAttribute("users", users);
         return "users_template";
     }
 
     @GetMapping("/edit-profile")
-    public String getMethodName(Model model, Principal principal,
+    public String editProfile(Model model, Principal principal,
             @RequestParam(value = "username", required = false) String username,
             HttpServletRequest request) {
         if (username != null && username != "") {
