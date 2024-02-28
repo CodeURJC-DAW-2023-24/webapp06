@@ -6,11 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+
+import java.sql.Blob;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "posts")
@@ -22,7 +27,9 @@ public class Post {
     @Column(nullable = false)
     private String text;
     
-    private String image;
+    @Lob
+    @JsonIgnore
+    private Blob imageFile;
     
     @ManyToOne
     @JoinColumn(name = "owner_id")
@@ -46,9 +53,9 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String text, String image, User owner, int likes, int dislikes, int reports) {
+    public Post(String text, Blob imageFile, User owner, int likes, int dislikes, int reports) throws Exception {
         this.text = text;
-        this.image = image;
+        this.imageFile = imageFile;
         this.owner = owner;
         this.likes = likes;
         this.dislikes = dislikes;
@@ -72,12 +79,12 @@ public class Post {
         this.text = text;
     }
 
-    public String getImage() {
-        return image;
+    public Blob getImageFile() {
+        return imageFile;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(Blob imageFile) {
+        this.imageFile = imageFile;
     }
 
     public User getOwner() {
