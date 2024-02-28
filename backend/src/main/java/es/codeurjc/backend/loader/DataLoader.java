@@ -88,8 +88,10 @@ public class DataLoader {
 
                 // String imagePath = "/ruta/a/imagen.jpg";
                 // Blob imageBlob = imageService.loadImage(imagePath);
+                Resource imagePost1 = new ClassPathResource("example/post/foto_post.jpg");
+                Blob blobImagePost1 = BlobProxy.generateProxy(imagePost1.getInputStream(), imagePost1.contentLength());
 
-                Post post1 = new Post("hola", null, user1, 20, 10, 1);
+                Post post1 = new Post("hola", blobImagePost1, user1, 20, 10, 1);
                 Post post2 = new Post("adios", null, user2, 10, 20, 3);
                 Post post3 = new Post(
                                 "In the quiet town of Neo-Silica, a revolution brews under the neon lights.",

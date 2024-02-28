@@ -52,6 +52,7 @@ public class ThreadController {
             private String username;
             private String elapsedTime;
             private String text;
+            private boolean hasImage;
             private int likes;
             private int dislikes;
             private boolean isOwner;
@@ -79,6 +80,8 @@ public class ThreadController {
                     this.elapsedTime = seconds + " seconds ago";
 
                 this.text = post.getText();
+
+                this.hasImage = post.getImageFile() != null;
 
                 this.likes = post.getLikes();
 

@@ -45,7 +45,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/register/post").permitAll()
 						.requestMatchers("/user/activation/*").permitAll()
 						.requestMatchers("/user/profile/*").permitAll()
-						.requestMatchers("/image/user/*").permitAll()
+						.requestMatchers("/image/**").permitAll()
 						.requestMatchers("/f/*").permitAll()
 						.requestMatchers("/t/*").permitAll()
 						.requestMatchers("/error").permitAll()
