@@ -115,6 +115,7 @@ public class ThreadController {
 
         model.addAttribute("threadName", thread.getName());
         model.addAttribute("forumIcon", thread.getForum().getIcon());
+        model.addAttribute("forumName", thread.getForum().getName());
         model.addAttribute("isOwnerOrAdmin", isThreadOwner || isAdmin);
         model.addAttribute("posts", postsInfo);
         model.addAttribute("forums", forumService.getAllForums());
