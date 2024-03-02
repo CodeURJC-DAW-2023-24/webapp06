@@ -31,7 +31,7 @@ public class LoginController {
     return "login_error_template";
   }
 
-  @GetMapping("isActive")
+  @GetMapping("/isActive")
   public String isActive(Principal principal, HttpSession session) {
       User user = userService.getUserByUsername(principal.getName());
       if (user.getIsActive()) {
