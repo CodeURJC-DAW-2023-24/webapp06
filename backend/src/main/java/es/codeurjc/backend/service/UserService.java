@@ -7,15 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 import es.codeurjc.backend.repository.UserRepository;
+import es.codeurjc.backend.security.RepositoryUserDetailsService;
+import org.springframework.security.core.Authentication;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private RepositoryUserDetailsService userDetailsService;
 
     @Autowired
     private UserRepository userRepository;
@@ -85,6 +93,9 @@ public class UserService {
 
     public void update(User user) {
         userRepository.save(user);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public Page<User> getUsersPaginated(int page, int size){
