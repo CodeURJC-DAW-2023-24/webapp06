@@ -2,6 +2,7 @@ package es.codeurjc.backend.controller;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,6 +102,8 @@ public class UserController {
             userService.getUserByUsername(username); // check user exist
         }
 
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+        model.addAttribute("token", token.getToken());
         model.addAttribute("username", username != null ? username : principal.getName());
         return "edit_profile_template";
     }
