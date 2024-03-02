@@ -29,7 +29,6 @@ public class EmailService {
     private MustacheResourceTemplateLoader mustacheTemplateLoader;
 
     public void sendActivation(String to, String username) {
-        // "jakuru888@gmail.com", "inforum", "email_template.html"
         Map<String, Object> context = new HashMap<>();
         context.put("activationUrl", BASE_URL + "/user/activation/" + username);
         sendHtmlMessage(to, "Activation account", "email_template", context);

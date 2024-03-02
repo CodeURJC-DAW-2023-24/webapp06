@@ -130,7 +130,7 @@ public class UserController {
                     user.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
                     anyChange = true;
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    return "error";
                 }
             }
             if (anyChange) {
@@ -140,7 +140,6 @@ public class UserController {
                 String referrer = request.getHeader("Referer");
                 return "redirect:" + referrer;
             }
-
         }
         return "redirect:/home"; // TODO: cant update, where navigate?
     }

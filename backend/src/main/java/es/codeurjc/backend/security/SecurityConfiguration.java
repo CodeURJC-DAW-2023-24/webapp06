@@ -66,7 +66,7 @@ public class SecurityConfiguration {
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")
 						.failureUrl("/loginerror")
-						.defaultSuccessUrl("/")
+						.defaultSuccessUrl("/isActive")
 						.permitAll())
 				.logout(logout -> logout
 						.logoutUrl("/logout")

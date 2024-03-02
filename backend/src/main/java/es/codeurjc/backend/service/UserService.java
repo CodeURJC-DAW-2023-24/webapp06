@@ -27,6 +27,9 @@ public class UserService {
     private RepositoryUserDetailsService userDetailsService;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -110,8 +113,8 @@ public class UserService {
     public void createUser(String username, String email, String password) {
         try {
             User user = new User(username, email, passwordEncoder.encode(password), "USER");
-            user.setIsActive(true);
             userRepository.save(user);
+            emailService.sendActivation(email, username);
         } catch (Exception e) {
             e.printStackTrace();
         }
