@@ -141,7 +141,7 @@ public class UserController {
                 return "redirect:" + referrer;
             }
         }
-        return "redirect:/home"; // TODO: cant update, where navigate?
+        return "redirect:/home";
     }
 
     @GetMapping("/activation/{username}")
@@ -156,5 +156,4 @@ public class UserController {
             return "activation_template";
         }
     }
-
 }
