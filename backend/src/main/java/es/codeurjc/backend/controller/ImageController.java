@@ -16,8 +16,6 @@ import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.UserRepository;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequestMapping("/image")
