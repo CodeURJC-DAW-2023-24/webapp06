@@ -12,6 +12,7 @@ import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.UserService;
 
 
+
 @Controller
 public class LoginController {
 
@@ -41,5 +42,9 @@ public class LoginController {
       return "inactive_template";
   }
   
-  
+  @GetMapping("/logout")
+  public String getMethodName(HttpSession session) {
+      session.invalidate();
+      return "redirect:/";
+  }
 }

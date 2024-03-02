@@ -67,10 +67,6 @@ public class SecurityConfiguration {
 						.loginPage("/login")
 						.failureUrl("/loginerror")
 						.defaultSuccessUrl("/isActive")
-						.permitAll())
-				.logout(logout -> logout
-						.logoutUrl("/logout")
-						.logoutSuccessUrl("/")
 						.permitAll());
 
 		return http.build();
