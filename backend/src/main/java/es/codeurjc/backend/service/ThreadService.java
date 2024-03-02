@@ -27,6 +27,10 @@ public class ThreadService {
         return threadRepository.findByOwner(owner).orElseThrow();
     }
 
+    public List<Thread> getThreadsByForum(Forum forum) {
+        return threadRepository.findByForum(forum).orElseThrow();
+    }
+
     public Long getTotalThreadsForDay(User owner, LocalDate date) {
         return threadRepository.countByCreatedAt(owner, date);
     }
@@ -39,7 +43,5 @@ public class ThreadService {
         return threadRepository.countByYear(owner, year);
     }
 
-    public Object getThreadsByForum(Forum forum) {
-        return threadRepository.findByForum(forum);
-    }
+    
 }

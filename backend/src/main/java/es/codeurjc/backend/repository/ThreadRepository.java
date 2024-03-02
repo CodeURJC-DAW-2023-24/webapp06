@@ -18,7 +18,7 @@ public interface ThreadRepository extends JpaRepository<Thread, Long> {
 
     Optional<Thread> findByName(String name);
 
-    Object findByForum(Forum forum);
+    Optional<List<Thread>> findByForum(Forum forum);
 
     @Transactional
     @Modifying

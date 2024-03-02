@@ -1,6 +1,7 @@
 package es.codeurjc.backend.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,9 +51,13 @@ public class ForumController {
     @GetMapping("/{forumName}")
     public String getForum(Model model, Principal principal, @PathVariable String forumName) {
         Forum forum = forumService.getForumByName(forumName);
+        List<Thread> threads = threadService.getThreadsByForum(forum);
         model.addAttribute("forum", forum);
-        model.addAttribute("threads", threadService.getThreadsByForum(forum));
-        
+        model.addAttribute("threads", threads);
+        for (Thread thread : threads){
+            thread.setNumberPosts();
+        }
+
 
         
         return "forum";
