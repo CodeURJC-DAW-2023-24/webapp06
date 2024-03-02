@@ -1,4 +1,4 @@
-package es.codeurjc.backend.controller;
+package es.codeurjc.backend.restcontroller;
 
 import java.security.Principal;
 import java.time.DayOfWeek;
