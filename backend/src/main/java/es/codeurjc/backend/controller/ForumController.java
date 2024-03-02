@@ -18,14 +18,10 @@ import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.ThreadService;
-import es.codeurjc.backend.service.UserService;
 
 @Controller
 @RequestMapping("/f")
 public class ForumController {
-    
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private ThreadService threadService;
@@ -57,8 +53,7 @@ public class ForumController {
         for (Thread thread : threads){
             thread.setNumberPosts();
         }
-
-
+        model.addAttribute("forums", forumService.getAllForums());
         
         return "forum";
     }
