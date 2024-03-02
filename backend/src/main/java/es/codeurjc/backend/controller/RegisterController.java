@@ -41,7 +41,7 @@ public class RegisterController {
 
   @GetMapping
   public String register(Model model, HttpServletRequest request) {
-    CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
     model.addAttribute("token", token.getToken());
 
     return "register";
@@ -58,7 +58,7 @@ public class RegisterController {
     if (user.isPresent() || user2.isPresent()) {
       return "register_error_template";
     } else {
-
+      userService.createUser(username, email, password);
       return "register_done";
     }
   }

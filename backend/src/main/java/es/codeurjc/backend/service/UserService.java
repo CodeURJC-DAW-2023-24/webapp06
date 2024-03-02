@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import es.codeurjc.backend.model.User;
@@ -33,6 +34,9 @@ public class UserService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Boolean deleteUser(String username) {
         try {
@@ -94,11 +98,22 @@ public class UserService {
     public void update(User user) {
         userRepository.save(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-    public Page<User> getUsersPaginated(int page, int size){
+    public Page<User> getUsersPaginated(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public void createUser(String username, String email, String password) {
+        try {
+            User user = new User(username, email, passwordEncoder.encode(password), "USER");
+            user.setIsActive(true);
+            userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
