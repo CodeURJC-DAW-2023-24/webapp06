@@ -116,7 +116,7 @@ async function getWeekly(date) {
   weekPicker.style.display = "block";
 
   const theadUrl = `https://localhost:8443/chart-rest/threads/weekly?date=${date}`;
-  const postUrl = `https://localhost:8443/chart-rest/threads/weekly?date=${date}`;
+  const postUrl = `https://localhost:8443/chart-rest/posts/weekly?date=${date}`;
 
   chart.data.labels = [
     "Monday",
