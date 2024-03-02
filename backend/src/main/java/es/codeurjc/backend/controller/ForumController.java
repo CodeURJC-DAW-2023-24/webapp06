@@ -2,6 +2,7 @@ package es.codeurjc.backend.controller;
 
 import java.security.Principal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -12,9 +13,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.codeurjc.backend.model.Forum;
+import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.service.ForumService;
+import es.codeurjc.backend.service.ThreadService;
+import es.codeurjc.backend.service.UserService;
+
 @Controller
 @RequestMapping("/f")
 public class ForumController {
+    
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ThreadService threadService;
+
+    @Autowired
+    private ForumService forumService;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -33,6 +49,12 @@ public class ForumController {
 
     @GetMapping("/{forumName}")
     public String getForum(Model model, Principal principal, @PathVariable String forumName) {
+        Forum forum = forumService.getForumByName(forumName);
+        model.addAttribute("forum", forum);
+        model.addAttribute("threads", threadService.getThreadsByForum(forum));
+        
+
+        
         return "forum";
     }
 }

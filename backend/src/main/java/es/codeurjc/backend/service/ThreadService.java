@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import es.codeurjc.backend.model.User;
+import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.repository.ThreadRepository;
 
@@ -16,6 +17,10 @@ public class ThreadService {
 
     public Thread getThreadByName(String name) {
         return threadRepository.findByName(name).orElseThrow();
+    }
+
+    public List<Thread> getThreads() {
+        return threadRepository.findAll();
     }
 
     public List<Thread> getThreadsByOwner(User owner) {
@@ -32,5 +37,9 @@ public class ThreadService {
 
     public Long getTotalThreadsForYear(User owner, int year) {
         return threadRepository.countByYear(owner, year);
+    }
+
+    public Object getThreadsByForum(Forum forum) {
+        return threadRepository.findByForum(forum);
     }
 }

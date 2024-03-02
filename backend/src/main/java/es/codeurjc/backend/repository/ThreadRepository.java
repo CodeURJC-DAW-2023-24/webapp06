@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
 import jakarta.transaction.Transactional;
@@ -15,6 +17,8 @@ public interface ThreadRepository extends JpaRepository<Thread, Long> {
     Optional<List<Thread>> findByOwner(User owner);
 
     Optional<Thread> findByName(String name);
+
+    Object findByForum(Forum forum);
 
     @Transactional
     @Modifying
@@ -29,4 +33,5 @@ public interface ThreadRepository extends JpaRepository<Thread, Long> {
 
     @Query("SELECT COUNT(t) FROM Thread t WHERE t.owner = :owner AND FUNCTION('YEAR', t.createdAt) = :year")
     Long countByYear(@Param("owner") User owner, @Param("year") int year);
+
 }

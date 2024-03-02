@@ -125,12 +125,12 @@ public class DataLoader {
 
                 // postRepository.saveAll(Arrays.asList(post1, post2));
                 //
-                Forum forum1 = new Forum("Books and Literature", null, "book");
+                Forum forum1 = new Forum("Books", null, "book");
                 Forum forum2 = new Forum("Technology", null, "laptop-code");
                 Forum forum3 = new Forum("Science", null, "flask");
                 Forum forum4 = new Forum("Sports", null, "football-ball");
                 Forum forum5 = new Forum("Music", null, "music");
-                Forum forum6 = new Forum("Movies and Television", null, "film");
+                Forum forum6 = new Forum("Movies", null, "film");
                 Forum forum7 = new Forum("Gastronomy", null, "utensils");
                 Forum forum8 = new Forum("Travel", null, "plane");
                 Forum forum9 = new Forum("Gaming", null, "gamepad");

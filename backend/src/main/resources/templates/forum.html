@@ -1,0 +1,22 @@
+{{>header}}
+<!-- Main Content -->
+<div class="container mt-4 flex-grow-1">
+    <!-- Categories -->
+    <h2>{{forum.name}}</h2>
+    <div class="row">
+      {{#threads}}
+      <div class="col-md-4 mb-3">
+        <a href="/t/{{name}}" class="card text-decoration-none text-dark">
+          <div class="card-body text-center">
+            <h5 class="card-title mt-2">{{name}}</h5>
+            <h5>{{numberPosts}}</h5>
+          </div>
+        </a>
+      </div>
+      {{/threads}}
+      {{^threads}}
+      <div class="card-body text-center"><h5>No threads yet</h5></div>
+      {{/threads}}
+    </div>
+</div>
+{{>footer}}
