@@ -4,7 +4,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +40,10 @@ public class RegisterController {
   }
 
   @GetMapping
-  public String register() {
+  public String register(Model model, HttpServletRequest request) {
+    CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+    model.addAttribute("token", token.getToken());
+
     return "register";
   }
 
@@ -58,7 +61,5 @@ public class RegisterController {
 
       return "register_done";
     }
-
   }
-
 }
