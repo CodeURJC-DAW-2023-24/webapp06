@@ -18,6 +18,8 @@ import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import java.security.Principal;
 import java.util.List;
@@ -76,11 +78,12 @@ public class UserController {
     }
 
     @GetMapping("/delete/{username}")
-    public String deleteProfile(Model model, Principal principal, @PathVariable String username) {
+    public String deleteProfile(Model model, Principal principal, @PathVariable String username, HttpSession session) {
         boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
         if (equalUserOrAdmin) {
             userService.deleteUser(username);
         }
+        session.invalidate();
         return "redirect:/";
     }
 
