@@ -59,4 +59,9 @@ public class PostRestController {
         }
         return false;
     }
+
+    @GetMapping("/validate/{postId}")
+    public void validatePost(Model model, Principal principal, @PathVariable String postId) {
+        postService.validatePost(Long.parseLong(postId));
+    }
 }

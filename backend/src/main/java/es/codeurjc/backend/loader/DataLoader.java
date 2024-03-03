@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.core.io.Resource;
 import java.sql.Blob;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,43 +91,6 @@ public class DataLoader {
 
                 // String imagePath = "/ruta/a/imagen.jpg";
                 // Blob imageBlob = imageService.loadImage(imagePath);
-                Resource imagePost1 = new ClassPathResource("example/post/foto_post.jpg");
-                Blob blobImagePost1 = BlobProxy.generateProxy(imagePost1.getInputStream(), imagePost1.contentLength());
-
-                Post post1 = new Post("hola", blobImagePost1, user1, userLikes, userDislikes, 1);
-                Post post2 = new Post("adios", null, user2, userLikes, userDislikes, 3);
-                Post post3 = new Post(
-                                "In the quiet town of Neo-Silica, a revolution brews under the neon lights.",
-                                null,
-                                user1,
-                                userLikes, userDislikes, 1);
-
-                Post post4 = new Post(
-                                "Far beyond the reach of civilization, the ancient forest of Eldergrove whispers secrets of a bygone era.",
-                                null,
-                                user2,
-                                userLikes, userDislikes, 2);
-
-                Post post5 = new Post(
-                                "Galactic Odyssey: A Journey Beyond Stars",
-                                null,
-                                user3,
-                                userLikes, userDislikes, 3);
-
-                Post post6 = new Post(
-                                "The Last Codebender",
-                                null,
-                                user4,
-                                userLikes, userDislikes, 4);
-
-                Post post7 = new Post(
-                                "Whispers in the Digital Wind",
-                                null,
-                                user5,
-                                userLikes, userDislikes, 5);
-
-                // postRepository.saveAll(Arrays.asList(post1, post2));
-                //
                 Forum forum1 = new Forum("Books", null, "book");
                 Forum forum2 = new Forum("Technology", null, "laptop-code");
                 Forum forum3 = new Forum("Science", null, "flask");
@@ -138,9 +101,39 @@ public class DataLoader {
                 Forum forum8 = new Forum("Travel", null, "plane");
                 Forum forum9 = new Forum("Gaming", null, "gamepad");
 
-                Thread thread1 = new Thread("Saludos", forum1, Arrays.asList(post1, post2, post3, post4), user1);
-                Thread thread2 = new Thread("Pruebas", forum2, Arrays.asList(post5, post6, post7), user2);
+                Thread thread1 = new Thread("Saludos", forum1, new ArrayList<Post>(), user1);
+                Thread thread2 = new Thread("Pruebas", forum2, new ArrayList<Post>(), user2);
+
+                Resource imagePost1 = new ClassPathResource("example/post/foto_post.jpg");
+                Blob blobImagePost1 = BlobProxy.generateProxy(imagePost1.getInputStream(), imagePost1.contentLength());
+
+                Post post1 = new Post("hola", blobImagePost1, user1, thread1, userLikes, userDislikes, 1);
+                Post post2 = new Post("adios", null, user2, thread1, userLikes, userDislikes, 3);
+                Post post3 = new Post(
+                                "In the quiet town of Neo-Silica, a revolution brews under the neon lights.", null,
+                                user1, thread1, userLikes, userDislikes, 1);
+
+                Post post4 = new Post(
+                                "Far beyond the reach of civilization, the ancient forest of Eldergrove whispers secrets of a bygone era.",
+                                null, user2, thread1, userLikes, userDislikes, 2);
+
+                Post post5 = new Post(
+                                "Galactic Odyssey: A Journey Beyond Stars", null, user3, thread2, userLikes,
+                                userDislikes, 3);
+
+                Post post6 = new Post(
+                                "The Last Codebender", null, user4, thread2, userLikes, userDislikes, 4);
+
+                Post post7 = new Post(
+                                "Whispers in the Digital Wind", null, user5, thread2, userLikes, userDislikes, 5);
+
+                // postRepository.saveAll(Arrays.asList(post1, post2));
+                //
+
                 // threadRepository.save(thread1);
+
+                thread1.setPosts(Arrays.asList(post1, post2, post3, post4));
+                thread2.setPosts(Arrays.asList(post5, post6, post7));
 
                 forum1.setThreads(Arrays.asList(thread1));
                 forum2.setThreads(Arrays.asList(thread2));

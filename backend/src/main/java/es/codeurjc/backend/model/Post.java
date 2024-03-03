@@ -17,6 +17,7 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,7 +43,8 @@ public class Post {
     private Date createdAt = new Date();
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "thread_id")
+    @JsonBackReference
     private Thread thread;
     
     @ManyToMany
@@ -59,11 +61,11 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String text, Blob imageFile, User owner, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
-        super();
+    public Post(String text, Blob imageFile, User owner, Thread thread, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
         this.text = text;
         this.imageFile = imageFile;
         this.owner = owner;
+        this.thread = thread;
         this.userLikes = userLikes;
         this.userDislikes = userDislikes;
         this.reports = reports;

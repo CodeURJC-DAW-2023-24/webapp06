@@ -70,6 +70,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/user/users").hasAnyRole("ADMIN")
 						.requestMatchers("/user/paginated").hasAnyRole("ADMIN")
 						.requestMatchers("/user/search").hasAnyRole("ADMIN")
+						.requestMatchers("/reports").hasAnyRole("ADMIN")
 						.anyRequest().permitAll())
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")

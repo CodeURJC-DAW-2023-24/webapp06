@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Transient;
 
@@ -36,6 +37,7 @@ public class Thread {
 
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
+    @JsonManagedReference
     private List<Post> posts;
 
     @ManyToOne

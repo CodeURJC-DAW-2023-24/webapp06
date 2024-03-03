@@ -20,6 +20,10 @@ public class PostService {
         return postRepository.findByOwner(owner).orElseThrow();
     }
 
+    public List<Post> getReportedPosts() {
+        return postRepository.findReportedPosts();
+    }
+
     public boolean addPostLike(Long postId, User user) {
         if (!postRepository.getReferenceById(postId).getUserLikes().contains(user)) {
             Post post = postRepository.getReferenceById(postId);
@@ -58,6 +62,12 @@ public class PostService {
             return true;
         }
         return false;
+    }
+
+    public void validatePost(Long postId) {
+        Post post = postRepository.getReferenceById(postId);
+        post.setReports(-1);
+        postRepository.save(post);
     }
 
     public Long getTotalPostsForDay(User owner, LocalDate date) {

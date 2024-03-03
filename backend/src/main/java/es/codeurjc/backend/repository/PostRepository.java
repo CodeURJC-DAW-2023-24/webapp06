@@ -21,6 +21,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   @Query("UPDATE Post p SET p.owner.id = :newOwnerId WHERE p.owner.id = :currentOwnerId")
   void changeOwnerOfPosts(@Param("currentOwnerId") Long currentOwnerId, @Param("newOwnerId") Long newOwnerId);
 
+  @Query("SELECT p FROM Post p WHERE p.reports > 0")
+  List<Post> findReportedPosts();
+
   @Query("SELECT COUNT(t) FROM Post t WHERE t.owner = :owner AND DATE(t.createdAt) = :date")
   Long countByCreatedAt(User owner, LocalDate date);
 

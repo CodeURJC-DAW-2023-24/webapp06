@@ -170,8 +170,8 @@ public class ThreadController {
         User activeUser = userService.getUserByUsername(name);
         List<User> userLikes = new ArrayList<>();
         List<User> userDislikes = new ArrayList<User>();
-        Post newPost = new Post(postText, null, activeUser, userLikes, userDislikes, 0);
         Thread thread = threadService.getThreadByName(threadName);
+        Post newPost = new Post(postText, null, activeUser, thread, userLikes, userDislikes, 0);
         threadService.addPostToThread(thread, newPost);
         return "redirect:/t/" + threadName;
 
