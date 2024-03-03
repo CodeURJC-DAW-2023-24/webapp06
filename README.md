@@ -198,6 +198,13 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 - If we have done everything correctly, we will be inside the application, with all the functionalities and data loaded.
 
 ## 📂 Entities Diagram
+![Class diagram](./images/phase_2/entity.png)
+
+- **User:** The User entity contains personal and authentication information about the user.
+- **Forum:** Represents a specific category where users can create threads.
+- **Thread:** Represents a conversation within a Forum.
+- **Post:** Represents a message within a Thread.
+
 
 ## 📊 Class and Template Diagram
 
