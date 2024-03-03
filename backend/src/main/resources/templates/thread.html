@@ -15,12 +15,13 @@
         <!-- Botón post -->
         <div>
           {{#isOwnerOrAdmin}}
-          <button
+          <a
             type="button"
             class="btn btn btn-link text-decoration-none btn-delete"
+            href="/t/{{threadName}}/delete"
           >
             Delete Thread
-          </button>
+        </a>
           {{/isOwnerOrAdmin}} {{#logged}}
           <button
             type="button"

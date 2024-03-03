@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.backend.model.Forum;
+import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.repository.ForumRepository;
 
 @Service
@@ -19,5 +20,10 @@ public class ForumService {
 
     public Forum getForumByName(String name) {
         return forumRepository.findByName(name).orElseThrow();
+    }
+
+    public boolean removeThreadFromForum(Forum forum, Thread thread) {
+        forum.getThreads().remove(thread);
+        return true;
     }
 }
