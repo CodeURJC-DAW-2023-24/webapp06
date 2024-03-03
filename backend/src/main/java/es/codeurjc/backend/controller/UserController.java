@@ -140,7 +140,7 @@ public class UserController {
                 return "redirect:" + referrer;
             }
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping("/activation/{username}")
