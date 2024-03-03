@@ -75,7 +75,9 @@
             {{/hasImage}}
 
             <div
-              class="card-footer bg-transparent d-flex justify-content-start align-items-center" data-id={{id}}
+              class="card-footer bg-transparent d-flex justify-content-start align-items-center"
+              data-id={{id}}
+              thread-name={{threadName}}
             >
               {{#isLiked}}
               <button
@@ -124,17 +126,23 @@
               <div class="ml-auto"></div>
               <!-- Text Button al lado derecho -->
               {{#logged}}
-              <button type="button" class="btn btn-link text-decoration-none">
+              <button type="button" class="btn btn-link text-decoration-none"
+              id="reporter"
+              onclick="reportPost(this);">
                 <i class="fas fa-exclamation-circle"></i>
               </button>
               {{/logged}} {{#isOwner}}
               <button
+                id="editer"
                 type="button"
                 class="btn btn-link text-decoration-none text-dark"
+                onclick="editPost(this);"
               >
                 <i class="fas fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-link text-decoration-none">
+              <button type="button" class="btn btn-link text-decoration-none"
+              id="deleter"
+              onclick="deletePost(this);">
                 <i class="fas fa-trash btn-delete"></i>
               </button>
               {{/isOwner}}
@@ -226,5 +234,69 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="uploadModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Update Post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>      
+      <!-- Formulario -->
+      <form id="updateForm" action="/t/{{threadName}}/addPost" method="post">
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+        <div class="modal-body">
+          <!-- Campo de texto -->
+          <div class="form-group">
+            <label for="inputText">Text</label>
+            <textarea
+              class="form-control"
+              id="inputTextArea"
+              name="post-form-text"
+              rows="3"
+              placeholder="Introduce un texto"
+              required
+            ></textarea>
+          </div>
+          <!-- Drag and drop para imágenes -->
+          <div class="form-group">
+            <label for="dropzone">Image</label>
+            <div id="dropzone" class="dropzone dz-clickable">
+              <div class="dz-default dz-message">
+                <span> Drag images here or click to select.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-link text-decoration-none"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script src="/js/likes.js"></script>
+<script src="/js/posts.js"></script>
 {{>footer}}

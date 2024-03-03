@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.backend.model.Post;
+import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.UserService;
+import es.codeurjc.backend.service.ThreadService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -21,8 +23,12 @@ public class PostRestController {
 
     @Autowired
     PostService postService;
+
     @Autowired
     UserService userService;
+
+    @Autowired
+    ThreadService threadService;
 
     @GetMapping("/like/{postId}")
     public boolean likePost(Model model, Principal principal, @PathVariable String postId) {
@@ -52,6 +58,13 @@ public class PostRestController {
             return true;
         }
         return false;
+    }
+
+    @GetMapping("/delete/{postId}/{threadName}")
+    public boolean deletePost(Model model, Principal principal, @PathVariable String postId, @PathVariable String threadName) {
+        Thread thread = threadService.getThreadByName(threadName);
+        threadService.deletePostFromThread(thread, Long.parseLong(postId));
+        return true;
     }
 
     @GetMapping("/validate/{postId}")

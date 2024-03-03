@@ -77,4 +77,15 @@ public class ThreadService {
         thread.getPosts().add(post);
         threadRepository.save(thread);
     }
+
+    public void modifyPostFromThread(Thread thread, Post post){
+        
+    }
+
+    public void deletePostFromThread(Thread thread, Long postId){
+        Post post = postRepository.getReferenceById(postId);
+        thread.getPosts().remove(post);
+        postRepository.delete(post);        
+        threadRepository.save(thread);
+    }
 }

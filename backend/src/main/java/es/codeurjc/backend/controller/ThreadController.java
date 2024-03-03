@@ -189,15 +189,4 @@ public class ThreadController {
         return "redirect:/t/" + threadName;
     }
 
-    @GetMapping("/{threadName}/deletePost/{postId}")
-    public String deletePost(Model model, Principal principal, @PathVariable String threadName,
-            @PathVariable int postId) {
-        // No tiene id los posts
-        Thread thread = threadService.getThreadByName(threadName);
-        List<Post> posts = thread.getPosts();
-        posts.remove(postId);
-        thread.setPosts(posts);
-        return "redirect:/t/" + threadName;
-    }
-
 }
