@@ -7,7 +7,7 @@ async function reportPost(button) {
   
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    }    
+    }
 
 }
 
@@ -36,6 +36,7 @@ async function deletePost(button) {
   
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    }    
+    }
 
+    button.parentNode.parentNode.parentNode.style.display = "none";
 }
