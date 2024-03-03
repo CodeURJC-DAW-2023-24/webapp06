@@ -30,13 +30,7 @@
       {{>spinner_template}}
       <div class="list-group mb-3" id="thread-container"></div>
       <div class="text-center mt-3">
-        <button
-          class="btn btn-primary px-5"
-          id="loadMoreThreadsButton"
-          onclick="addNewElements();"
-        >
-          Load More Users
-        </button>
+        {{>add_more_elements_button_template}}
       </div>
     </div>
   </div>
@@ -45,10 +39,11 @@
   const username = "{{username}}";
 
   document.addEventListener("DOMContentLoaded", function () {
-    addNewElements();
+    getThreads();
   });
 </script>
 <script src="/js/profile.js"></script>
+<script src="/js/paginated.js"></script>
 <script src="/js/spinner.js"></script>
 
 {{>user_delete_modal_template}} {{>footer}}

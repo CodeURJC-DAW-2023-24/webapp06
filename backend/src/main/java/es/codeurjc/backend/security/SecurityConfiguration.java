@@ -50,6 +50,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/t/*").permitAll()
 						.requestMatchers("/error").permitAll()
 						.requestMatchers("/thread/user/*").permitAll()
+						.requestMatchers("/thread/paginated").permitAll()
 						// PRIVATE PAGES
 						.requestMatchers("/user/edit-profile/*").hasAnyRole("USER")
 						.requestMatchers("/user/update-profile").hasAnyRole("USER")
@@ -64,7 +65,8 @@ public class SecurityConfiguration {
 						.requestMatchers("/t/*/delete").hasAnyRole("USER")
 						.requestMatchers("/user/users").hasAnyRole("ADMIN")
 						.requestMatchers("/user/paginated").hasAnyRole("ADMIN")
-						.anyRequest().authenticated())
+						.requestMatchers("/user/search").hasAnyRole("ADMIN")
+						.anyRequest().permitAll())
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")
 						.failureUrl("/loginerror")

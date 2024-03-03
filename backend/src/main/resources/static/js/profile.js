@@ -1,5 +1,3 @@
-var page = 0;
-
 function createThreadHtml(thread) {
   return `<a
     href="/t/${thread.name}"
@@ -12,41 +10,16 @@ function createThreadHtml(thread) {
   </a>`;
 }
 
-async function addNewElements() {
-  showSpinner(true);
-
-  const response = await fetch(
+function getThreads() {
+  const url =
     "https://localhost:8443/thread/user/paginated?page=" +
-      page +
-      "&size=10" +
-      "&username=" +
-      username,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+    page +
+    "&size=10" +
+    "&username=" +
+    username;
+  addNewElements(createThreadHtml, url, "loadMoreButton", "thread-container");
+}
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  const data = await response.json();
-
-  page += 1;
-  if (page >= data.totalPages) {
-    document.getElementById("loadMoreThreadsButton").style.display = "none";
-  } else {
-    document.getElementById("loadMoreThreadsButton").style.display = "block";
-  }
-
-  const container = document.getElementById("thread-container");
-
-  showSpinner(false);
-
-  data.content.forEach((thread) => {
-    container.insertAdjacentHTML("beforeend", createThreadHtml(thread));
-  });
+function getMoreElements() {
+  getThreads();
 }

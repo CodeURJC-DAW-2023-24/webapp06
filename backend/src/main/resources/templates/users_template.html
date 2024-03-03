@@ -25,19 +25,11 @@
   </form>
 
   <div class="list-group" id="user-container"></div>
-  <div class="text-center mt-3">
-    <button
-      class="btn btn-primary px-5"
-      id="loadMoreUsersButton"
-      onclick="loadMoreUsers();"
-    >
-      Load More Users
-    </button>
-  </div>
+  <div class="text-center mt-3">{{>add_more_elements_button_template}}</div>
 
   {{>spinner_template}}
 </div>
-
+<script src="/js/paginated.js"></script>
 <script src="/js/users.js"></script>
 <script src="/js/spinner.js"></script>
 {{>footer}}
