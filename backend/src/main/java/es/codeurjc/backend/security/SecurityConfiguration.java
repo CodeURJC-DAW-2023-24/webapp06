@@ -49,7 +49,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/f/*").permitAll()
 						.requestMatchers("/t/*").permitAll()
 						.requestMatchers("/error").permitAll()
-						.requestMatchers("/thread/user/paginated/*").permitAll()
+						.requestMatchers("/thread/user/*").permitAll()
 						// PRIVATE PAGES
 						.requestMatchers("/user/edit-profile/*").hasAnyRole("USER")
 						.requestMatchers("/user/update-profile").hasAnyRole("USER")
