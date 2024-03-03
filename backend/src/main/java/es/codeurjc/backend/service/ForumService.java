@@ -37,17 +37,17 @@ public class ForumService {
         return true;
     }
 
-    public List<Forum> getTrendingForums(boolean logged) {
+    public List<Forum> getTrendingForums(boolean logged, Long userid) {
         List<Forum> forums = new ArrayList<>();
-        if (logged) {
-
+        List<Long> forumsid = new ArrayList<>();
+        if (logged){
+            forumsid = forumRepository.findTop5CategoriesLastMonth(userid.toString());
         } else {
-            List<Long> forumsid = forumRepository.findForumsWithMostPostsLast48Hours();
-            if (!forumsid.isEmpty()) {
-                forums = forumRepository.findAllById(forumsid);
-            }
+            forumsid = forumRepository.findForumsWithMostPostsLast48Hours();
         }
-
+        if(!forumsid.isEmpty()){
+            forums = forumRepository.findAllById(forumsid);
+        }
         return forums;
     }
 
