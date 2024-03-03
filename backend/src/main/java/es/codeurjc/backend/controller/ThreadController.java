@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.service.ForumService;
@@ -49,6 +50,13 @@ public class ThreadController {
         } else {
             model.addAttribute("logged", false);
         }
+
+        /*
+        CsrfToken token = request.getAttribute(CsrfToken.class.getName());
+        if (token != null) {
+            model.addAttribute("csrfToken", token.getToken());
+        }*/
+
     }
 
     @GetMapping("/{threadName}")
@@ -159,41 +167,35 @@ public class ThreadController {
 
     @PostMapping("/{threadName}/addPost")
     public String addPost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
-                            @PathVariable String threadName) {
-        if (postText != null) {
-            //String name = principal.getName();
-            //User loggeduser;
-            //Post newPost = new Post(postText, null, loggeduser, 0, 0, 0);
-            Post newPost = new Post();
-            newPost.setText(postText);
-            Thread thread = threadService.getThreadByName(threadName);
-            List<Post> posts = thread.getPosts();
-            posts.add(newPost);
-            thread.setPosts(posts);
-            return "redirect:/t/" + threadName;
-        } else {
-            return "error-500";
-        }
+                            @PathVariable String threadName) throws Exception {
+        String name = principal.getName();
+        User activeUser = userService.getUserByUsername(name);
+        List<User> userLikes = new ArrayList<>();
+        List<User> userDislikes = new ArrayList<User>();
+        Post newPost = new Post(postText, null, activeUser, userLikes, userDislikes, 0);
+        newPost.setText(postText);
+        Thread thread = threadService.getThreadByName(threadName);
+        List<Post> posts = thread.getPosts();
+        posts.add(newPost);
+        thread.setPosts(posts);
+        return "redirect:/t/" + threadName;
+
     }
 
     @PostMapping("/{threadName}/updatePost")
     public String updatePost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
                             @PathVariable String threadName, @PathVariable int postId) {
-        if (postText != null) {
-            Thread thread = threadService.getThreadByName(threadName);
-            List<Post> posts = thread.getPosts();
-            //No tiene id los posts
-            Post updatedPost = posts.get(postId); //aqui deberia encontrar el post
-            updatedPost.setText(postText);
-            thread.setPosts(posts);
-            return "redirect:/t/" + threadName;
-        } else {
-            return "error-500";
-        }
+        Thread thread = threadService.getThreadByName(threadName);
+        List<Post> posts = thread.getPosts();
+        //No tiene id los posts
+        Post updatedPost = posts.get(postId); //aqui deberia encontrar el post
+        updatedPost.setText(postText);
+        thread.setPosts(posts);
+        return "redirect:/t/" + threadName;
     }
 
     @GetMapping("/{threadName}/deletePost/{postId}")
-    public String getMethodName(Model model, Principal principal, @PathVariable String threadName, @PathVariable int postId) {
+    public String deletePost(Model model, Principal principal, @PathVariable String threadName, @PathVariable int postId) {
         //No tiene id los posts
         Thread thread = threadService.getThreadByName(threadName);
         List<Post> posts = thread.getPosts();
