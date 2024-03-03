@@ -154,3 +154,75 @@ Here there will be displayed a list of recently reported posts and how many repo
 
 ![Reports Screen](./images/phase_1/navigation_diagram.png)
  
+---
+
+# Phase 2
+
+## 🗺️ Navigation Diagram
+
+![Navigation Screen](./images/phase_2/navigation_diagram.png)
+
+## 🖥️ Execution Guidelines
+- For the implementation of the application we have used GitHub Desktop, Docker desktop and Visual Studio Code.  
+
+- In order to run the application in Visual Studio Code it is necessary to install the "Extension Pack for Java" and "Spring Boot Extension Pack" extensions. Note that we have used Spring Boot 3.2.2 for the application.
+
+- Once that is done, the first thing to do would be to clone the repository and place yourself on the main branch, once in main, with Visual Studio (or the editor you use) open the folder 
+```
+backend/src/main/java/es/codeurjc/backend
+```
+- This is the folder where all the application code is located.  
+    
+- When you are already inside the folder, you look for the file "BackendApplication.java" which is the main file of the program and the one that will start the application.
+    
+- Before doing this, it is important to have the database available. In our case, we have chosen to do it using docker. Specifically for everything to work, we must have the image and the container built and started in docker desktop. To do this, we must be located in the folder
+```
+backend/docker
+```
+- And run the command:
+```
+docker build -t mysql_daw .
+```
+- And then:
+```
+docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authentication-plugin=mysql_native_password
+```
+- The first one is used to build a Docker image using a Dockerfile present in the current directory (.). The -t option allows you to assign a name and optionally a label to the image. In this case, you are calling the image mysql_daw.
+
+- After building the image, we must run a container based on that image. This command starts a container called inforum_mysql, runs it in the background (-d), maps port 3306 on the host to port 3306 in the container (-p 3306:3306), and specifies the image you just built (mysql_daw). It also includes the option --default-authentication-plugin=mysql_native_password, which sets the default authentication plugin for MySQL.
+
+-  Once we have the database instance, we execute the "BackendApplication.java" file and we will see how the database is connected to the application and the tables with their respective data are created. When it is finished, we will be able to use the application.
+    
+-  To do this, we must go in our browser to "https://localhost:8443" and when we get the warning that the connection is not private we must click on "Advanced" and then on "Proceed to localhost (unsafe)".
+    
+- If we have done everything correctly, we will be inside the application, with all the functionalities and data loaded.
+
+## 📂 Entities Diagram
+
+## 📊 Class and Template Diagram
+
+## 🚀 Member participation
+
+### David Moreno Martín
+#### Descripción textual: 
+xxxx
+
+#### 5 commits más significativos
+
+| Commit  | Descripción                                      | Link                                                                                            |
+| ------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| #1            | Angular routing and Error 404 page   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/faf6833f02d92a2a2e26fadf8b73201adedc1854 | 
+| #2            | Angular Proxy integrated and API destinations format | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/b4374b60de88c73f82bdbf35b6026eb595bfb188 | 
+| #3            | Angular localhost deployment in port 8443/new/ |https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/93ea3c2b7d571ec84daac57f07418dcd88b04fb4 | 
+| #4            | Bar chart added via API	   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 | 
+| #5            | House components and details			   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 | 
+
+#### 5 ficheros más participación
+
+| Número fichero  | Fichero                                      | 
+| ------------- | ------------------------------------------------ |
+| #1            | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)		   | 
+| #2            | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)| 
+| #3            | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating) |
+| #4            | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)	   | 
+| #5            | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new)	   | 
