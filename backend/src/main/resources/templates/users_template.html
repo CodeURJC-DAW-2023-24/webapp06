@@ -1,14 +1,22 @@
 {{>header}}
 
-<!-- content -->
 <div class="container mt-5 flex-grow-1 mb-3">
-  <!-- Buscador -->
-  <form action="/user/users" method="GET">
+  <form id="userSearchForm">
     <div class="col mb-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Find user..." name="username" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Find user..."
+          name="username"
+          id="usernameInput"
+        />
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="submit">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onclick="searchUser()"
+          >
             <i class="fas fa-search"></i>
           </button>
         </div>
@@ -16,51 +24,23 @@
     </div>
   </form>
 
-  <!-- Lista de Usuarios -->
-  <div class="list-group">
-    <!-- Usuario 1 -->
-    {{#users}}
-    <div
-      class="list-group-item d-flex align-items-center justify-content-between"
+  <div class="list-group" id="user-container"></div>
+  <div class="text-center mt-3">
+    <button
+      class="btn btn-primary px-5"
+      id="loadMoreUsersButton"
+      onclick="addNewElements();"
     >
-      <div class="d-flex align-items-center">
-        <img
-          src="/image/user/{{username}}"
-          class="rounded-circle"
-          style="width: 50px; height: 50px"
-          alt="Foto de Usuario"
-        />
-        <strong class="ml-3">{{username}}</strong>
-      </div>
-      <div>
-        <div>
-          <a
-            class="btn btn-link text-primary text-decoration-none p-0 mr-2"
-            title="view profile"
-            href="/user/profile/{{username}}"
-          >
-            <i class="fas fa-eye"></i>
-          </a>
-          <a
-            class="btn btn-link text-primary text-decoration-none p-0 mr-2"
-            title="edit profile"
-            href="/user/edit-profile?username={{username}}"
-          >
-            <i class="fas fa-edit"></i>
-          </a>
-          <button
-            type="button"
-            class="btn btn-link text-decoration-none btn-delete p-0 mr-2"
-            data-toggle="modal"
-            data-target="#deleteAccountModal{{username}}"
-          >
-            <i class="fas fa-trash-alt btn-delete"></i>
-          </button>
-        </div>
-      </div>
+      Load More Users
+    </button>
+  </div>
+
+  <div id="spinner" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
-    {{>user_delete_modal_template}} {{/users}}
   </div>
 </div>
 
+<script src="/js/users.js"></script>
 {{>footer}}
