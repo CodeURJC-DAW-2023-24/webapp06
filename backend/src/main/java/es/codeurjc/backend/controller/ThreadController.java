@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -51,11 +52,8 @@ public class ThreadController {
             model.addAttribute("logged", false);
         }
 
-        /*
-        CsrfToken token = request.getAttribute(CsrfToken.class.getName());
-        if (token != null) {
-            model.addAttribute("csrfToken", token.getToken());
-        }*/
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken());
 
     }
 
@@ -167,42 +165,39 @@ public class ThreadController {
 
     @PostMapping("/{threadName}/addPost")
     public String addPost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
-                            @PathVariable String threadName) throws Exception {
+            @PathVariable String threadName) throws Exception {
         String name = principal.getName();
         User activeUser = userService.getUserByUsername(name);
         List<User> userLikes = new ArrayList<>();
         List<User> userDislikes = new ArrayList<User>();
         Post newPost = new Post(postText, null, activeUser, userLikes, userDislikes, 0);
-        newPost.setText(postText);
         Thread thread = threadService.getThreadByName(threadName);
-        List<Post> posts = thread.getPosts();
-        posts.add(newPost);
-        thread.setPosts(posts);
+        threadService.addPostToThread(thread, newPost);
         return "redirect:/t/" + threadName;
 
     }
 
     @PostMapping("/{threadName}/updatePost")
     public String updatePost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
-                            @PathVariable String threadName, @PathVariable int postId) {
+            @PathVariable String threadName, @PathVariable int postId) {
         Thread thread = threadService.getThreadByName(threadName);
         List<Post> posts = thread.getPosts();
-        //No tiene id los posts
-        Post updatedPost = posts.get(postId); //aqui deberia encontrar el post
+        // No tiene id los posts
+        Post updatedPost = posts.get(postId); // aqui deberia encontrar el post
         updatedPost.setText(postText);
         thread.setPosts(posts);
         return "redirect:/t/" + threadName;
     }
 
     @GetMapping("/{threadName}/deletePost/{postId}")
-    public String deletePost(Model model, Principal principal, @PathVariable String threadName, @PathVariable int postId) {
-        //No tiene id los posts
+    public String deletePost(Model model, Principal principal, @PathVariable String threadName,
+            @PathVariable int postId) {
+        // No tiene id los posts
         Thread thread = threadService.getThreadByName(threadName);
         List<Post> posts = thread.getPosts();
         posts.remove(postId);
         thread.setPosts(posts);
         return "redirect:/t/" + threadName;
     }
-    
 
 }

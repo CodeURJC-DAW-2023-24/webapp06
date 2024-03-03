@@ -71,4 +71,10 @@ public class ThreadService {
         Pageable pageable = PageRequest.of(page, size);
         return threadRepository.findByForumPaginated(forum.getId(), pageable);
     }
+
+    public void addPostToThread(Thread thread, Post post){
+        postRepository.save(post);
+        thread.getPosts().add(post);
+        threadRepository.save(thread);
+    }
 }
