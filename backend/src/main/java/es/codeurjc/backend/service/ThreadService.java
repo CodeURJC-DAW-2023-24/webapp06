@@ -3,6 +3,9 @@ package es.codeurjc.backend.service;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Forum;
@@ -41,6 +44,11 @@ public class ThreadService {
 
     public Long getTotalThreadsForYear(User owner, int year) {
         return threadRepository.countByYear(owner, year);
+    }
+
+    public Page<Thread> getPaginatedThreadsByUsername(int page, int size, String username) {
+        Pageable pageable = PageRequest.of(page, size);
+        return threadRepository.findByUsernamePaginated(username, pageable);
     }
 
     

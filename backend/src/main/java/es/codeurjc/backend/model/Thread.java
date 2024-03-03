@@ -14,6 +14,9 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Transient;
 
 @Entity
@@ -28,6 +31,7 @@ public class Thread {
 
     @ManyToOne
     @JoinColumn(name = "forum_id")
+    @JsonBackReference
     private Forum forum;
 
     @OneToMany(cascade = CascadeType.ALL)

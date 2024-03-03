@@ -11,6 +11,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "forums")
 public class Forum {
@@ -23,6 +25,7 @@ public class Forum {
 
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
+    @JsonManagedReference
     private List<Thread> threads;
 
     @Column(nullable = false)

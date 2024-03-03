@@ -30,5 +30,5 @@ public class UserRestController {
             @RequestParam(value = "username") String username) {
         return userService.getUsersByUsernameStartingWith(username, page, size);
     }
-    
+
 }

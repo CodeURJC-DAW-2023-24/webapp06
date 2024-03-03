@@ -3,6 +3,9 @@ package es.codeurjc.backend.repository;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,5 +36,8 @@ public interface ThreadRepository extends JpaRepository<Thread, Long> {
 
     @Query("SELECT COUNT(t) FROM Thread t WHERE t.owner = :owner AND FUNCTION('YEAR', t.createdAt) = :year")
     Long countByYear(@Param("owner") User owner, @Param("year") int year);
+
+    @Query("SELECT t FROM Thread t WHERE t.owner.username LIKE :username")
+    Page<Thread> findByUsernamePaginated(@Param("username") String username, Pageable pageable);
 
 }
