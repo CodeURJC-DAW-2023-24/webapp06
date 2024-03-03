@@ -1,6 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-  getThreads();
-});
+
 
 function createThreadHtml(thread) {
   return `<a
@@ -16,7 +14,7 @@ function createThreadHtml(thread) {
 
 function getThreads() {
   const url =
-    "https://localhost:8443/thread/paginated?page=" + page + "&size=10";
+    "https://localhost:8443/thread/paginated?page=" + page + "&size=10" + "&nameForum=" + nameForum;
   addNewElements(createThreadHtml, url, "loadMoreButton", "thread-container");
 }
 
