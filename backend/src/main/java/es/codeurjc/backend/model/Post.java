@@ -7,13 +7,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,11 +41,21 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
+
+    @ManyToOne
+    @JsonIgnore
+    private Thread thread;
     
-    @Column(nullable = false)
+    @ManyToMany
+    private List<User> userLikes;
+
+    @Transient
     private int likes;
 
-    @Column(nullable = false)
+    @ManyToMany
+    private List<User> userDislikes;
+
+    @Transient
     private int dislikes;
 
     @Column(nullable = false)
@@ -53,12 +66,15 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String text, Blob imageFile, User owner, int likes, int dislikes, int reports) throws Exception {
+    public Post(String text, Blob imageFile, User owner, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
+        super();
         this.text = text;
         this.imageFile = imageFile;
         this.owner = owner;
-        this.likes = likes;
-        this.dislikes = dislikes;
+        this.userLikes = userLikes;
+        this.likes = userLikes.size();
+        this.userDislikes = userDislikes;
+        this.dislikes = userDislikes.size();
         this.reports = reports;
     }
 
@@ -103,20 +119,30 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public List<User> getUserLikes() {
+        return userLikes;
+    }
+
     public int getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setUserLikes(List<User> userLikes) {
+        this.userLikes = userLikes;
+        this.likes = userLikes.size();
+    }
+
+    public List<User> getUserDislikes() {
+        return userDislikes;
     }
 
     public int getDislikes() {
         return dislikes;
     }
 
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
+    public void setUserDislikes(List<User> userDislikes) {
+        this.userDislikes = userDislikes;
+        this.dislikes = userDislikes.size();
     }
 
     public int getReports() {

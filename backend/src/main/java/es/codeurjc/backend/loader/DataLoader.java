@@ -81,6 +81,9 @@ public class DataLoader {
                 }
 
                 userRepository.saveAll(users);
+
+                List<User> userLikes = Arrays.asList(user4, user5, user6, user7, user8, user9);
+                List<User> userDislikes = Arrays.asList(user10, user11, user12, user13);
                 // ... guardar más usuarios si has creado más
 
                 // O si prefieres guardarlos todos a la vez
@@ -91,37 +94,37 @@ public class DataLoader {
                 Resource imagePost1 = new ClassPathResource("example/post/foto_post.jpg");
                 Blob blobImagePost1 = BlobProxy.generateProxy(imagePost1.getInputStream(), imagePost1.contentLength());
 
-                Post post1 = new Post("hola", blobImagePost1, user1, 20, 10, 1);
-                Post post2 = new Post("adios", null, user2, 10, 20, 3);
+                Post post1 = new Post("hola", blobImagePost1, user1, userLikes, userDislikes, 1);
+                Post post2 = new Post("adios", null, user2, userLikes, userDislikes, 3);
                 Post post3 = new Post(
                                 "In the quiet town of Neo-Silica, a revolution brews under the neon lights.",
                                 null,
                                 user1,
-                                20, 10, 1);
+                                userLikes, userDislikes, 1);
 
                 Post post4 = new Post(
                                 "Far beyond the reach of civilization, the ancient forest of Eldergrove whispers secrets of a bygone era.",
                                 null,
                                 user2,
-                                35, 5, 2);
+                                userLikes, userDislikes, 2);
 
                 Post post5 = new Post(
                                 "Galactic Odyssey: A Journey Beyond Stars",
                                 null,
                                 user3,
-                                45, 15, 3);
+                                userLikes, userDislikes, 3);
 
                 Post post6 = new Post(
                                 "The Last Codebender",
                                 null,
                                 user4,
-                                50, 20, 4);
+                                userLikes, userDislikes, 4);
 
                 Post post7 = new Post(
                                 "Whispers in the Digital Wind",
                                 null,
                                 user5,
-                                60, 25, 5);
+                                userLikes, userDislikes, 5);
 
                 // postRepository.saveAll(Arrays.asList(post1, post2));
                 //
