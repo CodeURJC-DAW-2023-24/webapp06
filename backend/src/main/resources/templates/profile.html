@@ -1,9 +1,7 @@
 {{>header}}
 
-<!-- contenido -->
 <div class="container mt-5 flex-grow-1">
   <div class="row">
-    <!-- Columna de Perfil -->
     <div class="col-md-4">
       <div class="text-center">
         <img
@@ -27,25 +25,30 @@
         {{/equalUserOrAdmin}}
       </div>
     </div>
-    <!-- Columna de Threads -->
     <div class="col-md-8">
       <h2>Threads</h2>
-      <!-- Lista de Threads -->
-      <div class="list-group mb-3">
-        {{#threads}}
-        <a
-          href="/t/{{name}}"
-          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+      {{>spinner_template}}
+      <div class="list-group mb-3" id="thread-container"></div>
+      <div class="text-center mt-3">
+        <button
+          class="btn btn-primary px-5"
+          id="loadMoreThreadsButton"
+          onclick="addNewElements();"
         >
-          {{name}}
-          <span class="badge badge-primary badge-pill"
-            >{{numberPosts}} posts</span
-          >
-        </a>
-        {{/threads}}
+          Load More Users
+        </button>
       </div>
     </div>
   </div>
 </div>
+<script>
+  const username = "{{username}}";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    addNewElements();
+  });
+</script>
+<script src="/js/profile.js"></script>
+<script src="/js/spinner.js"></script>
 
 {{>user_delete_modal_template}} {{>footer}}
