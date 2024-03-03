@@ -11,16 +11,12 @@ import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
-import es.codeurjc.backend.repository.ForumRepository;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 
 @Service
 public class ThreadService {
 
-    @Autowired
-    private ForumRepository forumRepository;
-    
     @Autowired
     private ThreadRepository threadRepository;
 
@@ -59,7 +55,7 @@ public class ThreadService {
         Pageable pageable = PageRequest.of(page, size);
         return threadRepository.findByUsernamePaginated(username, pageable);
     }
-    
+
     public Boolean deleteThread(Thread thread) {
         try {
             for (Post post : thread.getPosts())
@@ -71,8 +67,8 @@ public class ThreadService {
         }
     }
 
-    public Page<Thread> getPaginatedThreads(int page, int size) {
+    public Page<Thread> getPaginatedThreads(int page, int size, Forum forum) {
         Pageable pageable = PageRequest.of(page, size);
-        return threadRepository.findAll(pageable);
+        return threadRepository.findByForumPaginated(forum.getId(), pageable);
     }
 }

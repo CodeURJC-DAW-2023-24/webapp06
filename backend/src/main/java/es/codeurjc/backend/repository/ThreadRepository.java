@@ -40,4 +40,7 @@ public interface ThreadRepository extends JpaRepository<Thread, Long> {
     @Query("SELECT t FROM Thread t WHERE t.owner.username LIKE :username")
     Page<Thread> findByUsernamePaginated(@Param("username") String username, Pageable pageable);
 
+    @Query("SELECT t FROM Thread t WHERE t.forum.id = :forumId")
+    Page<Thread> findByForumPaginated(@Param("forumId") Long forumId, Pageable pageable);
+
 }
