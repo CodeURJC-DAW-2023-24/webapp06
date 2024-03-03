@@ -136,6 +136,8 @@
                 id="editer"
                 type="button"
                 class="btn btn-link text-decoration-none text-dark"
+                data-toggle="modal"
+                data-target="#updateModal"
                 onclick="editPost(this);"
               >
                 <i class="fas fa-edit"></i>
@@ -257,7 +259,7 @@
         </button>
       </div>      
       <!-- Formulario -->
-      <form id="updateForm" action="/t/{{threadName}}/addPost" method="post">
+      <form id="updateForm" action="/t/{{threadName}}/updatePost" method="post">
         <input type="hidden" name="_csrf" value="{{token}}"/>
         <div class="modal-body">
           <!-- Campo de texto -->
@@ -265,12 +267,13 @@
             <label for="inputText">Text</label>
             <textarea
               class="form-control"
-              id="inputTextArea"
+              id="inputTextAreaUpdate"
               name="post-form-text"
               rows="3"
               placeholder="Introduce un texto"
               required
             ></textarea>
+            <input type="hidden" id="inputIdUpdate" name="copiaId">
           </div>
           <!-- Drag and drop para imágenes -->
           <div class="form-group">

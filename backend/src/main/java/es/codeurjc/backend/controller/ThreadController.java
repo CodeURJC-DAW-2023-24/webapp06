@@ -16,6 +16,7 @@ import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.ThreadService;
+import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -38,6 +39,9 @@ public class ThreadController {
 
     @Autowired
     private ForumService forumService;
+
+    @Autowired
+    private PostService postService;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -179,13 +183,10 @@ public class ThreadController {
 
     @PostMapping("/{threadName}/updatePost")
     public String updatePost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
-            @PathVariable String threadName, @PathVariable int postId) {
-        Thread thread = threadService.getThreadByName(threadName);
-        List<Post> posts = thread.getPosts();
-        // No tiene id los posts
-        Post updatedPost = posts.get(postId); // aqui deberia encontrar el post
+            @PathVariable String threadName, @RequestParam("copiaId") Long postId) {
+        Post updatedPost = postService.getPostById(postId);
         updatedPost.setText(postText);
-        thread.setPosts(posts);
+        threadService.modifyPostFromThread(updatedPost);
         return "redirect:/t/" + threadName;
     }
 

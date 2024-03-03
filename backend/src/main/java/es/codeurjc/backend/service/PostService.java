@@ -25,6 +25,11 @@ public class PostService {
         return postRepository.findReportedPosts();
     }
 
+    public Post getPostById(Long postId){
+        Post post = postRepository.getReferenceById(postId);
+        return post;
+    }
+
     public boolean addPostLike(Long postId, User user) {
         if (!postRepository.getReferenceById(postId).getUserLikes().contains(user)) {
             Post post = postRepository.getReferenceById(postId);

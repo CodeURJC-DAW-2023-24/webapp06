@@ -67,12 +67,12 @@ public class PostRestController {
         return true;
     }
 
-    @GetMapping("/report/{postId}")
-    public boolean getMethodName(Model model, Principal principal, @PathVariable String postId) {
-        postService.reportPost(Long.parseLong(postId));
-        return true;
+    @GetMapping("/update/{postId}")
+    public String update(Model model, Principal principal, @PathVariable String postId) {
+        Post post = postService.getPostById(Long.parseLong(postId));
+        String text = post.getText();
+        return text;
     }
-    
 
     @GetMapping("/validate/{postId}")
     public void validatePost(Model model, Principal principal, @PathVariable String postId) {

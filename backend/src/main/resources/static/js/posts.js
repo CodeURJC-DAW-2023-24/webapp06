@@ -20,13 +20,24 @@ async function reportPost(button) {
 
 async function editPost(button) {
   let postId = button.parentNode.getAttribute("data-id");
-
+  let texts = document.getElementById("inputTextAreaUpdate");
+  texts.value = "";
+  let id = document.getElementById("inputIdUpdate");
+  id.value = postId;
+  
+  try{
   const response = await fetch("/p/update/" + postId, {
     method: "GET",
   });
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
+  }
+
+  const data = await response.text();
+    texts.value = data;
+  } catch (error) {
+    console.error("Error al obtener el texto: ", error);
   }
 }
 

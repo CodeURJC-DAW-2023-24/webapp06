@@ -78,8 +78,8 @@ public class ThreadService {
         threadRepository.save(thread);
     }
 
-    public void modifyPostFromThread(Thread thread, Post post){
-        
+    public void modifyPostFromThread(Post post){
+        postRepository.save(post);
     }
 
     public void deletePostFromThread(Thread thread, Long postId){
