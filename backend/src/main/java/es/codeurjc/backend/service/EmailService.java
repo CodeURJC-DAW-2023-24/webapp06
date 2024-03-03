@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateL
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
@@ -37,19 +36,15 @@ public class EmailService {
     public void sendHtmlMessage(String to, String subject, String templateName, Map<String, Object> context) {
         try {
             Template template = Mustache.compiler().compile(mustacheTemplateLoader.getTemplate(templateName));
-
             StringWriter writer = new StringWriter();
             template.execute(context, writer);
             String htmlContent = writer.toString();
-
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
-
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,7 +21,6 @@ public class SecurityConfiguration {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -29,15 +28,11 @@ public class SecurityConfiguration {
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
-
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
 		http.authenticationProvider(authenticationProvider());
-
 		http
 				.authorizeHttpRequests(authorize -> authorize
-						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/js/**").permitAll()
@@ -51,7 +46,6 @@ public class SecurityConfiguration {
 						.requestMatchers("/error").permitAll()
 						.requestMatchers("/thread/user/*").permitAll()
 						.requestMatchers("/thread/paginated").permitAll()
-						// PRIVATE PAGES
 						.requestMatchers("/user/edit-profile/*").hasAnyRole("USER")
 						.requestMatchers("/user/update-profile").hasAnyRole("USER")
 						.requestMatchers("/user/delete/*").hasAnyRole("USER")
@@ -77,7 +71,6 @@ public class SecurityConfiguration {
 						.failureUrl("/loginerror")
 						.defaultSuccessUrl("/isActive")
 						.permitAll());
-
 		return http.build();
 	}
 }

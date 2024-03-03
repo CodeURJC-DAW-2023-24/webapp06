@@ -2,7 +2,6 @@ package es.codeurjc.backend.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,19 +25,14 @@ public class UserService {
 
     @Autowired
     private RepositoryUserDetailsService userDetailsService;
-
     @Autowired
     private EmailService emailService;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ThreadRepository threadRepository;
-
     @Autowired
     private PostRepository postRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

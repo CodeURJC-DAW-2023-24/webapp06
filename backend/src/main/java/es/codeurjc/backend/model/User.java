@@ -55,10 +55,9 @@ public class User {
     private Blob imageFile;
 
     public User() {
-        // Constructor por defecto
+
     }
 
-    // Constructor con parámetros
     public User(String username, String email, String password, String... roles) throws Exception {
         this.username = username;
         this.email = email;
@@ -69,7 +68,6 @@ public class User {
         this.isActive = false;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -134,7 +132,6 @@ public class User {
         return this.isActive = isActive;
     }
 
-    // Método toString() para imprimir los detalles del usuario
     @Override
     public String toString() {
         return "User{" +

@@ -19,7 +19,6 @@ import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import java.security.Principal;
 import java.util.List;
@@ -30,24 +29,18 @@ public class UserController {
     
     @Autowired
     private ThreadService threadService;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private PostService postService;
 
      @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
-
         Principal principal = request.getUserPrincipal();
-
         if (principal != null) {
-
 			model.addAttribute("logged", true);
 			model.addAttribute("username", principal.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-
 		} else {
 			model.addAttribute("logged", false);
 		}
@@ -59,16 +52,13 @@ public class UserController {
         List<Thread> threads = threadService.getThreadsByOwner(user);
         List<Post> post = postService.getPostByOwner(user);
         boolean equalUserOrAdmin = false;
-
         if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
             equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
         }
-
         model.addAttribute("username", user.getUsername());
         model.addAttribute("numberPosts", post.size());
         model.addAttribute("numberThreads", threads.size());
         model.addAttribute("equalUserOrAdmin", equalUserOrAdmin);
-
         return "profile";
     }
 
@@ -98,7 +88,6 @@ public class UserController {
             }
             userService.getUserByUsername(username); // check user exist
         }
-
         CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
         model.addAttribute("token", token.getToken());
         model.addAttribute("username", username != null ? username : principal.getName());
@@ -141,7 +130,6 @@ public class UserController {
     @GetMapping("/activation/{username}")
     public String getMethodName(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
-
         if (user.getIsActive()) {
             return "already_active_template";
         } else {
