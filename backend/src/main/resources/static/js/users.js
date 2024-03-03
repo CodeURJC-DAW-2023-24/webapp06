@@ -55,10 +55,6 @@ async function loadUsers() {
   isSearchMode = false;
   lastSearchQuery = "";
 
-  console.log(
-    "https://localhost:8443/user/paginated?page=" + page + "&size=10"
-  );
-
   const response = await fetch(
     "https://localhost:8443/user/paginated?page=" + page + "&size=10",
     {
@@ -81,8 +77,6 @@ async function loadUsers() {
 async function addNewElements(data) {
   page += 1;
 
-  console.log(page);
-
   if (page >= data.totalPages) {
     document.getElementById("loadMoreUsersButton").style.display = "none";
   } else {
@@ -96,11 +90,6 @@ async function addNewElements(data) {
   data.content.forEach((user) => {
     container.insertAdjacentHTML("beforeend", createUserHtml(user.username));
   });
-}
-
-function showSpinner(show) {
-  const spinner = document.getElementById("spinner");
-  spinner.style.display = show ? "block" : "none";
 }
 
 async function searchUser(lastSearch, pageParameter = 0) {
