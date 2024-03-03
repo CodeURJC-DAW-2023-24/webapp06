@@ -12,11 +12,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
 import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -54,9 +52,8 @@ public class Post {
     @Column(nullable = false)
     private int reports;
 
-    // Constructors, getters, and setters
     public Post() {
-        // Default constructor
+
     }
 
     public Post(String text, Blob imageFile, User owner, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
@@ -69,7 +66,6 @@ public class Post {
         this.reports = reports;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -141,8 +137,6 @@ public class Post {
     public void setReports(int reports) {
         this.reports = reports;
     }
- 
-    // Other methods
 
     public boolean addUserLike(User user) {
         return userLikes.add(user);

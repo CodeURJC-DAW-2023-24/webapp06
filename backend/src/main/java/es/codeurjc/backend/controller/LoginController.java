@@ -11,8 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.UserService;
 
-
-
 @Controller
 public class LoginController {
 
@@ -23,7 +21,6 @@ public class LoginController {
   public String login(Model model, HttpServletRequest request) {
     CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
     model.addAttribute("token", token.getToken());
-
     return "login_template";
   }
 

@@ -14,9 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Transient;
 
 @Entity
@@ -49,8 +47,8 @@ public class Thread {
     @Transient
     private int numberPosts;
 
-    // Constructors
     public Thread() {
+
     }
 
     public Thread(String name, Forum forum, List<Post> posts, User owner) {
@@ -61,7 +59,6 @@ public class Thread {
         this.numberPosts = posts.size();
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -119,7 +116,6 @@ public class Thread {
         this.numberPosts = this.posts.size();
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Thread{" +

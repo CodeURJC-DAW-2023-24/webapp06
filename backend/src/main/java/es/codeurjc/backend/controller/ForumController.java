@@ -3,20 +3,16 @@ package es.codeurjc.backend.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
@@ -31,23 +27,18 @@ public class ForumController {
     
     @Autowired
     private UserService userService;
-
     @Autowired
     private ThreadService threadService;
-
     @Autowired
     private ForumService forumService;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
-
         Principal principal = request.getUserPrincipal();
-
         if (principal != null) {
             model.addAttribute("logged", true);
             model.addAttribute("username", principal.getName());
             model.addAttribute("admin", request.isUserInRole("ADMIN"));
-
         } else {
             model.addAttribute("logged", false);
         }
@@ -62,8 +53,7 @@ public class ForumController {
         for (Thread thread : threads){
             thread.setNumberPosts();
         }
-        model.addAttribute("forums", forumService.getAllForums());
-        
+        model.addAttribute("forums", forumService.getAllForums());   
         return "forum";
     }
 

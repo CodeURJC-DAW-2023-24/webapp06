@@ -1,11 +1,7 @@
 {{>header}}
-<!-- Content -->
 <div class="container mt-5 flex-grow-1 mb-3">
     <h2 class="text-center">Listing of Reported Posts</h2>
-
-    <!-- List of Posts -->
     <div class="list-group">
-    <!-- Post 1 -->
     <div
         class="list-group-item d-flex align-items-center justify-content-between"
     >
@@ -60,8 +56,6 @@
         </div>
     </div>
     </div>
-
-    <!-- Post 2 -->
     <div
     class="list-group-item d-flex align-items-center justify-content-between"
 >
@@ -117,10 +111,6 @@
 </div>
 </div>
 </div>
-
-
-<!-- Modals -->
-<!-- Modal for viewing the complete post -->
 <div
     class="modal fade"
     id="viewModal"
@@ -143,7 +133,6 @@
         </button>
         </div>
         <div class="modal-body">
-        <!-- Full post content -->
         In today's fast-paced world, mindfulness has emerged as a key
         strategy for managing stress and enhancing overall well-being.
         Mindfulness is the practice of being fully present and engaged in
@@ -157,8 +146,6 @@
     </div>
     </div>
 </div>
-
-<!-- Modal for editing the post -->
 <div
     class="modal fade"
     id="editModal"
@@ -181,7 +168,6 @@
         </button>
         </div>
         <div class="modal-body">
-        <!-- Form for editing the post -->
         <form>
             <div class="form-group">
             <label for="editContent">Post Content</label>
@@ -201,8 +187,6 @@ In today's fast-paced world, mindfulness has emerged as a key strategy for manag
     </div>
     </div>
 </div>
-
-<!-- Modal to confirm deletion of the post -->
 <div
     class="modal fade"
     id="deleteModal"
@@ -236,5 +220,4 @@ In today's fast-paced world, mindfulness has emerged as a key strategy for manag
     </div>
     </div>
 </div>
-
 {{>footer}}

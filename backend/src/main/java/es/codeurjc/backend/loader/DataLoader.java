@@ -23,31 +23,19 @@ public class DataLoader {
 
         @Autowired
         private UserRepository userRepository;
-
-        /*
-         * @Autowired
-         * private PostRepository postRepository;
-         * 
-         * @Autowired
-         * private ThreadRepository threadRepository;
-         */
         @Autowired
         private ForumRepository forumRepository;
-
         @Autowired
         private PasswordEncoder passwordEncoder;
 
         @PostConstruct
         public void run() throws Exception {
-
                 Resource imageUser1 = new ClassPathResource("example/user/user1.png");
                 Blob blobImageUser1 = BlobProxy.generateProxy(imageUser1.getInputStream(), imageUser1.contentLength());
-
                 User user1 = new User("username1", "user1@example.com", passwordEncoder.encode("password1"), "USER");
                 user1.setImageFile(blobImageUser1);
                 User user2 = new User("username2", "user2@example.com", passwordEncoder.encode("password2"), "USER",
                                 "ADMIN");
-                // User 3
                 User user3 = new User("CyberKnight", "cyberknight@example.com", passwordEncoder.encode("securePass3"),
                                 "USER");
                 User user4 = new User("PhantomHacker", "phantomhacker@example.com",
@@ -72,28 +60,16 @@ public class DataLoader {
                 User user12 = new User("DragonRider", "dragonrider@example.com", passwordEncoder.encode("securePass2"),
                                 "USER");
                 User user13 = new User("delete", "delete@example.com", passwordEncoder.encode("securePass2"), "USER");
-
                 List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10,
                                 user11, user12, user13);
-
                 for (User i : users) {
                         i.setIsActive(true);
                 }
-
                 userRepository.saveAll(users);
-
                 List<User> userLikes = Arrays.asList(user4, user5, user6, user7, user8, user9);
                 List<User> userDislikes = Arrays.asList(user10, user11, user12, user13);
-                // ... guardar más usuarios si has creado más
-
-                // O si prefieres guardarlos todos a la vez
-                // userRepository.saveAll(Arrays.asList(user1, user2, ...));
-
-                // String imagePath = "/ruta/a/imagen.jpg";
-                // Blob imageBlob = imageService.loadImage(imagePath);
                 Resource imagePost1 = new ClassPathResource("example/post/foto_post.jpg");
                 Blob blobImagePost1 = BlobProxy.generateProxy(imagePost1.getInputStream(), imagePost1.contentLength());
-
                 Post post1 = new Post("hola", blobImagePost1, user1, userLikes, userDislikes, 1);
                 Post post2 = new Post("adios", null, user2, userLikes, userDislikes, 3);
                 Post post3 = new Post(
@@ -125,9 +101,6 @@ public class DataLoader {
                                 null,
                                 user5,
                                 userLikes, userDislikes, 5);
-
-                // postRepository.saveAll(Arrays.asList(post1, post2));
-                //
                 Forum forum1 = new Forum("Books", null, "book");
                 Forum forum2 = new Forum("Technology", null, "laptop-code");
                 Forum forum3 = new Forum("Science", null, "flask");
@@ -137,14 +110,10 @@ public class DataLoader {
                 Forum forum7 = new Forum("Gastronomy", null, "utensils");
                 Forum forum8 = new Forum("Travel", null, "plane");
                 Forum forum9 = new Forum("Gaming", null, "gamepad");
-
                 Thread thread1 = new Thread("Saludos", forum1, Arrays.asList(post1, post2, post3, post4), user1);
                 Thread thread2 = new Thread("Pruebas", forum2, Arrays.asList(post5, post6, post7), user2);
-                // threadRepository.save(thread1);
-
                 forum1.setThreads(Arrays.asList(thread1));
                 forum2.setThreads(Arrays.asList(thread2));
-
                 forumRepository.save(forum1);
                 forumRepository.save(forum2);
                 forumRepository.save(forum3);
@@ -154,6 +123,5 @@ public class DataLoader {
                 forumRepository.save(forum7);
                 forumRepository.save(forum8);
                 forumRepository.save(forum9);
-
         }
 }
