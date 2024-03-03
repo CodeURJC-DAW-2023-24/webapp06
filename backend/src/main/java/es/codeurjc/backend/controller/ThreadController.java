@@ -165,7 +165,31 @@ public class ThreadController {
         }
     }
 
-    
+    @PostMapping("/{threadName}/updatePost")
+    public String updatePost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
+                            @PathVariable String threadName, @PathVariable int postId) {
+        if (postText != null) {
+            Thread thread = threadService.getThreadByName(threadName);
+            List<Post> posts = thread.getPosts();
+            //No tiene id los posts
+            Post updatedPost = posts.get(postId); //aqui deberia encontrar el post
+            updatedPost.setText(postText);
+            thread.setPosts(posts);
+            return "redirect:/t/" + threadName;
+        } else {
+            return "error-500";
+        }
+    }
+
+    @GetMapping("/{threadName}/deletePost/{postId}")
+    public String getMethodName(Model model, Principal principal, @PathVariable String threadName, @PathVariable int postId) {
+        //No tiene id los posts
+        Thread thread = threadService.getThreadByName(threadName);
+        List<Post> posts = thread.getPosts();
+        posts.remove(postId);
+        thread.setPosts(posts);
+        return "redirect:/t/" + threadName;
+    }
     
 
 }
