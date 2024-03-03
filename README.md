@@ -48,7 +48,6 @@
 - Anonymous users will be shown a list of the most trending threads in the last 2 days.
 - For registered users, this list will be filtered to only show threads from forums where they are active.
 
-
 ---
 
 # Phase 1
@@ -90,7 +89,6 @@ In this screen we also have a shortcut to the categories/forums, so we don't hav
 
 ![Forum Screen](./images/phase_1/forum.png)
 
-
 ### Thread Screen
 
 Anonymous users can see all post made in the thread but cant interact with them nor can they add posts. They can also navigate to other forum categories from here.
@@ -108,7 +106,6 @@ Registered users will be able to see, interact and report all posts from the thr
 Administrators can contribute to threads the same way registered users can. In addition, they can delete the thread and edit or delete any post within it. They can also navigate to other forum categories from here.
 
 ![Thread Screen Admin](./images/phase_1/thread_admin.png)
-
 
 ### Edit Profile Screen
 
@@ -128,15 +125,11 @@ Profile Screen Registered, this page displays the administrator's profile. It co
 
 ![Profile Screen Admin](./images/phase_1/profilescreenadmin.png)
 
-
 ### Charts Screen
 
 Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
 
 ![Charts Screen](./images/phase_1/chartsscreen.png)
-
-
-
 
 ### Users Screen (Admin)
 
@@ -153,7 +146,7 @@ Here there will be displayed a list of recently reported posts and how many repo
 ## 🗺️ Navigation Diagram
 
 ![Reports Screen](./images/phase_1/navigation_diagram.png)
- 
+
 ---
 
 # Phase 2
@@ -163,41 +156,48 @@ Here there will be displayed a list of recently reported posts and how many repo
 ![Navigation Screen](./images/phase_2/navigation_diagram.png)
 
 ## 🖥️ Execution Guidelines
-- For the implementation of the application we have used GitHub Desktop, Docker desktop and Visual Studio Code.  
+
+- For the implementation of the application we have used GitHub Desktop, Docker desktop and Visual Studio Code.
 
 - In order to run the application in Visual Studio Code it is necessary to install the "Extension Pack for Java" and "Spring Boot Extension Pack" extensions. Note that we have used Spring Boot 3.2.2 for the application.
 
-- Once that is done, the first thing to do would be to clone the repository and place yourself on the main branch, once in main, with Visual Studio (or the editor you use) open the folder 
+- Once that is done, the first thing to do would be to clone the repository and place yourself on the main branch, once in main, with Visual Studio (or the editor you use) open the folder
+
 ```
 backend/src/main/java/es/codeurjc/backend
 ```
-- This is the folder where all the application code is located.  
-    
+
+- This is the folder where all the application code is located.
+
 - When you are already inside the folder, you look for the file "BackendApplication.java" which is the main file of the program and the one that will start the application.
-    
 - Before doing this, it is important to have the database available. In our case, we have chosen to do it using docker. Specifically for everything to work, we must have the image and the container built and started in docker desktop. To do this, we must be located in the folder
+
 ```
 backend/docker
 ```
+
 - And run the command:
+
 ```
 docker build -t mysql_daw .
 ```
+
 - And then:
+
 ```
 docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authentication-plugin=mysql_native_password
 ```
+
 - The first one is used to build a Docker image using a Dockerfile present in the current directory (.). The -t option allows you to assign a name and optionally a label to the image. In this case, you are calling the image mysql_daw.
 
 - After building the image, we must run a container based on that image. This command starts a container called inforum_mysql, runs it in the background (-d), maps port 3306 on the host to port 3306 in the container (-p 3306:3306), and specifies the image you just built (mysql_daw). It also includes the option --default-authentication-plugin=mysql_native_password, which sets the default authentication plugin for MySQL.
 
--  Once we have the database instance, we execute the "BackendApplication.java" file and we will see how the database is connected to the application and the tables with their respective data are created. When it is finished, we will be able to use the application.
-    
--  To do this, we must go in our browser to "https://localhost:8443" and when we get the warning that the connection is not private we must click on "Advanced" and then on "Proceed to localhost (unsafe)".
-    
+- Once we have the database instance, we execute the "BackendApplication.java" file and we will see how the database is connected to the application and the tables with their respective data are created. When it is finished, we will be able to use the application.
+- To do this, we must go in our browser to "https://localhost:8443" and when we get the warning that the connection is not private we must click on "Advanced" and then on "Proceed to localhost (unsafe)".
 - If we have done everything correctly, we will be inside the application, with all the functionalities and data loaded.
 
 ## 📂 Entities Diagram
+
 ![Class diagram](./images/phase_2/entity.png)
 
 - **User:** The User entity contains personal and authentication information about the user.
@@ -205,31 +205,58 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 - **Thread:** Represents a conversation within a Forum.
 - **Post:** Represents a message within a Thread.
 
-
 ## 📊 Class and Template Diagram
 
 ## 🚀 Member participation
 
 ### David Moreno Martín
-#### Descripción textual: 
+
+#### Descripción textual:
+
 xxxx
 
 #### 5 commits más significativos
 
-| Commit  | Descripción                                      | Link                                                                                            |
-| ------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| #1            | Angular routing and Error 404 page   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/faf6833f02d92a2a2e26fadf8b73201adedc1854 | 
-| #2            | Angular Proxy integrated and API destinations format | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/b4374b60de88c73f82bdbf35b6026eb595bfb188 | 
-| #3            | Angular localhost deployment in port 8443/new/ |https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/93ea3c2b7d571ec84daac57f07418dcd88b04fb4 | 
-| #4            | Bar chart added via API	   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 | 
-| #5            | House components and details			   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 | 
+| Commit | Descripción                                          | Link                                                                                            |
+| ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| #1     | Angular routing and Error 404 page                   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/faf6833f02d92a2a2e26fadf8b73201adedc1854 |
+| #2     | Angular Proxy integrated and API destinations format | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/b4374b60de88c73f82bdbf35b6026eb595bfb188 |
+| #3     | Angular localhost deployment in port 8443/new/       | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/93ea3c2b7d571ec84daac57f07418dcd88b04fb4 |
+| #4     | Bar chart added via API                              | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 |
+| #5     | House components and details                         | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 |
 
 #### 5 ficheros más participación
 
-| Número fichero  | Fichero                                      | 
-| ------------- | ------------------------------------------------ |
-| #1            | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)		   | 
-| #2            | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)| 
-| #3            | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating) |
-| #4            | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)	   | 
-| #5            | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new)	   | 
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
+| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
+| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
+| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
+| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
+
+### Juan Salguero Ibarrola
+
+#### Descripción textual:
+
+I set up the project base with all dependencies, security, MySQL connection, and database creation with Docker. I have implemented the email sending system, statistics generation, pagination, and the entire image system. The screens that I have created are user listing, edit profile, show profile, display the custom error screen, the chart screen, the navbar differentiating between logged in and not logged in users, and the entire user activation system.
+
+#### 5 commits más significativos
+
+| Commit | Descripción                                                    | Link                                                                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | implementation email verification for account activation       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/1079ce988111789ac53597399cd1cc77affc1b58 |
+| #2     | Enhance chart.js and chart_template to display post statistics | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/30dc1d5295eaf569c70949df9d4022b0c87b9b4a |
+| #3     | Improved performance of user deletion process                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/0acc1f72e4650b2b1999ea068373f52b02d2425b |
+| #4     | Add chart and REST controllers for threads                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/329d4733cb21f99717ba764d50bceb7457a65f13 |
+| #5     | Improved pagination and added pagination to forum                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/728a361bad3b80b9e13621c33d415272a9fec7ac  |
+
+#### 5 ficheros con más participación
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
+| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
+| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
+| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
+| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
