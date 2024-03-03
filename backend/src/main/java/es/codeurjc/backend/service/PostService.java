@@ -65,6 +65,14 @@ public class PostService {
         return false;
     }
 
+    public void reportPost(Long postId) {
+        Post post = postRepository.getReferenceById(postId);
+        int reports = post.getReports();
+        if (reports >= 0)
+            post.setReports(post.getReports() + 1);
+        postRepository.save(post);
+    }
+
     public void validatePost(Long postId) {
         Post post = postRepository.getReferenceById(postId);
         post.setReports(-1);
