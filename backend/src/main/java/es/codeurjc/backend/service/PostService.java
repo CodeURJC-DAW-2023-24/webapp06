@@ -3,6 +3,9 @@ package es.codeurjc.backend.service;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.User;
@@ -78,5 +81,15 @@ public class PostService {
 
     public Long getTotalPostsForYear(User owner, int year) {
         return postRepository.countByYear(owner, year);
+    }
+
+    public Page<Post> getReportedPosts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findPostsWithReports(pageable);
+    }
+
+    public Page<Post> getPostsByThread(Long threadId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findByThreadId(threadId, pageable);
     }
 }

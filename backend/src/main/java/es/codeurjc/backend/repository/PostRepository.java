@@ -3,6 +3,8 @@ package es.codeurjc.backend.repository;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +17,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   Optional<List<Post>> findByOwner(User owner);
 
   Optional<Post> findByText(String text);
+
+  Page<Post> findByThreadId(Long threadId, Pageable pageable);
 
   @Transactional
   @Modifying
@@ -32,4 +36,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
   @Query("SELECT COUNT(t) FROM Post t WHERE t.owner = :owner AND FUNCTION('YEAR', t.createdAt) = :year")
   Long countByYear(@Param("owner") User owner, @Param("year") int year);
+
+  @Query("SELECT p FROM Post p WHERE p.reports >= 1 ORDER BY p.reports DESC")
+  Page<Post> findPostsWithReports(Pageable pageable);
 }

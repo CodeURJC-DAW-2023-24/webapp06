@@ -2,14 +2,18 @@ package es.codeurjc.backend.restcontroller;
 
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/p")
@@ -54,4 +58,19 @@ public class PostRestController {
     public void validatePost(Model model, Principal principal, @PathVariable String postId) {
         postService.validatePost(Long.parseLong(postId));
     }
+
+    @GetMapping("/reports")
+    public Page<Post> getReportedPaginated(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        return postService.getReportedPosts(page, size);
+    }
+
+    @GetMapping("/threads/{threadId}/posts")
+    public Page<Post> getPostsByThread(@PathVariable Long threadId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        return postService.getPostsByThread(threadId, page, size);
+    }
+
 }
