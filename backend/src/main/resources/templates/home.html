@@ -23,8 +23,22 @@
     <!-- Trending Categories -->
     
     <h2 class="mt-4">Trending Categories</h2>
-    <div class="card-body text-center"><h5>No trending categories yet</h5></div>
+    <div class="row">
+      {{#trending}}
+      <div class="col-md-4 mb-3">
+        <a href="/f/{{name}}" class="card text-decoration-none text-dark">
+          <div class="card-body text-center">
+            <i class="fas fa-{{icon}} fa-3x"> </i>
+            <h5 class="card-title mt-2">{{name}}</h5>
+          </div>
+        </a>
+      </div>
+      {{/trending}}
+      {{^trending}}
+      <div class="card-body text-center"><h5>No trending categories yet</h5></div>
+      {{/trending}}
     </div>
+    
   </div>
  
   {{>footer}}

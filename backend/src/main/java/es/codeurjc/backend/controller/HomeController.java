@@ -27,9 +27,10 @@ public class HomeController {
 			model.addAttribute("logged", true);
 			model.addAttribute("username", principal.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-
+            model.addAttribute("trending",forumService.getTrendingForums(true));
 		} else {
 			model.addAttribute("logged", false);
+            model.addAttribute("trending",forumService.getTrendingForums(false));
 		}
         model.addAttribute("forums",forumService.getAllForums());
         
