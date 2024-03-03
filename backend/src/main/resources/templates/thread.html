@@ -75,8 +75,19 @@
             {{/hasImage}}
 
             <div
-              class="card-footer bg-transparent d-flex justify-content-start align-items-center"
+              class="card-footer bg-transparent d-flex justify-content-start align-items-center" data-id={{id}}
             >
+              {{#isLiked}}
+              <button
+                id="likes"
+                type="button"
+                class="btn btn-link text-decoration-none text-dark mr-2"
+                onclick="toggleLike(this);"
+                data-liked="true"
+              >
+              <i id="likeIcon" class="fas fa-thumbs-up liked"></i>
+              {{/isLiked}}
+              {{^isLiked}}
               <button
                 id="likes"
                 type="button"
@@ -84,9 +95,21 @@
                 onclick="toggleLike(this);"
                 data-liked="false"
               >
-                <i id="likeIcon" class="fas fa-thumbs-up"></i> <span id="likeText">{{likes}}</span>
+                <i id="likeIcon" class="fas fa-thumbs-up"></i>
+                {{/isLiked}} <span id="likeText">{{likes}}</span>
               </button>
               <span class="text-muted mx-2">|</span>
+              {{#isDisliked}}
+              <button
+                id="dislikes"
+                type="button"
+                class="btn btn-link text-decoration-none text-dark"
+                onclick="toggleDislike(this);"
+                data-disliked="true"
+              >
+              <i id="dislikeIcon" class="fas fa-thumbs-down disliked"></i>     
+              {{/isDisliked}}
+              {{^isDisliked}}
               <button
                 id="dislikes"
                 type="button"
@@ -94,7 +117,8 @@
                 onclick="toggleDislike(this);"
                 data-disliked="false"
               >
-                <i id="dislikeIcon" class="fas fa-thumbs-down"></i> <span id="dislikeText">{{dislikes}}</span>
+              <i id="dislikeIcon" class="fas fa-thumbs-down"></i>
+              {{/isDisliked}} <span id="dislikeText">{{dislikes}}</span>
               </button>
               <!-- Espaciador para empujar el siguiente botón hacia la derecha -->
               <div class="ml-auto"></div>

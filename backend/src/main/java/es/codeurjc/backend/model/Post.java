@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.Transient;
 
 import java.sql.Blob;
 import java.util.Date;
@@ -142,4 +141,23 @@ public class Post {
     public void setReports(int reports) {
         this.reports = reports;
     }
+ 
+    // Other methods
+
+    public boolean addUserLike(User user) {
+        return userLikes.add(user);
+    }
+    
+    public boolean removeUserLike(User user) {
+        return userLikes.remove(user);
+    }
+
+    public boolean addUserDislike(User user) {
+        return userDislikes.add(user);
+    }
+    
+    public boolean removeUserDislike(User user) {
+        return userDislikes.remove(user);
+    }
+    
 }

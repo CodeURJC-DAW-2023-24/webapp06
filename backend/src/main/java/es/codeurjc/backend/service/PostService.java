@@ -20,6 +20,46 @@ public class PostService {
         return postRepository.findByOwner(owner).orElseThrow();
     }
 
+    public boolean addPostLike(Long postId, User user) {
+        if (!postRepository.getReferenceById(postId).getUserLikes().contains(user)) {
+            Post post = postRepository.getReferenceById(postId);
+            post.addUserLike(user);
+            postRepository.save(post);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removePostLike(Long postId, User user) {
+        if (postRepository.getReferenceById(postId).getUserLikes().contains(user)) {
+            Post post = postRepository.getReferenceById(postId);
+            post.removeUserLike(user);
+            postRepository.save(post);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addPostDislike(Long postId, User user) {
+        if (!postRepository.getReferenceById(postId).getUserDislikes().contains(user)) {
+            Post post = postRepository.getReferenceById(postId);
+            post.addUserDislike(user);
+            postRepository.save(post);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removePostDislike(Long postId, User user) {
+        if (postRepository.getReferenceById(postId).getUserDislikes().contains(user)) {
+            Post post = postRepository.getReferenceById(postId);
+            post.removeUserDislike(user);
+            postRepository.save(post);
+            return true;
+        }
+        return false;
+    }
+
     public Long getTotalPostsForDay(User owner, LocalDate date) {
         return postRepository.countByCreatedAt(owner, date);
     }

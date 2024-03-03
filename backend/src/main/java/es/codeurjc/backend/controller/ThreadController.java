@@ -61,7 +61,9 @@ public class ThreadController {
             private String elapsedTime;
             private String text;
             private boolean hasImage;
+            private boolean isLiked;
             private int likes;
+            private boolean isDisliked;
             private int dislikes;
             private boolean isOwner;
 
@@ -95,10 +97,19 @@ public class ThreadController {
 
                 this.dislikes = post.getDislikes();
 
-                this.isOwner = false;
+                String activeUser = null;
                 if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-                    this.isOwner = (principal.getName().equals(this.username))
-                            || userService.isAdmin(principal.getName());
+                    activeUser = principal.getName();
+                }
+
+                if (activeUser != null) {
+                    this.isLiked = post.getUserLikes().contains(userService.getUserByUsername(activeUser));
+                    this.isDisliked = post.getUserDislikes().contains(userService.getUserByUsername(activeUser));
+                    this.isOwner = (activeUser.equals(this.username)) || userService.isAdmin(principal.getName());
+                } else {
+                    this.isLiked = false;
+                    this.isDisliked = false;
+                    this.isOwner = false;
                 }
             }
         }
