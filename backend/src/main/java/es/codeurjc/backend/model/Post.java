@@ -49,14 +49,8 @@ public class Post {
     @ManyToMany
     private List<User> userLikes;
 
-    @Transient
-    private int likes;
-
     @ManyToMany
     private List<User> userDislikes;
-
-    @Transient
-    private int dislikes;
 
     @Column(nullable = false)
     private int reports;
@@ -72,9 +66,7 @@ public class Post {
         this.imageFile = imageFile;
         this.owner = owner;
         this.userLikes = userLikes;
-        this.likes = userLikes.size();
         this.userDislikes = userDislikes;
-        this.dislikes = userDislikes.size();
         this.reports = reports;
     }
 
@@ -124,12 +116,11 @@ public class Post {
     }
 
     public int getLikes() {
-        return likes;
+        return userLikes.size();
     }
 
     public void setUserLikes(List<User> userLikes) {
         this.userLikes = userLikes;
-        this.likes = userLikes.size();
     }
 
     public List<User> getUserDislikes() {
@@ -137,12 +128,11 @@ public class Post {
     }
 
     public int getDislikes() {
-        return dislikes;
+        return userDislikes.size();
     }
 
     public void setUserDislikes(List<User> userDislikes) {
         this.userDislikes = userDislikes;
-        this.dislikes = userDislikes.size();
     }
 
     public int getReports() {
