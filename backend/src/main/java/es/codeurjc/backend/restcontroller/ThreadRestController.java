@@ -24,4 +24,11 @@ public class ThreadRestController {
         return threadService.getPaginatedThreadsByUsername(page, size, username);
     }
 
+    @GetMapping("/paginated")
+    public Page<Thread> getPaginatedThreads(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        return threadService.getPaginatedThreads(page, size);
+    }
+
 }

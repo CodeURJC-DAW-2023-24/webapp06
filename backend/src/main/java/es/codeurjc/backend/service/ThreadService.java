@@ -70,4 +70,9 @@ public class ThreadService {
             return false;
         }
     }
+
+    public Page<Thread> getPaginatedThreads(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return threadRepository.findAll(pageable);
+    }
 }
