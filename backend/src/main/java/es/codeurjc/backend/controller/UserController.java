@@ -67,12 +67,7 @@ public class UserController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("numberPosts", post.size());
         model.addAttribute("numberThreads", threads.size());
-        model.addAttribute("threads", threads);
         model.addAttribute("equalUserOrAdmin", equalUserOrAdmin);
-
-        for (Thread thread : threads) {
-            thread.setNumberPosts();
-        }
 
         return "profile";
     }
