@@ -22,5 +22,13 @@ public class UserRestController {
             @RequestParam(value = "size", defaultValue = "10") int size) {
         return userService.getUsersPaginated(page, size);
     }
+
+    @GetMapping("/search")
+    public Page<User> getUsersByUsernameStartingWithPaginated(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "username") String username) {
+        return userService.getUsersByUsernameStartingWith(username, page, size);
+    }
     
 }

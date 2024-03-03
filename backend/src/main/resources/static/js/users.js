@@ -1,7 +1,9 @@
 var page = 0;
+var isSearchMode = false;
+var lastSearchQuery = "";
 
 document.addEventListener("DOMContentLoaded", function () {
-  addNewElements();
+  loadUsers();
 });
 
 function createUserHtml(username) {
@@ -48,8 +50,14 @@ function createUserHtml(username) {
   `;
 }
 
-async function addNewElements() {
+async function loadUsers() {
   showSpinner(true);
+  isSearchMode = false;
+  lastSearchQuery = "";
+
+  console.log(
+    "https://localhost:8443/user/paginated?page=" + page + "&size=10"
+  );
 
   const response = await fetch(
     "https://localhost:8443/user/paginated?page=" + page + "&size=10",
@@ -64,19 +72,24 @@ async function addNewElements() {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
   const data = await response.json();
 
+  addNewElements(data);
+}
+
+async function addNewElements(data) {
   page += 1;
+
+  console.log(page);
 
   if (page >= data.totalPages) {
     document.getElementById("loadMoreUsersButton").style.display = "none";
+  } else {
+    document.getElementById("loadMoreUsersButton").style.display = "block";
   }
 
   const container = document.getElementById("user-container");
-  if (!container) {
-    console.error("The container was not found in the DOM");
-    return;
-  }
 
   showSpinner(false);
 
@@ -90,7 +103,46 @@ function showSpinner(show) {
   spinner.style.display = show ? "block" : "none";
 }
 
-function searchUser() {
-  const username = document.getElementById("usernameInput").value;
-  console.log("Searching for user:", username);
+async function searchUser(lastSearch, pageParameter = 0) {
+  page = pageParameter;
+  var username;
+  isSearchMode = true;
+  showSpinner(true);
+
+  if (lastSearch != null) {
+    username = lastSearch;
+  } else {
+    username = document.getElementById("usernameInput").value;
+    const container = document.getElementById("user-container");
+    container.innerHTML = "";
+  }
+
+  const response = await fetch(
+    "https://localhost:8443/user/search?page=" +
+      page +
+      "&size=10&username=" +
+      username,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const data = await response.json();
+
+  addNewElements(data);
+}
+
+function loadMoreUsers() {
+  if (isSearchMode) {
+    searchUser(lastSearchQuery, page);
+  } else {
+    loadUsers();
+  }
 }

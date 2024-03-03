@@ -88,8 +88,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String users(Model model,
-            @RequestParam(value = "username", required = false) String username) {
+    public String users() {
         return "users_template";
     }
 

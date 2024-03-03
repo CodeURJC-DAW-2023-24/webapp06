@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -89,8 +90,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getUsersByUsernameStartingWith(String prefix) {
-        return userRepository.findByUsernameStartingWith(prefix);
+    public Page<User> getUsersByUsernameStartingWith(String prefix, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findByUsernameStartingWith(prefix, pageable);
     }
 
     public Boolean isAdmin(String username) {
