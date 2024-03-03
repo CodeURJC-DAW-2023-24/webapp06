@@ -61,6 +61,7 @@ public class SecurityConfiguration {
 						.requestMatchers("/chart-rest/posts/weekly").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/posts/monthly").hasAnyRole("USER")
 						.requestMatchers("/chart-rest/posts/annually").hasAnyRole("USER")
+						.requestMatchers("/t/*/delete").hasAnyRole("USER")
 						.requestMatchers("/user/users").hasAnyRole("ADMIN")
 						.requestMatchers("/user/paginated").hasAnyRole("ADMIN")
 						.anyRequest().authenticated())
