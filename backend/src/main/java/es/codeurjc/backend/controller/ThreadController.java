@@ -21,7 +21,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/t")
@@ -143,5 +145,27 @@ public class ThreadController {
         }
         return "redirect:/f/" + forum.getName();
     }
+
+    @PostMapping("/{threadName}/addPost")
+    public String addPost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
+                            @PathVariable String threadName) {
+        if (postText != null) {
+            //String name = principal.getName();
+            //User loggeduser;
+            //Post newPost = new Post(postText, null, loggeduser, 0, 0, 0);
+            Post newPost = new Post();
+            newPost.setText(postText);
+            Thread thread = threadService.getThreadByName(threadName);
+            List<Post> posts = thread.getPosts();
+            posts.add(newPost);
+            thread.setPosts(posts);
+            return "redirect:/t/" + threadName;
+        } else {
+            return "error-500";
+        }
+    }
+
+    
+    
 
 }
