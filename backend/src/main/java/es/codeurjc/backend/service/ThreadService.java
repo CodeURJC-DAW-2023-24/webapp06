@@ -9,14 +9,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.model.Forum;
+import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.repository.ForumRepository;
+import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 
 @Service
 public class ThreadService {
 
     @Autowired
+    private ForumRepository forumRepository;
+    
+    @Autowired
     private ThreadRepository threadRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     public Thread getThreadByName(String name) {
         return threadRepository.findByName(name).orElseThrow();
@@ -50,6 +59,15 @@ public class ThreadService {
         Pageable pageable = PageRequest.of(page, size);
         return threadRepository.findByUsernamePaginated(username, pageable);
     }
-
     
+    public Boolean deleteThread(Thread thread) {
+        try {
+            for (Post post : thread.getPosts())
+                postRepository.delete(post);
+            threadRepository.delete(thread);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

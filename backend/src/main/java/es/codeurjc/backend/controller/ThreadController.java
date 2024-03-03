@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.ThreadService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -121,6 +123,25 @@ public class ThreadController {
         model.addAttribute("forums", forumService.getAllForums());
 
         return "thread";
+    }
+
+    @GetMapping("/{threadName}/delete")
+    public String deleteThread(Model model, Principal principal, @PathVariable String threadName, HttpSession session) {
+        Thread thread = threadService.getThreadByName(threadName);
+        Forum forum = thread.getForum();
+        boolean isAdmin = false;
+        boolean isThreadOwner = false;
+        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
+            String username = principal.getName();
+            isAdmin = userService.isAdmin(username);
+            String threadCreator = thread.getCreator().getUsername();
+            isThreadOwner = threadCreator.equals(username);
+        }
+        if (isAdmin || isThreadOwner) {
+            forumService.removeThreadFromForum(forum, thread);
+            threadService.deleteThread(thread);
+        }
+        return "redirect:/f/" + forum.getName();
     }
 
 }
