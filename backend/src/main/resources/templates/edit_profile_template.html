@@ -42,18 +42,10 @@
             Update Profile
           </button>
         </div>
-        <input type="hidden" name="_csrf" value="{{token}}"/>
+        <input type="hidden" name="_csrf" value="{{token}}" />
       </form>
     </div>
   </div>
 </div>
-<script>
-  var loadFile = function (event) {
-    var output = document.getElementById("output");
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function () {
-      URL.revokeObjectURL(output.src);
-    };
-  };
-</script>
+<script src="/js/image.js"></script>
 {{>footer}}

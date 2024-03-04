@@ -184,7 +184,8 @@
         </button>
       </div>      
 
-      <form id="uploadForm" action="/t/{{threadName}}/addPost" method="post">
+      <form id="uploadForm" action="/t/{{threadName}}/addPost" method="post"
+        enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{token}}"/>
         <div class="modal-body">
 
@@ -202,10 +203,20 @@
           
           <div class="form-group">
             <label for="dropzone">Image</label>
-            <div id="dropzone" class="dropzone dz-clickable">
-              <div class="dz-default dz-message">
-                <span> Drag images here or click to select.</span>
-              </div>
+            <div class="text-center w-100">
+              <input
+                type="file"
+                class="form-control-file"
+                id="postPicture"
+                name="imageFile"
+                accept="image/*"
+                onchange="loadFile(event)"
+              />
+              <img
+                id="output"
+                class=" w-100 mt-3"
+                style="width: 150px; height: 150px; object-fit: cover"
+              />
             </div>
           </div>
         </div>
@@ -247,7 +258,7 @@
         </button>
       </div>      
       
-      <form id="updateForm" action="/t/{{threadName}}/updatePost" method="post">
+      <form id="updateForm" action="/t/{{threadName}}/updatePost" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{token}}"/>
         <div class="modal-body">
 
@@ -263,14 +274,25 @@
             ></textarea>
             <input type="hidden" id="inputIdUpdate" name="copiaId">
           </div>
-          <!-- Drag and drop para imágenes -->
+          
           <div class="form-group">
             <label for="dropzone">Image</label>
             <div id="dropzone" class="dropzone dz-clickable">
-              <div class="dz-default dz-message">
-                <span> Drag images here or click to select.</span>
+              <div class="text-center w-100">
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="postPicture"
+                  name="imageFile"
+                  accept="image/*"
+                  onchange="loadFile(event)"
+                />
+                <img
+                  id="image_post"
+                  class=" w-100 mt-3"
+                  style="width: 150px; height: 150px; object-fit: cover"
+                />
               </div>
-            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -287,7 +309,7 @@
     </div>
   </div>
 </div>
-
+<script src="/js/image.js"></script>
 <script src="/js/likes.js"></script>
 <script src="/js/posts.js"></script>
 {{>footer}}

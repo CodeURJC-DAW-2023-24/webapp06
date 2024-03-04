@@ -1,14 +1,14 @@
 package es.codeurjc.backend.controller;
 
 import java.security.Principal;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.dto.PostTimeDTO;
@@ -20,13 +20,13 @@ import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/t")
@@ -112,13 +112,22 @@ public class ThreadController {
 
     @PostMapping("/{threadName}/addPost")
     public String addPost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
+            @RequestParam(name = "imageFile", required = false) MultipartFile imageFile,
             @PathVariable String threadName) throws Exception {
         String name = principal.getName();
         User activeUser = userService.getUserByUsername(name);
         List<User> userLikes = new ArrayList<>();
         List<User> userDislikes = new ArrayList<User>();
         Thread thread = threadService.getThreadByName(threadName);
-        Post newPost = new Post(postText, null, activeUser, thread, userLikes, userDislikes, 0);
+        Blob image = null;
+        if (imageFile != null && !imageFile.isEmpty()) {
+            try {
+                image = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
+            } catch (Exception e) {
+                return "error";
+            }
+        }
+        Post newPost = new Post(postText, image, activeUser, thread, userLikes, userDislikes, 0);
         threadService.addPostToThread(thread, newPost);
         return "redirect:/t/" + threadName;
 
@@ -126,9 +135,19 @@ public class ThreadController {
 
     @PostMapping("/{threadName}/updatePost")
     public String updatePost(Model model, Principal principal, @RequestParam("post-form-text") String postText,
-            @PathVariable String threadName, @RequestParam("copiaId") Long postId) {
+            @PathVariable String threadName, @RequestParam("copiaId") Long postId,
+            @RequestParam(name = "imageFile", required = false) MultipartFile imageFile) {
         Post updatedPost = postService.getPostById(postId);
         updatedPost.setText(postText);
+        if (imageFile != null && !imageFile.isEmpty()) {
+            try {
+                Blob image = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
+                updatedPost.setImage(image);
+            } catch (Exception e) {
+                return "error";
+            }
+        }
+        
         threadService.modifyPostFromThread(updatedPost);
         return "redirect:/t/" + threadName;
     }

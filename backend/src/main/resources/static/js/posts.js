@@ -22,8 +22,12 @@ async function editPost(button) {
   let postId = button.parentNode.getAttribute("data-id");
   let texts = document.getElementById("inputTextAreaUpdate");
   texts.value = "";
+
   let id = document.getElementById("inputIdUpdate");
   id.value = postId;
+
+  let postImage = document.getElementById("image_post");
+  postImage.src = "/image/post/" + postId;
 
   try {
     const response = await fetch("/p/update/" + postId, {

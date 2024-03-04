@@ -73,7 +73,6 @@ public class ThreadService {
     }
 
     public void addPostToThread(Thread thread, Post post){
-        postRepository.save(post);
         thread.getPosts().add(post);
         threadRepository.save(thread);
     }

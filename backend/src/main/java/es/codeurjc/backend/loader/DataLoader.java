@@ -68,13 +68,7 @@ public class DataLoader {
                 userRepository.saveAll(users);
                 List<User> userLikes = Arrays.asList(user4, user5, user6, user7, user8, user9);
                 List<User> userDislikes = Arrays.asList(user10, user11, user12, user13);
-                // ... guardar más usuarios si has creado más
-
-                // O si prefieres guardarlos todos a la vez
-                // userRepository.saveAll(Arrays.asList(user1, user2, ...));
-
-                // String imagePath = "/ruta/a/imagen.jpg";
-                // Blob imageBlob = imageService.loadImage(imagePath);
+                
                 Forum forum1 = new Forum("Books", null, "book");
                 Forum forum2 = new Forum("Technology", null, "laptop-code");
                 Forum forum3 = new Forum("Science", null, "flask");
