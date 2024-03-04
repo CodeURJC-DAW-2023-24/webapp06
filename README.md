@@ -210,32 +210,6 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 
 ## 🚀 Member participation
 
-### David Moreno Martín
-
-#### Text description:
-
-xxxx
-
-#### My 5 most significant commits
-
-| Commit | Descripción                                          | Link                                                                                            |
-| ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| #1     | Angular routing and Error 404 page                   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/faf6833f02d92a2a2e26fadf8b73201adedc1854 |
-| #2     | Angular Proxy integrated and API destinations format | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/b4374b60de88c73f82bdbf35b6026eb595bfb188 |
-| #3     | Angular localhost deployment in port 8443/new/       | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/93ea3c2b7d571ec84daac57f07418dcd88b04fb4 |
-| #4     | Bar chart added via API                              | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 |
-| #5     | House components and details                         | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 |
-
-#### The 5 files where I participated the most
-
-| Número fichero | Fichero                                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
-| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
-| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
-| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
-| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
-
 ### Juan Salguero Ibarrola
 
 #### Text description:
@@ -316,6 +290,31 @@ I helped my teammates in anyway I could, but I would like to highlight the role 
 | #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
 | #5             | [Thread Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ThreadService.java)     |
 
+### David Moreno Martín
+
+#### Text description:
+
+I was in charge of the visualization of the different threads within each category or forum. I also made the login, login error, and logout along with their html screens, although later it was necessary to make several changes due to the security in spring 3.2.2. I also made the navigation from the home screen to the different forums. Finally I was also in charge of researching and implementing the Principal so that our application could distinguish within the app itself and interactively if you were logged into the application, in addition to making several requirements of the readme and a thorough code cleanup.
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                          | Link                                                                                            |
+| ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| #1     | Login and login error                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/8161fc705f584cd6809f4c4e446437e2a0d4fd05 |
+| #2     | login working and css | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/63a1b765bdabc9128437cda518dda1dc567aeb26 |
+| #3     | Register screen and navbar redirect       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/458ba366349d45a9dd4fa39ce180dadf90e44105 |
+| #4     | Threads in forum and navegation                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/860f75e338a6b54b62aac30cc9d5c2975aa452df |
+| #5     | ReadMe requirements update and code CleanUp                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f156b228f322809ca08dc730885f97520fd65ffb |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             |  [login_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/login_template.html)          |
+| #2             | [LoginController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/LoginController.java)        |
+| #3             | [ForumController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/ForumController.java)                   |
+| #4             | [Forum_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/forum_template.html)         |
+| #5             | [README.md](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/README.md)  |
 
 ### Jorge Carbonero Asín
 
