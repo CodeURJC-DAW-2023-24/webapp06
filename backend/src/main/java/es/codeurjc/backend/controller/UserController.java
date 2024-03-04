@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    
+
     @Autowired
     private ThreadService threadService;
     @Autowired
@@ -34,17 +34,17 @@ public class UserController {
     @Autowired
     private PostService postService;
 
-     @ModelAttribute
+    @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-			model.addAttribute("logged", true);
-			model.addAttribute("username", principal.getName());
-			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-		} else {
-			model.addAttribute("logged", false);
-		}
-	}
+            model.addAttribute("logged", true);
+            model.addAttribute("username", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     @GetMapping("/profile/{username}")
     public String userProfile(Model model, Principal principal, @PathVariable String username) {
@@ -63,13 +63,18 @@ public class UserController {
     }
 
     @GetMapping("/delete/{username}")
-    public String deleteProfile(Model model, Principal principal, @PathVariable String username, HttpSession session) {
+    public String deleteProfile(Model model, Principal principal, @PathVariable String username, HttpSession session,
+            HttpServletRequest request) {
         boolean equalUserOrAdmin = userService.getEqualUserOrAdmin(principal.getName(), username);
         if (equalUserOrAdmin) {
             userService.deleteUser(username);
         }
-        session.invalidate();
-        return "redirect:/";
+        if (principal.getName() == username) {
+            session.invalidate();
+            return "redirect:/";
+        }
+        String referrer = request.getHeader("Referer");
+        return "redirect:" + referrer;
     }
 
     @GetMapping("/users")
@@ -88,7 +93,7 @@ public class UserController {
             }
             userService.getUserByUsername(username); // check user exist
         }
-        CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
         model.addAttribute("token", token.getToken());
         model.addAttribute("username", username != null ? username : principal.getName());
         return "edit_profile_template";
