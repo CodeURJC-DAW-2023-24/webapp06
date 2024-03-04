@@ -1,7 +1,6 @@
 package es.codeurjc.backend.controller;
 
 import java.security.Principal;
-import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
+import es.codeurjc.backend.dto.PostTimeDTO;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.service.ForumService;
@@ -65,77 +65,20 @@ public class ThreadController {
     public String getThread(Model model, Principal principal, @PathVariable String threadName) {
         Thread thread = threadService.getThreadByName(threadName);
 
-        class PostWithElapsedTime {
-            private Long id;
-            private String username;
-            private String elapsedTime;
-            private String text;
-            private boolean hasImage;
-            private boolean isLiked;
-            private int likes;
-            private boolean isDisliked;
-            private int dislikes;
-            private boolean isOwner;
-
-            public PostWithElapsedTime(Post post, Principal principal) {
-                this.id = post.getId();
-                this.username = post.getOwner().getUsername();
-
-                Instant postTime = post.getCreatedAt().toInstant();
-                Instant currentTime = Instant.now();
-                Duration duration = Duration.between(postTime, currentTime);
-
-                long seconds = duration.getSeconds();
-                long days = seconds / (60 * 60 * 24);
-                long hours = seconds / (60 * 60);
-                long minutes = seconds / 60;
-
-                if (days > 0) {
-                    this.elapsedTime = days + " days ago";
-                } else if (hours > 0) {
-                    this.elapsedTime = hours + " hours ago";
-                } else if (minutes > 0) {
-                    this.elapsedTime = minutes + " minutes ago";
-                } else
-                    this.elapsedTime = seconds + " seconds ago";
-
-                this.text = post.getText();
-
-                this.hasImage = post.getImageFile() != null;
-
-                this.likes = post.getLikes();
-
-                this.dislikes = post.getDislikes();
-
-                String activeUser = null;
-                if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-                    activeUser = principal.getName();
-                }
-
-                if (activeUser != null) {
-                    this.isLiked = post.getUserLikes().contains(userService.getUserByUsername(activeUser));
-                    this.isDisliked = post.getUserDislikes().contains(userService.getUserByUsername(activeUser));
-                    this.isOwner = (activeUser.equals(this.username)) || userService.isAdmin(principal.getName());
-                } else {
-                    this.isLiked = false;
-                    this.isDisliked = false;
-                    this.isOwner = false;
-                }
-            }
-        }
-
-        List<PostWithElapsedTime> postsInfo = new ArrayList<>();
-        for (Post post : thread.getPosts()) {
-            postsInfo.add(new PostWithElapsedTime(post, principal));
-        }
-
+        User activeUser = null;
         boolean isAdmin = false;
         boolean isThreadOwner = false;
         if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
             String username = principal.getName();
+            activeUser = userService.getUserByUsername(username);
             isAdmin = userService.isAdmin(username);
             String threadCreator = thread.getOwner().getUsername();
             isThreadOwner = threadCreator.equals(username);
+        }
+
+        List<PostTimeDTO> postsInfo = new ArrayList<>();
+        for (Post post : thread.getPosts()) {
+            postsInfo.add(new PostTimeDTO(post, activeUser, isAdmin));
         }
 
         model.addAttribute("threadName", thread.getName());
