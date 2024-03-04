@@ -206,6 +206,7 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 - **Post:** Represents a message within a Thread.
 
 ## 📊 Class and Template Diagram
+![Class diagram](./images/phase_2/diagram.png)
 
 ## 🚀 Member participation
 
