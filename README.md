@@ -212,11 +212,11 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 
 ### David Moreno Martín
 
-#### Descripción textual:
+#### Text description:
 
 xxxx
 
-#### 5 commits más significativos
+#### My 5 most significant commits
 
 | Commit | Descripción                                          | Link                                                                                            |
 | ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -226,7 +226,7 @@ xxxx
 | #4     | Bar chart added via API                              | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 |
 | #5     | House components and details                         | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 |
 
-#### 5 ficheros más participación
+#### The 5 files where I participated the most
 
 | Número fichero | Fichero                                                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -238,11 +238,11 @@ xxxx
 
 ### Juan Salguero Ibarrola
 
-#### Descripción textual:
+#### Text description:
 
 I set up the project base with all dependencies, security, MySQL connection, and database creation with Docker. I have implemented the email sending system, statistics generation, pagination, and the entire image system. The screens that I have created are user listing, edit profile, show profile, display the custom error screen, the chart screen, the navbar differentiating between logged in and not logged in users, and the entire user activation system.
 
-#### 5 commits más significativos
+#### My 5 most significant commits
 
 | Commit | Descripción                                                    | Link                                                                                             |
 | ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -252,7 +252,7 @@ I set up the project base with all dependencies, security, MySQL connection, and
 | #4     | Add chart and REST controllers for threads                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/329d4733cb21f99717ba764d50bceb7457a65f13 |
 | #5     | Improved pagination and added pagination to forum                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/728a361bad3b80b9e13621c33d415272a9fec7ac  |
 
-#### 5 ficheros con más participación
+#### The 5 files where I participated the most
 
 | Número fichero | Fichero                                                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -265,11 +265,11 @@ I set up the project base with all dependencies, security, MySQL connection, and
 
 ### Miguel Quero Prieto
 
-#### Descripción textual:
+#### Text description:
 
-In our practice, I've been actively involved in enhancing our web application's functionality. My contributions have been pivotal in implementing crucial features such as visualizing Tendring Categories based on user types, displaying all application categories, completing the registration process, handling errors on the registration screen, and implementing SQL algorithms. I've played a significant role in key files like the Register Controller, Forum Repository, Forum Service, Home Screen HTML, and Register Screens HTML. Through my commits, I've demonstrated my commitment to driving the project forward and ensuring its success.
+In our practice, I've been actively involved in enhancing our web application's functionality. My contributions have been pivotal in implementing crucial features such as visualizing Trending Categories based on user types, displaying all application categories, completing the registration process, handling errors on the registration screen, and implementing SQL algorithms. I've played a significant role in key files like the Register Controller, Forum Repository, Forum Service, Home Screen HTML, and Register Screens HTML. Through my commits, I've demonstrated my commitment to driving the project forward and ensuring its success.
 
-#### 5 commits más significativos
+#### My 5 most significant commits
 
 | Commit | Descripción                                                    | Link                                                                                             |
 | ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -279,7 +279,7 @@ In our practice, I've been actively involved in enhancing our web application's 
 | #4     | Error handling for the registration screen                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/683ea0177fe684dbd0b138c1dc5f70ab1550a71c |
 | #5     | Complete SQL algorithms                                        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc  |
 
-#### 5 ficheros con más participación
+#### The 5 files where I participated the most
 
 | Número fichero | Fichero                                                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -292,12 +292,11 @@ In our practice, I've been actively involved in enhancing our web application's 
 
 ### Adrián Dueñas Minguez
 
-#### Descripción textual:
+#### Text description:
 
-I  helped my teammates in anyway I could, but I would like to highlight the role I played in the development of the functionalities around the threads, the dorsal spine of our proyect, and the posts. Specifically, I developed the functions that allow to create, edit and delete Posts from threads and most of the sorrounding needs. 
+I helped my teammates in anyway I could, but I would like to highlight the role I played in the development of the functionalities around the threads, the dorsal spine of our proyect, and the posts. Specifically, I developed the functions that allow to create, edit and delete Posts from threads and most of the surrounding needs. 
 
-
-#### 5 commits más significativos
+#### My 5 most significant commits
 
 | Commit | Descripción                                                    | Link                                                                                             |
 | ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -307,7 +306,7 @@ I  helped my teammates in anyway I could, but I would like to highlight the role
 | #4     | Report screen set up                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/5618cf656629f369a96b2b2fe2c57b33cbad4999 |
 | #5     | addPosts development                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/7350afefe409a9334e6ebb8d7379f70e9511fd70 |
 
-#### 5 ficheros con más participación
+#### The 5 files where I participated the most
 
 | Número fichero | Fichero                                                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -316,3 +315,30 @@ I  helped my teammates in anyway I could, but I would like to highlight the role
 | #3             | [Post.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/static/js/posts.js)                                   |
 | #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
 | #5             | [Thread Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ThreadService.java)     |
+
+
+### Jorge Carbonero Asín
+
+#### Text description:
+
+I've mainly been in charge of the functionality of the app itself. My main contributions have been to thread visualization, making likes, dislikes and reports work. I have also been very involved in designing the database and fixing the issues that showed up around the app. I've also been testing the app and helping my teammates.
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                                    | Link                                                                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Posts liked and disliked are updated ServerSide                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/4f135f1173a1ed79c3b5e1605780655df8c16f98 |
+| #2     | Report screen functionality added                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fc7aefcad9bbb95972c1c9b6db61da73244737d1 |
+| #3     | Fixed reporting of posts                                       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b91cb444b17b05225169da62ca5e2099bf9f49ba |
+| #4     | Threads can be deleted                                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/db61bc024d26fccff162a5f533e0cbd3753127fd |
+| #5     | Posts can be reported                                          | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/137563e76e665212c08c5bd4fe6d535a43f91673 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                      |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)  |
+| #2             | [Post Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/service/PostService.java)               |
+| #3             | [Post](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/model/Post.java)                                |
+| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
+| #5             | [likes.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/likes.js)                                        |
