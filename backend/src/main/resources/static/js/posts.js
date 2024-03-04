@@ -54,9 +54,8 @@ async function editPost(button) {
 
 async function deletePost(button) {
   let postId = button.parentNode.getAttribute("data-id");
-  let thread = button.parentNode.getAttribute("thread-name");
 
-  const response = await fetch("/p/delete/" + postId + "/" + thread, {
+  const response = await fetch("/p/delete/" + postId + "/" + threadName, {
     method: "GET",
   });
 

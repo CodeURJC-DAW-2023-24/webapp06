@@ -161,6 +161,7 @@
   </div>
 </div>
 
+{{>footer_template}}
 
 <div
   class="modal fade"
@@ -309,7 +310,10 @@
     </div>
   </div>
 </div>
+<script>
+  const threadName = "{{threadName}}"
+</script>
 <script src="/js/image.js"></script>
 <script src="/js/likes.js"></script>
 <script src="/js/posts.js"></script>
-{{>footer_template}}
+
