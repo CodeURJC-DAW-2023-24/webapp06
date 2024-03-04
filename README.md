@@ -48,7 +48,6 @@
 - Anonymous users will be shown a list of the most trending threads in the last 2 days.
 - For registered users, this list will be filtered to only show threads from forums where they are active.
 
-
 ---
 
 # Phase 1
@@ -90,7 +89,6 @@ In this screen we also have a shortcut to the categories/forums, so we don't hav
 
 ![Forum Screen](./images/phase_1/forum.png)
 
-
 ### Thread Screen
 
 Anonymous users can see all post made in the thread but cant interact with them nor can they add posts. They can also navigate to other forum categories from here.
@@ -108,7 +106,6 @@ Registered users will be able to see, interact and report all posts from the thr
 Administrators can contribute to threads the same way registered users can. In addition, they can delete the thread and edit or delete any post within it. They can also navigate to other forum categories from here.
 
 ![Thread Screen Admin](./images/phase_1/thread_admin.png)
-
 
 ### Edit Profile Screen
 
@@ -128,15 +125,11 @@ Profile Screen Registered, this page displays the administrator's profile. It co
 
 ![Profile Screen Admin](./images/phase_1/profilescreenadmin.png)
 
-
 ### Charts Screen
 
 Charts Screen, here is a histogram that summarizes the statistics of the posts created by the user, weekly, monthly, or annually.
 
 ![Charts Screen](./images/phase_1/chartsscreen.png)
-
-
-
 
 ### Users Screen (Admin)
 
@@ -153,4 +146,173 @@ Here there will be displayed a list of recently reported posts and how many repo
 ## 🗺️ Navigation Diagram
 
 ![Reports Screen](./images/phase_1/navigation_diagram.png)
- 
+
+---
+
+# Phase 2
+
+## 🗺️ Navigation Diagram
+
+![Navigation Screen](./images/phase_2/navigation_diagram.png)
+
+## 🖥️ Execution Guidelines
+
+- For the implementation of the application we have used GitHub Desktop, Docker desktop and Visual Studio Code.
+
+- In order to run the application in Visual Studio Code it is necessary to install the "Extension Pack for Java" and "Spring Boot Extension Pack" extensions. Note that we have used Spring Boot 3.2.2 for the application.
+
+- Once that is done, the first thing to do would be to clone the repository and place yourself on the main branch, once in main, with Visual Studio (or the editor you use) open the folder
+
+```
+backend/src/main/java/es/codeurjc/backend
+```
+
+- This is the folder where all the application code is located.
+
+- When you are already inside the folder, you look for the file "BackendApplication.java" which is the main file of the program and the one that will start the application.
+- Before doing this, it is important to have the database available. In our case, we have chosen to do it using docker. Specifically for everything to work, we must have the image and the container built and started in docker desktop. To do this, we must be located in the folder
+
+```
+backend/docker
+```
+
+- And run the command:
+
+```
+docker build -t mysql_daw .
+```
+
+- And then:
+
+```
+docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authentication-plugin=mysql_native_password
+```
+
+- The first one is used to build a Docker image using a Dockerfile present in the current directory (.). The -t option allows you to assign a name and optionally a label to the image. In this case, you are calling the image mysql_daw.
+
+- After building the image, we must run a container based on that image. This command starts a container called inforum_mysql, runs it in the background (-d), maps port 3306 on the host to port 3306 in the container (-p 3306:3306), and specifies the image you just built (mysql_daw). It also includes the option --default-authentication-plugin=mysql_native_password, which sets the default authentication plugin for MySQL.
+
+- Once we have the database instance, we execute the "BackendApplication.java" file and we will see how the database is connected to the application and the tables with their respective data are created. When it is finished, we will be able to use the application.
+- To do this, we must go in our browser to "https://localhost:8443" and when we get the warning that the connection is not private we must click on "Advanced" and then on "Proceed to localhost (unsafe)".
+- If we have done everything correctly, we will be inside the application, with all the functionalities and data loaded.
+
+## 📂 Entities Diagram
+
+![Class diagram](./images/phase_2/entity.png)
+
+- **User:** The User entity contains personal and authentication information about the user.
+- **Forum:** Represents a specific category where users can create threads.
+- **Thread:** Represents a conversation within a Forum.
+- **Post:** Represents a message within a Thread.
+
+## 📊 Class and Template Diagram
+![Class diagram](./images/phase_2/diagram.png)
+
+## 🚀 Member participation
+
+### David Moreno Martín
+
+#### Descripción textual:
+
+xxxx
+
+#### 5 commits más significativos
+
+| Commit | Descripción                                          | Link                                                                                            |
+| ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| #1     | Angular routing and Error 404 page                   | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/faf6833f02d92a2a2e26fadf8b73201adedc1854 |
+| #2     | Angular Proxy integrated and API destinations format | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/b4374b60de88c73f82bdbf35b6026eb595bfb188 |
+| #3     | Angular localhost deployment in port 8443/new/       | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/93ea3c2b7d571ec84daac57f07418dcd88b04fb4 |
+| #4     | Bar chart added via API                              | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/bb3b7d29f7a256c5afd2f1ceeeff84c0040a7247 |
+| #5     | House components and details                         | https://github.com/CodeURJC-DAW-2022-23/webapp4/commit/46db2496f2e28a764b64b8ef46ba09955c18fe35 |
+
+#### 5 ficheros más participación
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
+| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
+| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
+| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
+| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
+
+### Juan Salguero Ibarrola
+
+#### Descripción textual:
+
+I set up the project base with all dependencies, security, MySQL connection, and database creation with Docker. I have implemented the email sending system, statistics generation, pagination, and the entire image system. The screens that I have created are user listing, edit profile, show profile, display the custom error screen, the chart screen, the navbar differentiating between logged in and not logged in users, and the entire user activation system.
+
+#### 5 commits más significativos
+
+| Commit | Descripción                                                    | Link                                                                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | implementation email verification for account activation       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/1079ce988111789ac53597399cd1cc77affc1b58 |
+| #2     | Enhance chart.js and chart_template to display post statistics | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/30dc1d5295eaf569c70949df9d4022b0c87b9b4a |
+| #3     | Improved performance of user deletion process                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/0acc1f72e4650b2b1999ea068373f52b02d2425b |
+| #4     | Add chart and REST controllers for threads                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/329d4733cb21f99717ba764d50bceb7457a65f13 |
+| #5     | Improved pagination and added pagination to forum                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/728a361bad3b80b9e13621c33d415272a9fec7ac  |
+
+#### 5 ficheros con más participación
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
+| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
+| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
+| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
+| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
+
+
+### Miguel Quero Prieto
+
+#### Descripción textual:
+
+In our practice, I've been actively involved in enhancing our web application's functionality. My contributions have been pivotal in implementing crucial features such as visualizing Tendring Categories based on user types, displaying all application categories, completing the registration process, handling errors on the registration screen, and implementing SQL algorithms. I've played a significant role in key files like the Register Controller, Forum Repository, Forum Service, Home Screen HTML, and Register Screens HTML. Through my commits, I've demonstrated my commitment to driving the project forward and ensuring its success.
+
+#### 5 commits más significativos
+
+| Commit | Descripción                                                    | Link                                                                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Visualize the Tendring Categories according to the type of user| https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc |
+| #2     | Visualize all the categories of the application                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/50b3d59c52140a8ef84d6024bd95fd2a6f893b8d |
+| #3     | Complete the registration process                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/cfad0c27fec079c17c4d8977bf424c11c32ba5d8 |
+| #4     | Error handling for the registration screen                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/683ea0177fe684dbd0b138c1dc5f70ab1550a71c |
+| #5     | Complete SQL algorithms                                        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc  |
+
+#### 5 ficheros con más participación
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Register Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/controller/RegisterController.java)           |
+| #2             | [Forum Repository](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/repository/ForumRepository.java)        |
+| #3             | [Forum Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/service/ForumService.java)                   |
+| #4             | [Home Screen HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/home.html)         |
+| #5             | [Register Screens HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/register.html) |
+
+
+### Adrián Dueñas Minguez
+
+#### Descripción textual:
+
+I  helped my teammates in anyway I could, but I would like to highlight the role I played in the development of the functionalities around the threads, the dorsal spine of our proyect, and the posts. Specifically, I developed the functions that allow to create, edit and delete Posts from threads and most of the sorrounding needs. 
+
+
+#### 5 commits más significativos
+
+| Commit | Descripción                                                    | Link                                                                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | addPost working                                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/9e8a061f6fdffa7c2534b33d31c309e7dd00502a |
+| #2     | delete posts working                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b29d7b2e9a882f59509a08e45ea8e316041ea55a |
+| #3     | Edit post working                                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/613c1941c5ef19787a6c72ebe5b5cf525dce641a |
+| #4     | Report screen set up                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/5618cf656629f369a96b2b2fe2c57b33cbad4999 |
+| #5     | addPosts development                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/7350afefe409a9334e6ebb8d7379f70e9511fd70 |
+
+#### 5 ficheros con más participación
+
+| Número fichero | Fichero                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)|
+| #2             | [Thread.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/templates/thread.html)                            |
+| #3             | [Post.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/static/js/posts.js)                                   |
+| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
+| #5             | [Thread Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ThreadService.java)     |

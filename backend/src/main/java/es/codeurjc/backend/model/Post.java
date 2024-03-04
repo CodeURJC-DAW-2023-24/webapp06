@@ -5,11 +5,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.sql.Blob;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "posts")
@@ -21,39 +29,46 @@ public class Post {
     @Column(nullable = false)
     private String text;
     
-    private String image;
+    @Lob
+    @JsonIgnore
+    private Blob imageFile;
     
-    @OneToOne
-    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
-    
-    @Column(nullable = false)
-    private int likes;
 
-    @Column(nullable = false)
-    private int dislikes;
+    @ManyToOne
+    @JoinColumn(name = "thread_id")
+    @JsonBackReference
+    private Thread thread;
+    
+    @ManyToMany
+    private List<User> userLikes;
+
+    @ManyToMany
+    private List<User> userDislikes;
 
     @Column(nullable = false)
     private int reports;
 
-    // Constructors, getters, and setters
     public Post() {
-        // Default constructor
+
     }
 
-    public Post(String text, String image, User creator, int likes, int dislikes, int reports) {
+    public Post(String text, Blob imageFile, User owner, Thread thread, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
         this.text = text;
-        this.image = image;
-        this.creator = creator;
-        this.likes = likes;
-        this.dislikes = dislikes;
+        this.imageFile = imageFile;
+        this.owner = owner;
+        this.thread = thread;
+        this.userLikes = userLikes;
+        this.userDislikes = userDislikes;
         this.reports = reports;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -70,20 +85,28 @@ public class Post {
         this.text = text;
     }
 
-    public String getImage() {
-        return image;
+    public Blob getImageFile() {
+        return imageFile;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(Blob imageFile) {
+        this.imageFile = imageFile;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
     }
 
     public Date getCreatedAt() {
@@ -94,20 +117,28 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public int getLikes() {
-        return likes;
+    public List<User> getUserLikes() {
+        return userLikes;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public int getLikes() {
+        return userLikes.size();
+    }
+
+    public void setUserLikes(List<User> userLikes) {
+        this.userLikes = userLikes;
+    }
+
+    public List<User> getUserDislikes() {
+        return userDislikes;
     }
 
     public int getDislikes() {
-        return dislikes;
+        return userDislikes.size();
     }
 
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
+    public void setUserDislikes(List<User> userDislikes) {
+        this.userDislikes = userDislikes;
     }
 
     public int getReports() {
@@ -117,4 +148,21 @@ public class Post {
     public void setReports(int reports) {
         this.reports = reports;
     }
+
+    public boolean addUserLike(User user) {
+        return userLikes.add(user);
+    }
+    
+    public boolean removeUserLike(User user) {
+        return userLikes.remove(user);
+    }
+
+    public boolean addUserDislike(User user) {
+        return userDislikes.add(user);
+    }
+    
+    public boolean removeUserDislike(User user) {
+        return userDislikes.remove(user);
+    }
+    
 }

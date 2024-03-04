@@ -1,0 +1,15 @@
+{{>header_template}}
+<div class="container mt-5 flex-grow-1 mb-3">
+  <h2 class="text-center">Reported Posts</h2>
+
+  <!-- List of Posts -->
+  <div class="list-group" id="post-container"></div>
+  {{>spinner_template}}
+  <div class="text-center mt-3">{{>add_more_elements_button_template}}</div>
+</div>
+
+<script src="/js/report.js"></script>
+<script src="/js/paginated.js"></script>
+<script src="/js/spinner.js"></script>
+
+{{>footer_template}}

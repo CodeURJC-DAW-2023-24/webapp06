@@ -1,0 +1,51 @@
+{{>header_template}}
+<div class="container mt-5 flex-grow-1">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-3">Edit Profile</h2>
+      <form
+        action="/user/update-profile/{{username}}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="Enter your new username"
+          />
+        </div>
+        <div class="form-group d-flex flex-column align-items-start">
+          <label for="profilePicture" class="mb-2">Profile Picture</label>
+          <div class="text-center w-100">
+            <input
+              type="file"
+              class="form-control-file"
+              id="profilePicture"
+              name="imageFile"
+              accept="image/*"
+              onchange="loadFile(event)"
+            />
+            <img
+              src="/image/user/{{username}}"
+              id="output"
+              class="rounded-circle mt-3"
+              style="width: 150px; height: 150px; object-fit: cover"
+            />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="btn btn-primary col-8">
+            Update Profile
+          </button>
+        </div>
+        <input type="hidden" name="_csrf" value="{{token}}" />
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/js/image.js"></script>
+{{>footer_template}}

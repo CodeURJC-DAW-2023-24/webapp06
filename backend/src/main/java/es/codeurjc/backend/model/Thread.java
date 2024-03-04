@@ -6,13 +6,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "threads")
@@ -24,28 +29,39 @@ public class Thread {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "forum_id")
+    @JsonBackReference
+    private Forum forum;
+
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
+    @JsonManagedReference
     private List<Post> posts;
 
-    @OneToOne
-    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
-    // Constructors
+    @Transient
+    private int numberPosts;
+
     public Thread() {
+
     }
 
-    public Thread(String name, List<Post> posts, User creator) {
+    public Thread(String name, Forum forum, List<Post> posts, User owner) {
         this.name = name;
+        this.forum = forum;
         this.posts = posts;
-        this.creator = creator;
+        this.owner = owner;
+        this.numberPosts = posts.size();
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -62,20 +78,29 @@ public class Thread {
         this.name = name;
     }
 
+    public Forum getForum() {
+        return forum;
+    }
+
+    public void setForum(Forum forum) {
+        this.forum = forum;
+    }
+
     public List<Post> getPosts() {
         return posts;
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+        this.numberPosts = posts.size();
     }
 
-    public User getCreator() {
-        return creator;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Date getCreatedAt() {
@@ -86,16 +111,22 @@ public class Thread {
         this.createdAt = createdAt;
     }
 
-    // toString method
+    public int getNumberPosts() {
+        return numberPosts;
+    }
+
+    public void setNumberPosts() {
+        this.numberPosts = this.posts.size();
+    }
+
     @Override
     public String toString() {
         return "Thread{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", posts=" + posts +
-                ", creator=" + creator +
+                ", creator=" + owner +
                 ", createdAt=" + createdAt +
                 '}';
     }
 }
-

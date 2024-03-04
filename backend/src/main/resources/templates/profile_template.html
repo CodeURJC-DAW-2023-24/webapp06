@@ -1,0 +1,44 @@
+{{>header_template}}
+<div class="container mt-5 flex-grow-1">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="text-center">
+        <img
+          src="/image/user/{{username}}"
+          class="rounded-circle mb-3"
+          alt="Imagen Perfil"
+          style="width: 150px; height: 150px"
+        />
+        <h3>{{username}}</h3>
+        <p>{{numberPosts}} Post</p>
+        <p>{{numberThreads}} Threads</p>
+        {{#equalUserOrAdmin}}
+        <button
+          type="button"
+          class="btn btn-link text-decoration-none btn-delete"
+          data-toggle="modal"
+          data-target="#deleteAccountModal{{username}}"
+        >
+          <i class="fas fa-trash btn-delete"></i> Delete Account
+        </button>
+        {{/equalUserOrAdmin}}
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h2>Threads</h2>
+      {{>spinner_template}}
+      <div class="list-group mb-3" id="thread-container"></div>
+      <div class="text-center mt-3">{{>add_more_elements_button_template}}</div>
+    </div>
+  </div>
+</div>
+<script>
+  const username = "{{username}}";
+  document.addEventListener("DOMContentLoaded", function () {
+    getThreads();
+  });
+</script>
+<script src="/js/profile.js"></script>
+<script src="/js/paginated.js"></script>
+<script src="/js/spinner.js"></script>
+{{>user_delete_modal_template}} {{>footer_template}}

@@ -1,0 +1,32 @@
+{{>header_template}}
+<div class="container mt-5 flex-grow-1 mb-3">
+  <form id="userSearchForm">
+    <div class="col mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Find user..."
+          name="username"
+          id="usernameInput"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onclick="searchUser()"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="list-group" id="user-container"></div>
+  <div class="text-center mt-3">{{>add_more_elements_button_template}}</div>
+  {{>spinner_template}}
+</div>
+<script src="/js/paginated.js"></script>
+<script src="/js/users.js"></script>
+<script src="/js/spinner.js"></script>
+{{>footer_template}}

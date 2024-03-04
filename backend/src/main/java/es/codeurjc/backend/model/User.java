@@ -1,5 +1,6 @@
 package es.codeurjc.backend.model;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -7,11 +8,18 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "users")
@@ -30,26 +38,36 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private Boolean isActive;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
     @ElementCollection(fetch = FetchType.EAGER)
-	private List<String> roles;
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private List<String> roles;
+
+    @Lob
+    @JsonIgnore
+    private Blob imageFile;
 
     public User() {
-        // Constructor por defecto
+
     }
 
-    // Constructor con parámetros
-    public User(String username, String email, String password, String... roles) {
+    public User(String username, String email, String password, String... roles) throws Exception {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = List.of(roles);
+        Resource imageUser = new ClassPathResource("example/user/user_profile.webp");
+        this.imageFile = BlobProxy.generateProxy(imageUser.getInputStream(), imageUser.contentLength());
+        this.isActive = false;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -91,14 +109,29 @@ public class User {
     }
 
     public List<String> getRoles() {
-		return roles;
-	}
+        return roles;
+    }
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
-    // Método toString() para imprimir los detalles del usuario
+    public Blob getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(Blob image) {
+        this.imageFile = image;
+    }
+
+    public Boolean getIsActive(){
+        return isActive;
+    }
+
+    public Boolean setIsActive(boolean isActive){
+        return this.isActive = isActive;
+    }
+
     @Override
     public String toString() {
         return "User{" +

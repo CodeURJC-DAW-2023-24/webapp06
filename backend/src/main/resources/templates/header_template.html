@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inforum</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="/css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Inforum</a>
+      {{^logged}}
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-light" href="/register"
+              >Sign Up</a
+            >
+          </li>
+        </ul>
+      </div>
+      {{/logged}} {{#logged}}
+      <div class="ml-auto dropdown">
+        <button
+          class="btn dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            src="/image/user/{{username}}"
+            class="rounded-circle"
+            alt="Profile"
+            style="width: 30px; height: 30px"
+          />
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <a class="dropdown-item" href="/user/profile/{{username}}"
+            >View Profile</a
+          >
+          <a class="dropdown-item" href="/user/edit-profile">Edit Profile</a>
+          <a class="dropdown-item" href="/chart">Statistics</a>
+          {{#admin}}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/user/users">Users</a>
+          <a class="dropdown-item" href="/reports">Reported Posts</a>
+          {{/admin}}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/logout">Log Out</a>
+        </div>
+      </div>
+      {{/logged}}
+    </nav>
+  </body>
+</html>

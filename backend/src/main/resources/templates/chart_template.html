@@ -1,0 +1,49 @@
+{{>header_template}}
+<div class="container mt-5 flex-grow-1">
+  <h2 class="text-center">Thread and Post Statistics</h2>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+        <button
+          id="weeklyButton"
+          class="btn btn-primary"
+          onclick="getWeekly(getDateWeek())"
+        >
+          Weekly
+        </button>
+        <button
+          id="monthlyButton"
+          class="btn btn-outline-primary"
+          onclick="getMonthly(convertDateFormatBackend(formatDate(new Date())))"
+        >
+          Monthly
+        </button>
+        <button
+          id="annuallyButton"
+          class="btn btn-outline-primary"
+          onclick="getAnnually(convertDateFormatBackend(formatDate(new Date())))"
+        >
+          Annual
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container md-6 mt-4" id="weekPicker">
+    <div class="d-flex justify-content-center align-items-center">
+      <a class="mr-3" onclick="changeWeek(-1)">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div id="weekRange" class="text-center">24/09/2001 - 30/09/2001</div>
+      <a class="ml-3" onclick="changeWeek(1)">
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <canvas id="statics"></canvas>
+    </div>
+  </div>
+</div>
+<script src="/js/chart.js"></script>
+{{>footer_template}}

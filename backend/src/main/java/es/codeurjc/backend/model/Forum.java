@@ -8,8 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "forums")
@@ -23,12 +23,12 @@ public class Forum {
 
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
+    @JsonManagedReference
     private List<Thread> threads;
 
     @Column(nullable = false)
     private String icon;
 
-    // Constructors
     public Forum() {
     }
 
@@ -38,7 +38,6 @@ public class Forum {
         this.icon = icon;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -71,7 +70,6 @@ public class Forum {
         this.icon = icon;
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Forum{" +
