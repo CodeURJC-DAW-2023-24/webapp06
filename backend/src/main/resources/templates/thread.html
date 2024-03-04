@@ -1,18 +1,14 @@
 {{>header}}
 
-<!-- contenido -->
 <div class="container mt-4 flex-grow-1">
   <div class="row">
-    <!-- Columna de Título de Categoría y Posts -->
     <div class="col-md-8 mb-3">
       <div
         class="col-12 d-flex justify-content-between align-items-center mb-3"
       >
-        <!-- Título de la Categoría con Icono -->
         <h2 class="mb-0 col-8">
           <a href="/f/{{forumName}}"><i class="fas fa-{{forumIcon}} fa-lg"></i></a> {{threadName}}
         </h2>
-        <!-- Botón post -->
         <div>
           {{#isOwnerOrAdmin}}
           <a
@@ -36,7 +32,6 @@
       </div>
 
       <div class="list-group">
-        <!-- Post 1 -->
         {{#posts}}
         <div class="col-12 mb-3">
           <div class="card no-hover">
@@ -58,11 +53,8 @@
             </div>
 
             <div class="card-body">
-              <!-- Contenido del Post -->
               <p class="card-text">{{text}}</p>
             </div>
-
-            <!-- Imagen Principal del Post, ahora más pequeña y al final del card -->
             {{#hasImage}}
             <div class="d-flex justify-content-center pb-3">
               <img
@@ -122,9 +114,7 @@
               <i id="dislikeIcon" class="fas fa-thumbs-down"></i>
               {{/isDisliked}} <span id="dislikeText">{{dislikes}}</span>
               </button>
-              <!-- Espaciador para empujar el siguiente botón hacia la derecha -->
               <div class="ml-auto"></div>
-              <!-- Text Button al lado derecho -->
               {{#logged}}
               <button type="button" class="btn btn-link text-decoration-none"
               id="reporter"
@@ -155,11 +145,9 @@
       </div>
     </div>
 
-    <!-- Lista de Categorías -->
     <div class="col-md-4 mb-3">
       <h2 class="">Categories</h2>
       <div class="list-group mb-3">
-        <!-- Categorías -->
         {{#forums}}
         <a
           href="/f/{{name}}"
@@ -173,7 +161,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+
 <div
   class="modal fade"
   id="uploadModal"
@@ -195,11 +183,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>      
-      <!-- Formulario -->
+
       <form id="uploadForm" action="/t/{{threadName}}/addPost" method="post">
         <input type="hidden" name="_csrf" value="{{token}}"/>
         <div class="modal-body">
-          <!-- Campo de texto -->
+
           <div class="form-group">
             <label for="inputText">Text</label>
             <textarea
@@ -211,7 +199,7 @@
               required
             ></textarea>
           </div>
-          <!-- Drag and drop para imágenes -->
+          
           <div class="form-group">
             <label for="dropzone">Image</label>
             <div id="dropzone" class="dropzone dz-clickable">
@@ -258,11 +246,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>      
-      <!-- Formulario -->
+      
       <form id="updateForm" action="/t/{{threadName}}/updatePost" method="post">
         <input type="hidden" name="_csrf" value="{{token}}"/>
         <div class="modal-body">
-          <!-- Campo de texto -->
+
           <div class="form-group">
             <label for="inputText">Text</label>
             <textarea

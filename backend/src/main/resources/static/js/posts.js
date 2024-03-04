@@ -24,17 +24,17 @@ async function editPost(button) {
   texts.value = "";
   let id = document.getElementById("inputIdUpdate");
   id.value = postId;
-  
-  try{
-  const response = await fetch("/p/update/" + postId, {
-    method: "GET",
-  });
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+  try {
+    const response = await fetch("/p/update/" + postId, {
+      method: "GET",
+    });
 
-  const data = await response.text();
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.text();
     texts.value = data;
   } catch (error) {
     console.error("Error al obtener el texto: ", error);
@@ -45,8 +45,6 @@ async function deletePost(button) {
   let postId = button.parentNode.getAttribute("data-id");
   let thread = button.parentNode.getAttribute("thread-name");
 
-  //"/t/" + thread + "/deletePost/" + postId
-  //"/p/delete/" + postId + "/" + thread
   const response = await fetch("/p/delete/" + postId + "/" + thread, {
     method: "GET",
   });
