@@ -88,7 +88,7 @@ public class ThreadController {
         model.addAttribute("posts", postsInfo);
         model.addAttribute("forums", forumService.getAllForums());
 
-        return "thread";
+        return "thread_template";
     }
 
     @GetMapping("/{threadName}/delete")
@@ -124,7 +124,7 @@ public class ThreadController {
             try {
                 image = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
             } catch (Exception e) {
-                return "error";
+                return "error_template";
             }
         }
         Post newPost = new Post(postText, image, activeUser, thread, userLikes, userDislikes, 0);
@@ -144,7 +144,7 @@ public class ThreadController {
                 Blob image = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
                 updatedPost.setImage(image);
             } catch (Exception e) {
-                return "error";
+                return "error_template";
             }
         }
         

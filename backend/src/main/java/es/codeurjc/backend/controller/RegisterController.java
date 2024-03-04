@@ -38,7 +38,7 @@ public class RegisterController {
   public String register(Model model, HttpServletRequest request) {
     CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
     model.addAttribute("token", token.getToken());
-    return "register";
+    return "register_template";
   }
 
   @PostMapping("/post")
@@ -51,7 +51,7 @@ public class RegisterController {
       return "register_error_template";
     } else {
       userService.createUser(username, email, password);
-      return "register_done";
+      return "register_done_template";
     }
   }
 }

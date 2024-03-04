@@ -37,7 +37,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String login() {
-        return "home";    
+        return "home_template";    
     }
 
 

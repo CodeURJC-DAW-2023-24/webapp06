@@ -1,4 +1,4 @@
-{{>header}}
+{{>header_template}}
 <div class="container mt-5 flex-grow-1">
   <div class="row">
     <div class="col-md-4">
@@ -28,9 +28,7 @@
       <h2>Threads</h2>
       {{>spinner_template}}
       <div class="list-group mb-3" id="thread-container"></div>
-      <div class="text-center mt-3">
-        {{>add_more_elements_button_template}}
-      </div>
+      <div class="text-center mt-3">{{>add_more_elements_button_template}}</div>
     </div>
   </div>
 </div>
@@ -43,4 +41,4 @@
 <script src="/js/profile.js"></script>
 <script src="/js/paginated.js"></script>
 <script src="/js/spinner.js"></script>
-{{>user_delete_modal_template}} {{>footer}}
+{{>user_delete_modal_template}} {{>footer_template}}

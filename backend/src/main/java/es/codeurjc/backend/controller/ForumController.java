@@ -24,7 +24,7 @@ import es.codeurjc.backend.service.UserService;
 @Controller
 @RequestMapping("/f")
 public class ForumController {
-    
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -50,11 +50,11 @@ public class ForumController {
         List<Thread> threads = threadService.getThreadsByForum(forum);
         model.addAttribute("forum", forum);
         model.addAttribute("threads", threads);
-        for (Thread thread : threads){
+        for (Thread thread : threads) {
             thread.setNumberPosts();
         }
-        model.addAttribute("forums", forumService.getAllForums());   
-        return "forum";
+        model.addAttribute("forums", forumService.getAllForums());
+        return "forum_template";
     }
 
     @PostMapping("/{forumName}/addThread")

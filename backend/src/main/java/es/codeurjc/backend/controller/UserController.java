@@ -59,7 +59,7 @@ public class UserController {
         model.addAttribute("numberPosts", post.size());
         model.addAttribute("numberThreads", threads.size());
         model.addAttribute("equalUserOrAdmin", equalUserOrAdmin);
-        return "profile";
+        return "profile_template";
     }
 
     @GetMapping("/delete/{username}")
