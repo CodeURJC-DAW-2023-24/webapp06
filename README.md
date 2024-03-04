@@ -256,11 +256,11 @@ I set up the project base with all dependencies, security, MySQL connection, and
 
 | Número fichero | Fichero                                                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             | [error-page Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/error-page)           |
-| #2             | [destination Components](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination)        |
-| #3             | [rating Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/rating)                   |
-| #4             | [house Component](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/frontend/src/app/components/destination/house)         |
-| #5             | [public/new Deployment](https://github.com/CodeURJC-DAW-2022-23/webapp4/tree/DesarrolloAngular2/allCode/Backend/idealTrip/src/main/resources/public/new) |
+| #1             | [UserController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/UserController.java)           |
+| #2             | [ChartRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/ChartRestController.java)        |
+| #3             | [paginated.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/paginated.js)                   |
+| #4             | [ThreadRepository.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/repository/ThreadRepository.java)         |
+| #5             | [EmailService.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/service/EmailService.java) |
 
 
 ### Miguel Quero Prieto
