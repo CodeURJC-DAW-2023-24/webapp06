@@ -134,7 +134,7 @@ public class ThreadController {
         if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
             String username = principal.getName();
             isAdmin = userService.isAdmin(username);
-            String threadCreator = thread.getCreator().getUsername();
+            String threadCreator = thread.getOwner().getUsername();
             isThreadOwner = threadCreator.equals(username);
         }
 
@@ -157,7 +157,7 @@ public class ThreadController {
         if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
             String username = principal.getName();
             isAdmin = userService.isAdmin(username);
-            String threadCreator = thread.getCreator().getUsername();
+            String threadCreator = thread.getOwner().getUsername();
             isThreadOwner = threadCreator.equals(username);
         }
         if (isAdmin || isThreadOwner) {

@@ -97,8 +97,16 @@ public class Post {
         return owner;
     }
 
-    public void setOwner(User creator) {
-        this.owner = creator;
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
     }
 
     public Date getCreatedAt() {

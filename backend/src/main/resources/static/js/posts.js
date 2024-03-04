@@ -36,6 +36,13 @@ async function editPost(button) {
 
     const data = await response.text();
     texts.value = data;
+    const response2 = await fetch("/p/invalidate/" + postId, {
+      method: "GET",
+    });
+
+    if (!response2.ok) {
+      throw new Error("Network response was not ok");
+    }
   } catch (error) {
     console.error("Error al obtener el texto: ", error);
   }

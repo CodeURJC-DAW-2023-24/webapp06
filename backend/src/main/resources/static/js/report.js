@@ -8,6 +8,11 @@ async function validatePost(validateButton) {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
+  const container = document.getElementById("post-container");
+  container.innerHTML = "";
+  page = 0;
+  getPosts();
 }
 
 function createThreadHtml(post) {
@@ -32,8 +37,9 @@ function createThreadHtml(post) {
       >
       <a
         class="btn btn-link text-primary p-0 mr-2"
-        title="View Profile"
+        title="View Thread"
         style="text-decoration: none"
+        href="/t/${post.thread.name}"
       >
         <i class="fas fa-eye"></i>
       </a>
@@ -41,7 +47,7 @@ function createThreadHtml(post) {
         class="btn btn-link text-primary p-0 mr-2"
         title="Validate"
         style="text-decoration: none"
-        onclick="validatePost(${post});"
+        onclick="validatePost(this);"
         data-id="${post.id}"
       >
         <i class="fas fa-check"></i>

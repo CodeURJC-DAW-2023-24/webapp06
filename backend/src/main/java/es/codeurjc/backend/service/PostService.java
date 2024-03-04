@@ -83,6 +83,14 @@ public class PostService {
         post.setReports(-1);
         postRepository.save(post);
     }
+    
+    public void invalidatePost(Long postId) {
+        Post post = postRepository.getReferenceById(postId);
+        if (post.getReports() < 0) {
+            post.setReports(0);
+            postRepository.save(post);
+        }
+    }
 
     public Long getTotalPostsForDay(User owner, LocalDate date) {
         return postRepository.countByCreatedAt(owner, date);

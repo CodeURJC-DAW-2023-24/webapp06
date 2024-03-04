@@ -95,12 +95,12 @@ public class Thread {
         this.numberPosts = posts.size();
     }
 
-    public User getCreator() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setCreator(User creator) {
-        this.owner = creator;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Date getCreatedAt() {

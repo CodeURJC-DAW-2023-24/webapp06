@@ -3,12 +3,14 @@ package es.codeurjc.backend.restcontroller;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.codeurjc.backend.dto.PostDTO;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
@@ -61,7 +63,8 @@ public class PostRestController {
     }
 
     @GetMapping("/delete/{postId}/{threadName}")
-    public boolean deletePost(Model model, Principal principal, @PathVariable String postId, @PathVariable String threadName) {
+    public boolean deletePost(Model model, Principal principal, @PathVariable String postId,
+            @PathVariable String threadName) {
         Thread thread = threadService.getThreadByName(threadName);
         threadService.deletePostFromThread(thread, Long.parseLong(postId));
         return true;
@@ -74,16 +77,29 @@ public class PostRestController {
         return text;
     }
 
+    @GetMapping("/report/{postId}")
+    public boolean getMethodName(Model model, Principal principal, @PathVariable String postId) {
+        postService.reportPost(Long.parseLong(postId));
+        return true;
+    }
+
     @GetMapping("/validate/{postId}")
     public void validatePost(Model model, Principal principal, @PathVariable String postId) {
         postService.validatePost(Long.parseLong(postId));
+    }    
+
+    @GetMapping("/invalidate/{postId}")
+    public void invalidatePost(Model model, Principal principal, @PathVariable String postId) {
+        postService.invalidatePost(Long.parseLong(postId));
     }
 
     @GetMapping("/reports")
-    public Page<Post> getReportedPaginated(
+    public Page<PostDTO> getReportedPaginated(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
-        return postService.getReportedPosts(page, size);
+        Page<Post> posts = postService.getReportedPosts(page, size);
+        Page<PostDTO> postsDTO = posts.map(post -> new PostDTO(post));
+        return postsDTO;
     }
 
     @GetMapping("/threads/{threadId}/posts")
