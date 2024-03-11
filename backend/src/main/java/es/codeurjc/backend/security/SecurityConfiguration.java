@@ -89,7 +89,7 @@ public class SecurityConfiguration {
 
 	@Bean
 	@Order(2)
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 		http.authenticationProvider(authenticationProvider());
 		http
 				.authorizeHttpRequests(authorize -> authorize
