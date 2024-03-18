@@ -1,11 +1,37 @@
-# DockerfileSpring para la aplicación Spring Boot
+#################################################
+# Imagen base para el contenedor de compilación
+#################################################
+FROM maven:3.8.4-openjdk-17 as build
+
+# Define el directorio de trabajo donde ejecutar comandos
+WORKDIR /project
+
+# Copia las dependencias del proyecto
+COPY ./pom.xml /project/
+
+# Descarga las dependencias del proyecto
+RUN mvn dependency:go-offline
+
+# Copia el código del proyecto
+COPY ./src /project/src
+
+# Compila el proyecto
+RUN mvn clean package -DskipTests
+
+#################################################
+# Imagen base para el contenedor de la aplicación
+#################################################
 FROM openjdk:17-oracle
 
-# Argumento para especificar la ubicación del archivo JAR desde el directorio target
-ARG JAR_FILE=./target/backend-0.0.1-SNAPSHOT.jar
+# Define el directorio de trabajo donde se encuentra el JAR
+WORKDIR /usr/app/
 
-# Copia el JAR construido con Maven al contenedor
-COPY ${JAR_FILE} app.jar
+# Copia el JAR del contenedor de compilación al contenedor de la aplicación
+COPY --from=build /project/target/backend-0.0.1-SNAPSHOT.jar /usr/app/app.jar
 
-# Punto de entrada para ejecutar la aplicación Spring Boot
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Indica el puerto que expone el contenedor
+EXPOSE 8443
+
+# Comando que se ejecuta al iniciar el contenedor
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
+
