@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ../backend
+      dockerfile: DockerfileSpring
+    ports:
+      - "8443:8443"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/inforumdb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SERVER_PORT=8443
+      - SERVER_SSL_KEY_STORE=classpath:keystore.p12
+      - SERVER_SSL_KEY_STORE_PASSWORD=inforum
+      - SERVER_SSL_KEY_STORE_TYPE=PKCS12
+      - SERVER_SSL_KEY_ALIAS=inforum
+      - JWT_SECRET=change
+      # Define el resto de las variables de entorno según sea necesario.
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: inforumdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:  # Esto persistirá los datos entre los despliegues del contenedor.
