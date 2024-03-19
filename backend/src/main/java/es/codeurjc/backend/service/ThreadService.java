@@ -23,6 +23,10 @@ public class ThreadService {
     @Autowired
     private PostRepository postRepository;
 
+    public Thread getThreadById(Long id) {
+        return threadRepository.getReferenceById(id);
+    }
+
     public Thread getThreadByName(String name) {
         return threadRepository.findByName(name).orElseThrow();
     }

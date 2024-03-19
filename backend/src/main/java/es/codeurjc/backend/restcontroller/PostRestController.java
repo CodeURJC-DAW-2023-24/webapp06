@@ -3,14 +3,13 @@ package es.codeurjc.backend.restcontroller;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.backend.dto.PostDTO;
+import es.codeurjc.backend.dto.PostReportDTO;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
@@ -94,11 +93,11 @@ public class PostRestController {
     }
 
     @GetMapping("/reports")
-    public Page<PostDTO> getReportedPaginated(
+    public Page<PostReportDTO> getReportedPaginated(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
         Page<Post> posts = postService.getReportedPosts(page, size);
-        Page<PostDTO> postsDTO = posts.map(post -> new PostDTO(post));
+        Page<PostReportDTO> postsDTO = posts.map(post -> new PostReportDTO(post));
         return postsDTO;
     }
 

@@ -63,9 +63,10 @@ public class SecurityConfiguration {
 		http
 				.authorizeHttpRequests(authorize -> authorize
 						// PRIVATE ENDPOINTS
-						.requestMatchers(HttpMethod.POST, "/api/books/").hasRole("USER")
-						.requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
-						.requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/api/posts/").hasRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/posts/*").hasRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/posts/*").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/posts/reported").hasRole("ADMIN")
 						// PUBLIC ENDPOINTS
 						.anyRequest().permitAll());
 

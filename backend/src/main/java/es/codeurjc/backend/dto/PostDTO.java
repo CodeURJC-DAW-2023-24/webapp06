@@ -1,66 +1,97 @@
 package es.codeurjc.backend.dto;
 
+import java.util.Date;
+
 import es.codeurjc.backend.model.Post;
-import es.codeurjc.backend.model.Thread;
-import es.codeurjc.backend.model.User;
 
 public class PostDTO {
     private Long id;
-    
     private String text;
-    
-    private User owner;
-
-    private Thread thread;
-
+    //private Blob imageFile;
+    private String ownerUsername;
+    private Date createdAt;
+    private String threadName;
+    private int likes;
+    private int dislikes;
     private int reports;
 
-    public PostDTO() {};
-
     public PostDTO(Post post) {
-        id = post.getId();
-        text = post.getText();
-        owner = post.getOwner();
-        thread = post.getThread();
-        reports = post.getReports();
+        this.id = post.getId();
+        this.text = post.getText();
+        this.ownerUsername = post.getOwner().getUsername();
+        this.createdAt = post.getCreatedAt();
+        this.threadName = post.getThread().getName();
+        this.likes = post.getLikes();
+        this.dislikes = post.getDislikes();
+        this.reports = post.getReports();
     }
 
-    // Getters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getText() {
         return text;
     }
 
-    public User getOwner() {
-        return owner;
+    public void setText(String text) {
+        this.text = text;
+    }
+    /*
+    public Blob getImageFile() {
+        return imageFile;
     }
 
-    public Thread getThread() {
-        return thread;
+    public void setImage(Blob imageFile) {
+        this.imageFile = imageFile;
+    }
+    */
+    public String getOwnerUsrname() {
+        return ownerUsername;
+    }
+
+    public void setOwner(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
+    }
+
+    public String getThreadName() {
+        return threadName;
+    }
+
+    public void setThread(String threadName) {
+        this.threadName = threadName;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
     }
 
     public int getReports() {
         return reports;
-    }
-
-    // Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public void setThread(Thread thread) {
-        this.thread = thread;
     }
 
     public void setReports(int reports) {

@@ -1,6 +1,7 @@
 package es.codeurjc.backend.service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,10 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    public Collection<Post> getPosts() {
+        return postRepository.findAll();
+    }
 
     public List<Post> getPostByOwner(User owner) {
         return postRepository.findByOwner(owner).orElseThrow();
