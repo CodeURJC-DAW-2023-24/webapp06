@@ -142,7 +142,7 @@ public class ThreadController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 Blob image = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
-                updatedPost.setImage(image);
+                updatedPost.setImageFile(image);
             } catch (Exception e) {
                 return "error_template";
             }

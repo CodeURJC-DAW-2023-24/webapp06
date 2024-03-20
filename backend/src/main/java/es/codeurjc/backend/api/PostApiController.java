@@ -1,13 +1,9 @@
 package es.codeurjc.backend.api;
 
-import java.net.http.HttpResponse;
 import java.security.Principal;
-import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,12 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.resource.HttpResource;
 
 import es.codeurjc.backend.dto.PostAddDTO;
 import es.codeurjc.backend.dto.PostDTO;
-import es.codeurjc.backend.dto.PostReportDTO;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
@@ -70,8 +64,9 @@ public class PostApiController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> getPosts(@RequestParam(required = false) Long threadId,
-            @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size) {
+    public ResponseEntity<?> getPosts(@RequestParam(value = "thread", required = false) Long threadId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         if (threadId == null) {
             ArrayList<PostDTO> posts = new ArrayList<>();
             for (Post post : postService.getPosts()) {
@@ -79,102 +74,126 @@ public class PostApiController {
             }
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }
-        if (page == null || size == null) {
-            ArrayList<PostDTO> posts = new ArrayList<>();
-            for (Post post : postService.getPostsByThread(threadId, 1, 100)) {
-                posts.add(new PostDTO(post));
-            }
-            return new ResponseEntity<>(posts, HttpStatus.OK);
+        try {
+            // Check if thread has been created by trying to access its name
+            // If this is not done it will just return an empty page
+            threadService.getThreadById(threadId).getName();
+
+            Page<Post> posts = postService.getPostsByThread(threadId, page, size);
+            Page<PostDTO> postsDTO = posts.map(post -> new PostDTO(post));
+            return new ResponseEntity<>(postsDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Thread with id " + threadId + " not found.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(postService.getPostsByThread(threadId, page, size), HttpStatus.OK);
+    }
+
+    @GetMapping("/reported")
+    public ResponseEntity<?> getReportedPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<Post> posts = postService.getReportedPosts(page, size);
+        Page<PostDTO> postsDTO = posts.map(post -> new PostDTO(post));
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPostsById(@PathVariable String postId) {
-        Post savedPost = postService.getPostById(Long.parseLong(postId));
-        if (savedPost == null) {
+        try {
+            Post savedPost = postService.getPostById(Long.parseLong(postId));
+            PostDTO post = new PostDTO(savedPost);
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
         }
-        PostDTO post = new PostDTO(savedPost);
-        return new ResponseEntity<>(post, HttpStatus.OK);
-    }
-
-    @GetMapping("/reported")
-    public ResponseEntity<Page<PostReportDTO>> getReportedPaginated(
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<Post> posts = postService.getReportedPosts(page, size);
-        Page<PostReportDTO> postsDTO = posts.map(post -> new PostReportDTO(post));
-        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<Post> updatePost(Model model, Principal principal, @PathVariable String postId, Post post) {
-        Post existingPost = postService.getPostById(Long.parseLong(postId));
-        if (existingPost != null) {
-            post.setId(post.getId());
-            postService.getPostById(post.getId());
+    public ResponseEntity<?> editPost(Model model, Principal principal, @PathVariable String postId, PostDTO updatedPost) {
+        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
+            if (userService.isAdmin(principal.getName())) {
+                try {
+                    Post existingPost = postService.getPostById(Long.parseLong(postId));
+                    updatedPost.setId(existingPost.getId());
+                    try {
+                        Post post = new Post(postId, null, userService.getUserByUsername(updatedPost.getOwnerUsername()), threadService.getThreadByName(updatedPost.getThreadName()), new ArrayList<>(), new ArrayList<>(), updatedPost.getReports());
+                        if (updatedPost.getThreadName() == existingPost.getThread().getName()) {
+                            postService.savePost(post);
+                        } else {
+                            threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
+                            threadService.addPostToThread(threadService.getThreadByName(updatedPost.getThreadName()), post);
+                        }
+                        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+                    } catch (Exception e) {
+                        return new ResponseEntity<>("Unable to edit post", HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
+                } catch (Exception e) {
+                    return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+                }
+            }
         }
-        return new ResponseEntity<>(post, HttpStatus.OK);
+        return new ResponseEntity<>("Unable to edit post", HttpStatus.UNAUTHORIZED);
+    }
+
+    @PatchMapping("/{postId}")
+    public ResponseEntity<?> patchPost(Model model, Principal principal, @PathVariable String postId,
+            Post updatedPost) {
+        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
+            if (userService.isAdmin(principal.getName())) {
+                //try {
+                    Post existingPost = postService.getPostById(Long.parseLong(postId));
+
+                    if (updatedPost.getText() != null) {
+                        existingPost.setText(updatedPost.getText());
+                    }
+                    if (updatedPost.getImageFile() != null) {
+                        existingPost.setImageFile(updatedPost.getImageFile());
+                    }
+                    if (updatedPost.getOwner() != null) {
+                        existingPost.setOwner(updatedPost.getOwner());
+                    }
+                    if (updatedPost.getCreatedAt() != null) {
+                        existingPost.setCreatedAt(updatedPost.getCreatedAt());
+                    }
+                    if (updatedPost.getUserLikes() != null) {
+                        existingPost.setUserLikes(updatedPost.getUserLikes());
+                    }
+                    if (updatedPost.getUserDislikes() != null) {
+                        existingPost.setUserDislikes(updatedPost.getUserDislikes());
+                    }
+                    if (updatedPost.getReports() != null) {
+                        existingPost.setReports(updatedPost.getReports());
+                    }
+                    if (updatedPost.getThread() != null) {
+                        if (updatedPost.getThread() == existingPost.getThread()) {
+                            postService.savePost(existingPost);
+                        } else {
+                            threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
+                            threadService.addPostToThread(updatedPost.getThread(), existingPost);
+                        }
+                    } else {
+                        postService.savePost(existingPost);
+                    }
+                    return new ResponseEntity<>(new PostDTO(existingPost), HttpStatus.OK);
+                //} catch (Exception e) {
+                    //return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+                //}
+            }
+        }
+        return new ResponseEntity<>("Unable to patch post", HttpStatus.UNAUTHORIZED);
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> deletePost(Model model, Principal principal, @PathVariable String postId) {
+    public ResponseEntity<?> deletePost(Model model, Principal principal, @PathVariable String postId) {
         if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-            String username = principal.getName();
-            Post post = postService.getPostById(Long.parseLong(postId));
-            Thread thread = post.getThread();
-            if (post.getOwner().getUsername() == username || userService.isAdmin(username)) {
-                threadService.deletePostFromThread(thread, Long.parseLong(postId));
-                return new ResponseEntity<>("Post deleted", HttpStatus.OK);
+            if (userService.isAdmin(principal.getName())) {
+                try {
+                    Post post = postService.getPostById(Long.parseLong(postId));
+                    threadService.deletePostFromThread(post.getThread(), post.getId());
+                    return new ResponseEntity<>("Post deleted", HttpStatus.OK);
+                } catch (Exception e) {
+                    return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+                }
             }
         }
         return new ResponseEntity<>("Unable to delete post", HttpStatus.UNAUTHORIZED);
-    }
-
-    @GetMapping("/{postId}/like")
-    public ResponseEntity<String> likePost(Model model, Principal principal, @PathVariable String postId) {
-        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-            String username = principal.getName();
-            User user = userService.getUserByUsername(username);
-            if (postService.addPostLike(Long.parseLong(postId), user)) {
-                postService.removePostDislike(Long.parseLong(postId), user);
-            } else {
-                postService.removePostLike(Long.parseLong(postId), user);
-            }
-            return new ResponseEntity<>("Post liked", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Unable to like post", HttpStatus.UNAUTHORIZED);
-    }
-
-    @GetMapping("/{postId}/dislike")
-    public ResponseEntity<String> dislikePost(Model model, Principal principal, @PathVariable String postId) {
-        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-            String username = principal.getName();
-            User user = userService.getUserByUsername(username);
-            if (postService.addPostDislike(Long.parseLong(postId), user)) {
-                postService.removePostLike(Long.parseLong(postId), user);
-            } else {
-                postService.removePostDislike(Long.parseLong(postId), user);
-            }
-            return new ResponseEntity<>("Post disliked", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Unable to dislike post", HttpStatus.UNAUTHORIZED);
-    }
-
-    @GetMapping("/{postId}/report")
-    public boolean reprtPost(Model model, Principal principal, @PathVariable String postId) {
-        postService.reportPost(Long.parseLong(postId));
-        return true;
-    }
-
-    @GetMapping("/{postId}/validate")
-    public void validatePost(Model model, Principal principal, @PathVariable String postId) {
-        postService.validatePost(Long.parseLong(postId));
-    }
-
-    @GetMapping("/{postId}/invalidate")
-    public void invalidatePost(Model model, Principal principal, @PathVariable String postId) {
-        postService.invalidatePost(Long.parseLong(postId));
     }
 }

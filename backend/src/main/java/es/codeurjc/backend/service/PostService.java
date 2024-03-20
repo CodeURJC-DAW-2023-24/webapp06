@@ -97,6 +97,10 @@ public class PostService {
         }
     }
 
+    public void savePost(Post post) {
+        postRepository.save(post);
+    }
+
     public Long getTotalPostsForDay(User owner, LocalDate date) {
         return postRepository.countByCreatedAt(owner, date);
     }

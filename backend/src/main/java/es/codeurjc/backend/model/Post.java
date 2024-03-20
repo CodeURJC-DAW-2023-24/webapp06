@@ -53,7 +53,7 @@ public class Post {
     private List<User> userDislikes;
 
     @Column(nullable = false)
-    private int reports;
+    private Integer reports;
 
     public Post() {
 
@@ -89,7 +89,7 @@ public class Post {
         return imageFile;
     }
 
-    public void setImage(Blob imageFile) {
+    public void setImageFile(Blob imageFile) {
         this.imageFile = imageFile;
     }
 
@@ -121,7 +121,7 @@ public class Post {
         return userLikes;
     }
 
-    public int getLikes() {
+    public Integer getLikes() {
         return userLikes.size();
     }
 
@@ -133,7 +133,7 @@ public class Post {
         return userDislikes;
     }
 
-    public int getDislikes() {
+    public Integer getDislikes() {
         return userDislikes.size();
     }
 
@@ -141,7 +141,7 @@ public class Post {
         this.userDislikes = userDislikes;
     }
 
-    public int getReports() {
+    public Integer getReports() {
         return reports;
     }
 

@@ -7,7 +7,7 @@ import es.codeurjc.backend.model.Post;
 public class PostDTO {
     private Long id;
     private String text;
-    //private Blob imageFile;
+    // private Blob imageFile;
     private String ownerUsername;
     private Date createdAt;
     private String threadName;
@@ -15,9 +15,26 @@ public class PostDTO {
     private int dislikes;
     private int reports;
 
+    public PostDTO() {
+    }
+
+    public PostDTO(Long id, String text, String ownerUsername, Date createdAt, String threadName,
+            int likes, int dislikes, int reports) {
+        this.id = id;
+        this.text = text;
+        // this.imageFile = imageFile;
+        this.ownerUsername = ownerUsername;
+        this.createdAt = createdAt;
+        this.threadName = threadName;
+        this.likes = likes;
+        this.dislikes = dislikes;
+        this.reports = reports;
+    }
+
     public PostDTO(Post post) {
         this.id = post.getId();
         this.text = post.getText();
+        // this.imageFile = post.getImageFile();
         this.ownerUsername = post.getOwner().getUsername();
         this.createdAt = post.getCreatedAt();
         this.threadName = post.getThread().getName();
@@ -41,20 +58,21 @@ public class PostDTO {
     public void setText(String text) {
         this.text = text;
     }
-    /*
-    public Blob getImageFile() {
-        return imageFile;
-    }
 
-    public void setImage(Blob imageFile) {
-        this.imageFile = imageFile;
-    }
-    */
-    public String getOwnerUsrname() {
+    /*
+     * public Blob getImageFile() {
+     * return imageFile;
+     * }
+     * 
+     * public void setImage(Blob imageFile) {
+     * this.imageFile = imageFile;
+     * }
+     */
+    public String getOwnerUsername() {
         return ownerUsername;
     }
 
-    public void setOwner(String ownerUsername) {
+    public void setOwnerUsername(String ownerUsername) {
         this.ownerUsername = ownerUsername;
     }
 
