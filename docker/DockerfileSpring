@@ -7,13 +7,13 @@ FROM maven:3.8.4-openjdk-17 as build
 WORKDIR /project
 
 # Copia las dependencias del proyecto
-COPY ./pom.xml /project/
+COPY backend/pom.xml /project/
 
 # Descarga las dependencias del proyecto
 RUN mvn dependency:go-offline
 
 # Copia el código del proyecto
-COPY ./src /project/src
+COPY backend/src /project/src
 
 # Compila el proyecto
 RUN mvn clean package -DskipTests

@@ -1,9 +1,7 @@
-version: '3.8'
+version: "3.8"
 services:
   app:
-    build:
-      context: ../backend
-      dockerfile: DockerfileSpring
+    image: jakurudev/spring-boot-daw:latest
     ports:
       - "8443:8443"
     environment:
@@ -20,6 +18,7 @@ services:
       # Define el resto de las variables de entorno según sea necesario.
     depends_on:
       - db
+    restart: on-failure
 
   db:
     image: mysql:8.0
@@ -34,4 +33,4 @@ services:
       - db-data:/var/lib/mysql
 
 volumes:
-  db-data:  # Esto persistirá los datos entre los despliegues del contenedor.
+  db-data: # Esto persistirá los datos entre los despliegues del contenedor.
