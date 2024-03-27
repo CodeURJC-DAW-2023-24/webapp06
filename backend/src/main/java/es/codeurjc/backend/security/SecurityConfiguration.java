@@ -66,6 +66,12 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.POST, "/api/books/").hasRole("USER")
 						.requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
 						.requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/api/chart/threads/weekly").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/chart/posts/weekly").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/chart/threads/monthly").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/chart/posts/monthly").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/chart/threads/annually").hasRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/chart/posts/annually").hasRole("USER")
 						// PUBLIC ENDPOINTS
 						.anyRequest().permitAll());
 
