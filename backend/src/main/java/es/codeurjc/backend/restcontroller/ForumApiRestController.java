@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
+
+import es.codeurjc.backend.exceptions.ForumNotFoundException;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.service.ForumService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,14 +45,16 @@ public ResponseEntity<?> getForums() {
 }
 
 @GetMapping("/{id}")
-@Operation(summary = "Gets a forum by id", description = "Provides a forum based on the specified id.", responses = {@ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json")), @ApiResponse(responseCode = "500", description = "Internal server error")
+@Operation(summary = "Gets a forum by id", description = "Provides a forum based on the specified id.", responses = {@ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json")), @ApiResponse(responseCode = "404", description = "Forum not found"), @ApiResponse(responseCode = "500", description = "Internal server error")
 })
 public ResponseEntity<?> getForumById(@PathVariable Long id) {
-  try {
-    Forum forum = forumService.getForumById(id);
-    return ResponseEntity.ok(forum);
-  } catch (JsonProcessingException exception) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ERROR_OCURRED);
-  }
-}
+        try {
+            Forum forum = forumService.getForumById(id);
+            return ResponseEntity.ok(forum);
+        } catch (ForumNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Forum not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ERROR_OCURRED);
+        }
+    }
 }

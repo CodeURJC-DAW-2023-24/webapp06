@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import es.codeurjc.backend.exceptions.ForumNotFoundException;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.repository.ForumRepository;
@@ -53,9 +54,10 @@ public class ForumService {
         forumRepository.save(forum);
     }
 
-    public Forum getForumById(Long id) throws JsonProcessingException {
-        return forumRepository.findById(id).orElseThrow();
-    }
+    public Forum getForumById(Long id) throws ForumNotFoundException {
+    return forumRepository.findById(id)
+            .orElseThrow(() -> new ForumNotFoundException("Forum with id " + id + " not found"));
+}
 
     public List<Forum> getAllForumsExcp() throws JsonProcessingException {
         return forumRepository.findAll();
