@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    image: jakurudev/spring-boot-daw:latest
+    image: jakurudev/spring-boot-daw:1.0
     ports:
       - "8443:8443"
     environment:
