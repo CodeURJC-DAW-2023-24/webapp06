@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.repository.ForumRepository;
@@ -48,5 +51,13 @@ public class ForumService {
         threadRepository.save(thread);
         forum.getThreads().add(thread);
         forumRepository.save(forum);
+    }
+
+    public Forum getForumById(Long id) throws JsonProcessingException {
+        return forumRepository.findById(id).orElseThrow();
+    }
+
+    public List<Forum> getAllForumsExcp() throws JsonProcessingException {
+        return forumRepository.findAll();
     }
 }
