@@ -206,6 +206,7 @@ docker run -d --name inforum_mysql -p 3306:3306 mysql_daw --default-authenticati
 - **Post:** Represents a message within a Thread.
 
 ## 📊 Class and Template Diagram
+
 ![Class diagram](./images/phase_2/diagram.png)
 
 ## 🚀 Member participation
@@ -224,18 +225,17 @@ I set up the project base with all dependencies, security, MySQL connection, and
 | #2     | Enhance chart.js and chart_template to display post statistics | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/30dc1d5295eaf569c70949df9d4022b0c87b9b4a |
 | #3     | Improved performance of user deletion process                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/0acc1f72e4650b2b1999ea068373f52b02d2425b |
 | #4     | Add chart and REST controllers for threads                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/329d4733cb21f99717ba764d50bceb7457a65f13 |
-| #5     | Improved pagination and added pagination to forum                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/728a361bad3b80b9e13621c33d415272a9fec7ac  |
+| #5     | Improved pagination and added pagination to forum              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/728a361bad3b80b9e13621c33d415272a9fec7ac |
 
 #### The 5 files where I participated the most
 
-| Número fichero | Fichero                                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             | [UserController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/UserController.java)           |
-| #2             | [ChartRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/ChartRestController.java)        |
-| #3             | [paginated.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/paginated.js)                   |
-| #4             | [ThreadRepository.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/repository/ThreadRepository.java)         |
-| #5             | [EmailService.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/service/EmailService.java) |
-
+| Número fichero | Fichero                                                                                                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [UserController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/UserController.java)               |
+| #2             | [ChartRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/ChartRestController.java) |
+| #3             | [paginated.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/paginated.js)                                             |
+| #4             | [ThreadRepository.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/repository/ThreadRepository.java)           |
+| #5             | [EmailService.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/service/EmailService.java)                       |
 
 ### Miguel Quero Prieto
 
@@ -245,50 +245,49 @@ In our practice, I've been actively involved in enhancing our web application's 
 
 #### My 5 most significant commits
 
-| Commit | Descripción                                                    | Link                                                                                             |
-| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| #1     | Visualize the Tendring Categories according to the type of user| https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc |
-| #2     | Visualize all the categories of the application                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/50b3d59c52140a8ef84d6024bd95fd2a6f893b8d |
-| #3     | Complete the registration process                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/cfad0c27fec079c17c4d8977bf424c11c32ba5d8 |
-| #4     | Error handling for the registration screen                     | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/683ea0177fe684dbd0b138c1dc5f70ab1550a71c |
-| #5     | Complete SQL algorithms                                        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc  |
+| Commit | Descripción                                                     | Link                                                                                             |
+| ------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Visualize the Tendring Categories according to the type of user | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc |
+| #2     | Visualize all the categories of the application                 | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/50b3d59c52140a8ef84d6024bd95fd2a6f893b8d |
+| #3     | Complete the registration process                               | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/cfad0c27fec079c17c4d8977bf424c11c32ba5d8 |
+| #4     | Error handling for the registration screen                      | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/683ea0177fe684dbd0b138c1dc5f70ab1550a71c |
+| #5     | Complete SQL algorithms                                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/aff66d340066cf886121fb11efa10710938a1cdc |
 
 #### The 5 files where I participated the most
 
-| Número fichero | Fichero                                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             | [Register Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/controller/RegisterController.java)           |
-| #2             | [Forum Repository](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/repository/ForumRepository.java)        |
-| #3             | [Forum Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/service/ForumService.java)                   |
-| #4             | [Home Screen HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/home_template.html)         |
-| #5             | [Register Screens HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/register_template.html) |
-
+| Número fichero | Fichero                                                                                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Register Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/controller/RegisterController.java) |
+| #2             | [Forum Repository](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/repository/ForumRepository.java)       |
+| #3             | [Forum Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/java/es/codeurjc/backend/service/ForumService.java)                |
+| #4             | [Home Screen HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/home_template.html)                         |
+| #5             | [Register Screens HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/backend/src/main/resources/templates/register_template.html)                |
 
 ### Adrián Dueñas Minguez
 
 #### Text description:
 
-I helped my teammates in anyway I could, but I would like to highlight the role I played in the development of the functionalities around the threads, the dorsal spine of our proyect, and the posts. Specifically, I developed the functions that allow to create, edit and delete Posts from threads and most of the surrounding needs. 
+I helped my teammates in anyway I could, but I would like to highlight the role I played in the development of the functionalities around the threads, the dorsal spine of our proyect, and the posts. Specifically, I developed the functions that allow to create, edit and delete Posts from threads and most of the surrounding needs.
 
 #### My 5 most significant commits
 
-| Commit | Descripción                                                    | Link                                                                                             |
-| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| #1     | addPost working                                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/9e8a061f6fdffa7c2534b33d31c309e7dd00502a |
-| #2     | delete posts working                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b29d7b2e9a882f59509a08e45ea8e316041ea55a |
-| #3     | Edit post working                                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/613c1941c5ef19787a6c72ebe5b5cf525dce641a |
-| #4     | Report screen set up                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/5618cf656629f369a96b2b2fe2c57b33cbad4999 |
-| #5     | addPosts development                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/7350afefe409a9334e6ebb8d7379f70e9511fd70 |
+| Commit | Descripción          | Link                                                                                             |
+| ------ | -------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | addPost working      | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/9e8a061f6fdffa7c2534b33d31c309e7dd00502a |
+| #2     | delete posts working | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b29d7b2e9a882f59509a08e45ea8e316041ea55a |
+| #3     | Edit post working    | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/613c1941c5ef19787a6c72ebe5b5cf525dce641a |
+| #4     | Report screen set up | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/5618cf656629f369a96b2b2fe2c57b33cbad4999 |
+| #5     | addPosts development | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/7350afefe409a9334e6ebb8d7379f70e9511fd70 |
 
 #### The 5 files where I participated the most
 
-| Número fichero | Fichero                                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)|
-| #2             | [Thread.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/templates/thread.html)                            |
-| #3             | [Post.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/static/js/posts.js)                                   |
-| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
-| #5             | [Thread Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ThreadService.java)     |
+| Número fichero | Fichero                                                                                                                                                                |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)          |
+| #2             | [Thread.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/templates/thread.html)                                          |
+| #3             | [Post.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/resources/static/js/posts.js)                                                 |
+| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java) |
+| #5             | [Thread Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ThreadService.java)                   |
 
 ### David Moreno Martín
 
@@ -298,23 +297,23 @@ I was in charge of the visualization of the different threads within each catego
 
 #### My 5 most significant commits
 
-| Commit | Descripción                                          | Link                                                                                            |
-| ------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| #1     | Login and login error                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/8161fc705f584cd6809f4c4e446437e2a0d4fd05 |
-| #2     | login working and css | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/63a1b765bdabc9128437cda518dda1dc567aeb26 |
-| #3     | Register screen and navbar redirect       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/458ba366349d45a9dd4fa39ce180dadf90e44105 |
-| #4     | Threads in forum and navegation                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/860f75e338a6b54b62aac30cc9d5c2975aa452df |
-| #5     | ReadMe requirements update and code CleanUp                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f156b228f322809ca08dc730885f97520fd65ffb |
+| Commit | Descripción                                 | Link                                                                                             |
+| ------ | ------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Login and login error                       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/8161fc705f584cd6809f4c4e446437e2a0d4fd05 |
+| #2     | login working and css                       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/63a1b765bdabc9128437cda518dda1dc567aeb26 |
+| #3     | Register screen and navbar redirect         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/458ba366349d45a9dd4fa39ce180dadf90e44105 |
+| #4     | Threads in forum and navegation             | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/860f75e338a6b54b62aac30cc9d5c2975aa452df |
+| #5     | ReadMe requirements update and code CleanUp | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f156b228f322809ca08dc730885f97520fd65ffb |
 
 #### The 5 files where I participated the most
 
-| Número fichero | Fichero                                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #1             |  [login_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/login_template.html)          |
-| #2             | [LoginController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/LoginController.java)        |
-| #3             | [ForumController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/ForumController.java)                   |
-| #4             | [Forum_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/forum_template.html)         |
-| #5             | [README.md](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/README.md)  |
+| Número fichero | Fichero                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| #1             | [login_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/login_template.html)                   |
+| #2             | [LoginController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/LoginController.java) |
+| #3             | [ForumController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/controller/ForumController.java) |
+| #4             | [Forum_template.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/resources/templates/forum_template.html)                   |
+| #5             | [README.md](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/README.md)                                                                            |
 
 ### Jorge Carbonero Asín
 
@@ -324,20 +323,83 @@ I've mainly been in charge of the functionality of the app itself. My main contr
 
 #### My 5 most significant commits
 
-| Commit | Descripción                                                    | Link                                                                                             |
-| ------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| #1     | Posts liked and disliked are updated ServerSide                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/4f135f1173a1ed79c3b5e1605780655df8c16f98 |
-| #2     | Report screen functionality added                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fc7aefcad9bbb95972c1c9b6db61da73244737d1 |
-| #3     | Fixed reporting of posts                                       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b91cb444b17b05225169da62ca5e2099bf9f49ba |
-| #4     | Threads can be deleted                                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/db61bc024d26fccff162a5f533e0cbd3753127fd |
-| #5     | Posts can be reported                                          | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/137563e76e665212c08c5bd4fe6d535a43f91673 |
+| Commit | Descripción                                     | Link                                                                                             |
+| ------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Posts liked and disliked are updated ServerSide | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/4f135f1173a1ed79c3b5e1605780655df8c16f98 |
+| #2     | Report screen functionality added               | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fc7aefcad9bbb95972c1c9b6db61da73244737d1 |
+| #3     | Fixed reporting of posts                        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b91cb444b17b05225169da62ca5e2099bf9f49ba |
+| #4     | Threads can be deleted                          | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/db61bc024d26fccff162a5f533e0cbd3753127fd |
+| #5     | Posts can be reported                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/137563e76e665212c08c5bd4fe6d535a43f91673 |
 
 #### The 5 files where I participated the most
 
-| Número fichero | Fichero                                                                                                                                                      |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)  |
-| #2             | [Post Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/service/PostService.java)               |
-| #3             | [Post](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/model/Post.java)                                |
-| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java)|
-| #5             | [likes.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/likes.js)                                        |
+| Número fichero | Fichero                                                                                                                                                              |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Thread Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/controller/ThreadController.java)          |
+| #2             | [Post Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/service/PostService.java)                       |
+| #3             | [Post](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/model/Post.java)                                        |
+| #4             | [Post Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/PostRestController.java) |
+| #5             | [likes.js](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/resources/static/js/likes.js)                                                |
+
+# Phase 3
+
+## API REST documentation
+The pom.xml is configured with various plugins that allow generating the REST API documentation in OpenAPI format (api-docs.yaml) and in HTML (api-docs.html) in the api-docs folder.
+
+To do this, the command is executed:
+```
+    mvn verify
+```
+
+The REST API documentation is automatically generated and can be accessed in the following formats:
+- [OpenAPI Specification (YAML)](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/api-docs/api-docs.yaml)
+- [OpenAPI Specification (HTML)](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp06/faac735416132b7587d515b4aefea415206016dd/backend/api-docs/index.html)
+
+## Docker Application Execution Instructions
+
+## Docker Image Construction Documentation
+
+## Deployment on Virtual Machine
+
+## Virtual Machine Application URL and Example Users
+
+The application is deployed and can be accessed at the following URL: https://10.100.139.188:8443
+
+### Admin
+
+- username: Admin
+- password: password2
+
+### User
+
+- username: User
+- password: password1
+
+## Diagram
+![Class diagram](./images/phase_3/diagram_1.png)
+
+## Members Participation Phase 3
+
+## 🚀 Member participation
+
+### Juan Salguero Ibarrola
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                       | Link                                                                                             |
+| ------ | ------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | add ChartApiRestController                        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/87cc1ccaf3cbe7863a7010b13ed72a7cd01481a3 |
+| #2     | new DockerfileSpring                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/7bbb5109602af4a1695025d6c9ef7ee8a74c0305 |
+| #3     | add docker-compose                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/8fdf9da48988fab9cc3e940171c712c6b7807ade |
+| #4     | add jwt security                                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f423a1df0c85e0fb2acaded3bc67b9af7690ebfb |
+| #5     | Added automatic OpenAPI documentation generation | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fab3ca7ce85c04ff0c00303f29bbdd0dcd3b21bc |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [ChartApiController.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/api/ChartApiController.java)            |
+| #2             | [DockerfileSpring](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/docker/DockerfileSpring)                                                                 |
+| #3             | [docker-compose](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/docker/docker-compose.yml)                                                                 |
+| #4             | [ChartService.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ChartService.java)                    |
+| #5             | [SecurityConfiguration.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/security/SecurityConfiguration.java) |
