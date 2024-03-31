@@ -1,4 +1,4 @@
-package es.codeurjc.backend.api;
+package es.codeurjc.backend.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,10 @@ import es.codeurjc.backend.security.jwt.AuthResponse.Status;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @RestController
 @RequestMapping("/api/auth")
-public class LoginApiController {
-    
+public class LoginApiRestController {
+
 	@Autowired
 	private UserLoginService userLoginService;
 
@@ -28,7 +27,7 @@ public class LoginApiController {
 			@CookieValue(name = "accessToken", required = false) String accessToken,
 			@CookieValue(name = "refreshToken", required = false) String refreshToken,
 			@RequestBody LoginRequest loginRequest) {
-		
+
 		return userLoginService.login(loginRequest, accessToken, refreshToken);
 	}
 

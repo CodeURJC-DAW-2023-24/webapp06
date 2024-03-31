@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
   Optional<Post> findByText(String text);
 
-  Page<Post> findByThreadId(Long threadId, Pageable pageable);
+  Optional<Page<Post>> findByThreadId(Long threadId, Pageable pageable);
 
   @Transactional
   @Modifying

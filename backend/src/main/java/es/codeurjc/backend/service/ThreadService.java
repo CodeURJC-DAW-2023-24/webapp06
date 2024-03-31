@@ -23,6 +23,10 @@ public class ThreadService {
     @Autowired
     private PostRepository postRepository;
 
+    public Thread getThreadById(Long id) {
+        return threadRepository.getReferenceById(id);
+    }
+
     public Thread getThreadByName(String name) {
         return threadRepository.findByName(name).orElseThrow();
     }
@@ -72,19 +76,19 @@ public class ThreadService {
         return threadRepository.findByForumPaginated(forum.getId(), pageable);
     }
 
-    public void addPostToThread(Thread thread, Post post){
+    public void addPostToThread(Thread thread, Post post) {
         thread.getPosts().add(post);
         threadRepository.save(thread);
     }
 
-    public void modifyPostFromThread(Post post){
+    public void modifyPostFromThread(Post post) {
         postRepository.save(post);
     }
 
-    public void deletePostFromThread(Thread thread, Long postId){
+    public void deletePostFromThread(Thread thread, Long postId) {
         Post post = postRepository.getReferenceById(postId);
         thread.getPosts().remove(post);
-        postRepository.delete(post);        
+        postRepository.delete(post);
         threadRepository.save(thread);
     }
 }

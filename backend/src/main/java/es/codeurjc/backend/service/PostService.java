@@ -25,9 +25,13 @@ public class PostService {
         return postRepository.findReportedPosts();
     }
 
-    public Post getPostById(Long postId){
+    public Post getPostById(Long postId) {
         Post post = postRepository.getReferenceById(postId);
         return post;
+    }
+
+    public void savePost(Post post) {
+        postRepository.save(post);
     }
 
     public boolean addPostLike(Long postId, User user) {
@@ -83,7 +87,7 @@ public class PostService {
         post.setReports(-1);
         postRepository.save(post);
     }
-    
+
     public void invalidatePost(Long postId) {
         Post post = postRepository.getReferenceById(postId);
         if (post.getReports() < 0) {
@@ -104,6 +108,11 @@ public class PostService {
         return postRepository.countByYear(owner, year);
     }
 
+    public Page<Post> getPostsPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findAll(pageable);
+    }
+
     public Page<Post> getReportedPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return postRepository.findPostsWithReports(pageable);
@@ -111,6 +120,6 @@ public class PostService {
 
     public Page<Post> getPostsByThread(Long threadId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return postRepository.findByThreadId(threadId, pageable);
+        return postRepository.findByThreadId(threadId, pageable).get();
     }
 }
