@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ./
 
-sudo docker build -t jakurudev/spring-boot-daw:latest -f docker/DockerfileSpring .
+sudo docker build -t jk2024/spring-boot-daw:latest -f docker/DockerfileSpring .
 
-sudo docker push jakurudev/spring-boot-daw:latest
+sudo docker push jk2024/spring-boot-daw:latest
