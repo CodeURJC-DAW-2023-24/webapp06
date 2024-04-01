@@ -462,3 +462,31 @@ The application is deployed and can be accessed at the following URL: https://10
 | #3             | [Forum Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ForumService.java)                                        |
 | #4             | [Forum Not Found Exception](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/exceptions/ForumNotFoundException.java)    |
 | #5             | [Forum](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/model/Forum.java)
+
+### Miguel Quero Prieto
+
+#### Text description:
+
+During this practice, I focused on enhancing the functionality of the web application backend by implementing various features and improvements. My contributions mainly revolved around refining the API operations, enhancing documentation with Swagger annotations, adding missing methods to the API, and improving the user creation method.
+
+#### My 5 most significant commits
+
+| Commit | Description                                                      | Link                                                                                             |
+| ------ | ---------------------------------------------------------------  | ------------------------------------------------------------------------------------------------ |
+| #1     | Add the API operations to the User REST controller		        | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/457d35fdc99db2ea1934d60c438e4acf8779768a |
+| #2     | Add the annotations and comments for documentation with Swagger  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/457d35fdc99db2ea1934d60c438e4acf8779768a |
+| #3     | Add missing methods to the API and display images in the requests| https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/2f2dbe75d4f4c85bf613c6bbb1846d98900b3919 |
+| #4     | Improve the method for creating a user in the API                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f8a89f2bd48329906b62a4cdb0a0545ce388babe |
+| #5     | Fixed creating user in the api                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/23dc34bd6432fc89833d2531ae10ff5c149df1b6 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                           	      |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [User Api Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/restcontroller/UserApiRestController.java) |
+| #2             | [Data Loader](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/loader/DataLoader.java)                                 |
+| #3             | [User Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/service/UserService.java)                              |
+| #4             | [Security Configuration](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/security/SecurityConfiguration.java)         |                     
+| #5             | [User DTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/dto/UserDTO.java)  		                                  |
+
+
