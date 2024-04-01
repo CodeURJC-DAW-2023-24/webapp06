@@ -17,7 +17,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -28,8 +27,6 @@ public class ForumTrendingApiRestController {
   private ForumService forumService;
   @Autowired 
   private UserService userService;
-
-  final private String ERROR_OCURRED = "Error occurred, try again later";
 
 
   @GetMapping
