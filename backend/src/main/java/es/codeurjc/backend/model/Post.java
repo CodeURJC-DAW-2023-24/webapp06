@@ -89,7 +89,7 @@ public class Post {
         return imageFile;
     }
 
-    public void setImage(Blob imageFile) {
+    public void setImageFile(Blob imageFile) {
         this.imageFile = imageFile;
     }
 

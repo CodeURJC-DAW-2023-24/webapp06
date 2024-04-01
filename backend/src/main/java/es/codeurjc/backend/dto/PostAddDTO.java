@@ -2,14 +2,18 @@ package es.codeurjc.backend.dto;
 
 public class PostAddDTO {
     private String text;
+    private byte[] imageFile;
     private Long threadId;
     private boolean liked;
     private boolean disliked;
     private boolean reported;
 
     // Constructor
-    public PostAddDTO(String text, Long threadId, boolean liked, boolean disliked, boolean reported) {
+    public PostAddDTO(String text, String imageFile, Long threadId, boolean liked, boolean disliked, boolean reported) {
         this.text = text;
+        if (imageFile != null) {
+            this.imageFile = imageFile.getBytes();
+        }
         this.threadId = threadId;
         if (liked ^ disliked) {
             this.liked = liked;
@@ -24,6 +28,10 @@ public class PostAddDTO {
     // Getters
     public String getText() {
         return text;
+    }
+
+    public byte[] getImageFile() {
+        return imageFile;
     }
 
     public Long getThreadId() {
@@ -45,6 +53,10 @@ public class PostAddDTO {
     // Setters
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setImage(byte[] imageFile) {
+        this.imageFile = imageFile;
     }
 
     public void setThreadId(Long threadId) {

@@ -1,8 +1,13 @@
 package es.codeurjc.backend.restcontroller;
 
 import java.net.URI;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +79,21 @@ public class PostApiRestController {
             return new ResponseEntity<>("The text field can't be null or blank.", HttpStatus.BAD_REQUEST);
         }
 
+        Blob image = null;
+        if (post.getImageFile() != null) {
+            byte[] imageBytes = null;
+            try {
+                imageBytes = Base64.getDecoder().decode(post.getImageFile());
+            } catch (Exception e) {
+                return new ResponseEntity<>("Image data is not valid Base64 encoded data.", HttpStatus.BAD_REQUEST);
+            }
+            try {
+                image = new SerialBlob(imageBytes);
+            } catch (SQLException e) {
+                return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
         List<User> userLikes = new ArrayList<>();
         List<User> userDislikes = new ArrayList<>();
         if (post.isLiked()) {
@@ -95,7 +115,7 @@ public class PostApiRestController {
             return new ResponseEntity<>("Thread not found with id: " + post.getThreadId() + ".", HttpStatus.NOT_FOUND);
         }
 
-        Post newPost = new Post(post.getText(), null, activeUser, thread, userLikes, userDislikes, reports);
+        Post newPost = new Post(post.getText(), image, activeUser, thread, userLikes, userDislikes, reports);
         threadService.addPostToThread(thread, newPost);
 
         String postUrl = ServletUriComponentsBuilder
@@ -172,7 +192,23 @@ public class PostApiRestController {
                         || userService.isAdmin(userDetails.getUsername())) {
                     User activeUser = userService.getUserByUsername(userDetails.getUsername());
 
-                    Post newPost = postService.updatePost(existingPost, updatedPostInfo, activeUser);
+                    Blob image = null;
+                    if (updatedPostInfo.getImageFile() != null) {
+                        byte[] imageBytes = null;
+                        try {
+                            imageBytes = Base64.getDecoder().decode(updatedPostInfo.getImageFile());
+                        } catch (Exception e) {
+                            return new ResponseEntity<>("Image data is not valid Base64 encoded data.",
+                                    HttpStatus.BAD_REQUEST);
+                        }
+                        try {
+                            image = new SerialBlob(imageBytes);
+                        } catch (SQLException e) {
+                            return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
+                        }
+                    }
+
+                    Post newPost = postService.updatePost(existingPost, updatedPostInfo, activeUser, image);
                     if (newPost.getThread().getId() != existingPost.getThread().getId()) {
                         threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
                         threadService.addPostToThread(newPost.getThread(), newPost);

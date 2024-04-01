@@ -1,5 +1,6 @@
 package es.codeurjc.backend.service;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Post updatePost(Post existingPost, PostAddDTO newPostData, User activeUser) throws BadRequestException {
+    public Post updatePost(Post existingPost, PostAddDTO newPostData, User activeUser, Blob image) throws BadRequestException {
         Post updatedPost = new Post(existingPost.getText(), existingPost.getImageFile(), existingPost.getOwner(),
                 existingPost.getThread(), existingPost.getUserLikes(), existingPost.getUserDislikes(),
                 existingPost.getReports());
@@ -59,6 +60,10 @@ public class PostService {
                 throw new BadRequestException("The text field can't be blank.");
             }
             updatedPost.setText(newPostData.getText());
+        }
+
+        if (image != null) {
+            updatedPost.setImageFile(image);
         }
 
         if (newPostData.isLiked()) {
