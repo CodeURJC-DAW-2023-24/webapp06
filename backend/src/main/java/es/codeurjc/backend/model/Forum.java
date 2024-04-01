@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,6 +26,7 @@ public class Forum {
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = false)
     @JsonManagedReference
+    @JsonIgnore
     private List<Thread> threads;
 
     @Column(nullable = false)
