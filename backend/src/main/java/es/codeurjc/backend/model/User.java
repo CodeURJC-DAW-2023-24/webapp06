@@ -36,6 +36,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -63,7 +64,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = List.of(roles);
-        Resource imageUser = new ClassPathResource("example/user/user_profile.webp");
+        Resource imageUser = new ClassPathResource("example/user/user_profile.png");
         this.imageFile = BlobProxy.generateProxy(imageUser.getInputStream(), imageUser.contentLength());
         this.isActive = false;
     }
