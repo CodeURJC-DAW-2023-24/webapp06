@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import es.codeurjc.backend.model.User;
+import es.codeurjc.backend.exceptions.ThreadNotFoundException;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
@@ -24,11 +25,16 @@ public class ThreadService {
     private PostRepository postRepository;
 
     public Thread getThreadById(Long id) {
-        return threadRepository.getReferenceById(id);
+        Thread thread = threadRepository.getReferenceById(id);
+        if (thread.getName() == null) {
+            throw new ThreadNotFoundException("Thread not found with id: " + id + ".");
+        }
+        return thread;
     }
 
     public Thread getThreadByName(String name) {
-        return threadRepository.findByName(name).orElseThrow();
+        return threadRepository.findByName(name)
+                .orElseThrow(() -> new ThreadNotFoundException("Thread not found with name: " + name + "."));
     }
 
     public List<Thread> getThreads() {
@@ -88,7 +94,6 @@ public class ThreadService {
     public void deletePostFromThread(Thread thread, Long postId) {
         Post post = postRepository.getReferenceById(postId);
         thread.getPosts().remove(post);
-        postRepository.delete(post);
         threadRepository.save(thread);
     }
 }

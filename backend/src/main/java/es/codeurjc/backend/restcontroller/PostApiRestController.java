@@ -1,17 +1,16 @@
 package es.codeurjc.backend.restcontroller;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.codeurjc.backend.dto.PostAddDTO;
 import es.codeurjc.backend.dto.PostDTO;
+import es.codeurjc.backend.exceptions.ThreadNotFoundException;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.model.User;
@@ -36,6 +36,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -51,8 +52,9 @@ public class PostApiRestController {
     private PostService postService;
 
     final private String AUTHENTICATED_USER_NOT_FOUND = "Authenticated user not found.";
+    final private String OWNER_ADMIN_AUTHORIZATION_REQUIRED = "Owner or Admin authorization is required.";
     final private String ADMIN_AUTHORIZATION_REQUIRED = "Admin authorization is required.";
-    final private String ERROR_OCURRED = "Error occurred, try again later.";
+    final private String ERROR_OCURRED = "Server error occurred, try again later.";
 
     @PostMapping("/")
     @Operation(summary = "Create post", description = "Create a new post and add it to the thread.", responses = {
@@ -64,20 +66,35 @@ public class PostApiRestController {
         if (userDetails == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(AUTHENTICATED_USER_NOT_FOUND);
         }
+
         String name = userDetails.getUsername();
         User activeUser = userService.getUserByUsername(name);
+
+        if (post.getText() == null || post.getText().isBlank()) {
+            return new ResponseEntity<>("The text field can't be null or blank.", HttpStatus.BAD_REQUEST);
+        }
+
         List<User> userLikes = new ArrayList<>();
         List<User> userDislikes = new ArrayList<>();
         if (post.isLiked()) {
             userLikes.add(activeUser);
-        } else {
+        }
+        if (post.isDisliked()) {
             userDislikes.add(activeUser);
         }
+
         int reports = 0;
         if (post.isReported()) {
             reports++;
         }
-        Thread thread = threadService.getThreadById(post.getThreadId());
+
+        Thread thread;
+        try {
+            thread = threadService.getThreadById(post.getThreadId());
+        } catch (Exception e) {
+            return new ResponseEntity<>("Thread not found with id: " + post.getThreadId() + ".", HttpStatus.NOT_FOUND);
+        }
+
         Post newPost = new Post(post.getText(), null, activeUser, thread, userLikes, userDislikes, reports);
         threadService.addPostToThread(thread, newPost);
 
@@ -87,7 +104,7 @@ public class PostApiRestController {
                 .buildAndExpand(newPost.getId())
                 .toUriString();
 
-        return ResponseEntity.created(URI.create(postUrl)).body(newPost);
+        return ResponseEntity.created(URI.create(postUrl)).body(new PostDTO(newPost));
     }
 
     @GetMapping("/")
@@ -117,17 +134,19 @@ public class PostApiRestController {
                     posts = postService.getPostsPaginated(page, size);
                 }
             } else {
-                // Check if thread has been created by trying to access its name
-                // If this is not done it will just return an empty page
-                threadService.getThreadById(threadId).getName();
+                try {
+                    threadService.getThreadById(threadId);
+                    posts = postService.getPostsByThread(threadId, page, size);
+                } catch (Exception e) {
+                    return new ResponseEntity<>("Thread not found with id: " + threadId + ".", HttpStatus.NOT_FOUND);
+                }
 
-                posts = postService.getPostsByThread(threadId, page, size);
             }
 
             Page<PostDTO> postsDTO = posts.map(post -> new PostDTO(post));
             return new ResponseEntity<>(postsDTO, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Thread with id " + threadId + " not found.", HttpStatus.NOT_FOUND);
+        } catch (ThreadNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -137,38 +156,49 @@ public class PostApiRestController {
             Post savedPost = postService.getPostById(Long.parseLong(postId));
             PostDTO post = new PostDTO(savedPost);
             return new ResponseEntity<>(post, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/{postId}")
     public ResponseEntity<?> editPost(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String postId,
-            PostDTO updatedPost) {
-        if (userDetails != null && userDetails.getUsername() != null && !userDetails.getUsername().isEmpty()) {
-            if (userService.isAdmin(userDetails.getUsername())) {
-                try {
-                    Post existingPost = postService.getPostById(Long.parseLong(postId));
-                    updatedPost.setId(existingPost.getId());
-                    try {
-                        Post post = new Post(postId, null,
-                                userService.getUserByUsername(updatedPost.getOwnerUsername()),
-                                threadService.getThreadByName(updatedPost.getThreadName()), new ArrayList<>(),
-                                new ArrayList<>(), updatedPost.getReports());
-                        if (updatedPost.getThreadName() == existingPost.getThread().getName()) {
-                            postService.savePost(post);
-                        } else {
-                            threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
-                            threadService.addPostToThread(threadService.getThreadByName(updatedPost.getThreadName()),
-                                    post);
-                        }
-                        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
-                    } catch (Exception e) {
-                        return new ResponseEntity<>("Unable to edit post", HttpStatus.INTERNAL_SERVER_ERROR);
+            @RequestBody PostAddDTO updatedPostInfo,
+            @RequestParam(value = "validate", required = false) boolean validate) {
+        if (userDetails != null) {
+            try {
+                Post existingPost = postService.getPostById(Long.parseLong(postId));
+                if (existingPost.getOwner().getUsername().equals(userDetails.getUsername())
+                        || userService.isAdmin(userDetails.getUsername())) {
+                    User activeUser = userService.getUserByUsername(userDetails.getUsername());
+
+                    Post newPost = postService.updatePost(existingPost, updatedPostInfo, activeUser);
+                    if (newPost.getThread().getId() != existingPost.getThread().getId()) {
+                        threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
+                        threadService.addPostToThread(newPost.getThread(), newPost);
+                    } else {
+                        postService.savePost(newPost);
                     }
-                } catch (Exception e) {
-                    return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+
+                    newPost = postService.invalidatePost(Long.parseLong(postId));
+
+                    if (validate) {
+                        if (userService.isAdmin(userDetails.getUsername())) {
+                            newPost = postService.validatePost(Long.parseLong(postId));
+                        } else {
+                            return new ResponseEntity<>(ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+                        }
+                    }
+
+                    return new ResponseEntity<>(new PostDTO(newPost), HttpStatus.OK);
                 }
+                return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+            } catch (EntityNotFoundException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            } catch (BadRequestException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            } catch (ThreadNotFoundException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             }
         }
         return new ResponseEntity<>(AUTHENTICATED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
@@ -176,65 +206,21 @@ public class PostApiRestController {
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<?> deletePost(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String postId) {
-        if (userDetails != null && userDetails.getUsername() != null && !userDetails.getUsername().isEmpty()) {
+        if (userDetails != null) {
             if (userService.isAdmin(userDetails.getUsername())) {
                 try {
                     Post post = postService.getPostById(Long.parseLong(postId));
+                    PostDTO postDTO = new PostDTO(post);
                     threadService.deletePostFromThread(post.getThread(), post.getId());
-                    return new ResponseEntity<>("Post deleted", HttpStatus.OK);
-                } catch (Exception e) {
-                    return new ResponseEntity<>("Post with id " + postId + " not found.", HttpStatus.NOT_FOUND);
+                    return new ResponseEntity<>(postDTO, HttpStatus.OK);
+                } catch (NumberFormatException e) {
+                    return new ResponseEntity<>("Invalid postId format. Please provide a valid numeric id.",
+                            HttpStatus.BAD_REQUEST);
+                } catch (EntityNotFoundException e) {
+                    return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
                 }
             }
         }
         return new ResponseEntity<>(AUTHENTICATED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
-    }
-
-    // TODO Finish below
-
-    @PutMapping("/{postId}/like")
-    public boolean likePost(Model model, Principal principal, @PathVariable String postId) {
-        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-            String username = principal.getName();
-            User user = userService.getUserByUsername(username);
-            if (postService.addPostLike(Long.parseLong(postId), user)) {
-                postService.removePostDislike(Long.parseLong(postId), user);
-            } else {
-                postService.removePostLike(Long.parseLong(postId), user);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @PutMapping("/{postId}/dislike")
-    public boolean dislikePost(Model model, Principal principal, @PathVariable String postId) {
-        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
-            String username = principal.getName();
-            User user = userService.getUserByUsername(username);
-            if (postService.addPostDislike(Long.parseLong(postId), user)) {
-                postService.removePostLike(Long.parseLong(postId), user);
-            } else {
-                postService.removePostDislike(Long.parseLong(postId), user);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @PutMapping("/{postId}/report")
-    public boolean getMethodName(Model model, Principal principal, @PathVariable String postId) {
-        postService.reportPost(Long.parseLong(postId));
-        return true;
-    }
-
-    @PutMapping("/{postId}/validate")
-    public void validatePost(Model model, Principal principal, @PathVariable String postId) {
-        postService.validatePost(Long.parseLong(postId));
-    }
-
-    @PutMapping("/{postId}/invalidate")
-    public void invalidatePost(Model model, Principal principal, @PathVariable String postId) {
-        postService.invalidatePost(Long.parseLong(postId));
     }
 }

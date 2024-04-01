@@ -59,7 +59,7 @@ public class Post {
 
     }
 
-    public Post(String text, Blob imageFile, User owner, Thread thread, List<User> userLikes, List<User> userDislikes, int reports) throws Exception {
+    public Post(String text, Blob imageFile, User owner, Thread thread, List<User> userLikes, List<User> userDislikes, int reports) {
         this.text = text;
         this.imageFile = imageFile;
         this.owner = owner;
