@@ -55,7 +55,7 @@ public class PostAddDTO {
         this.text = text;
     }
 
-    public void setImage(byte[] imageFile) {
+    public void setImageFile(byte[] imageFile) {
         this.imageFile = imageFile;
     }
 

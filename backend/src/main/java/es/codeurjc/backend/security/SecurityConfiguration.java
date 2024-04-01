@@ -68,8 +68,8 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.GET, "/api/threads/*").permitAll()
 						// PRIVATE ENDPOINTS
 						.requestMatchers(HttpMethod.POST, "/api/posts").hasRole("USER")
-						.requestMatchers(HttpMethod.PUT, "/api/posts/*").hasAnyRole("USER")
-						.requestMatchers(HttpMethod.DELETE, "/api/posts/*").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.PUT, "/api/posts/*").hasRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/posts/*").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/threads/weekly").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/posts/weekly").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/threads/monthly").hasRole("USER")

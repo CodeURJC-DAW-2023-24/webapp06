@@ -39,6 +39,7 @@ import es.codeurjc.backend.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -63,8 +64,12 @@ public class PostApiRestController {
 
     @PostMapping("/")
     @Operation(summary = "Create post", description = "Create a new post and add it to the thread.", responses = {
-            @ApiResponse(responseCode = "201", description = "Post created successfully", headers = @Header(name = "Location", description = "Link to the newly created post")),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "201", description = "Post created successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }, headers = @Header(name = "Location", description = "Link to the newly created post")),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Thread not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     public ResponseEntity<?> addPost(@AuthenticationPrincipal UserDetails userDetails, @RequestBody PostAddDTO post)
             throws Exception {
@@ -129,9 +134,12 @@ public class PostApiRestController {
 
     @GetMapping("/")
     @Operation(summary = "Get all posts", description = "Gets all posts.", responses = {
-            @ApiResponse(responseCode = "200", description = "Post created successfully", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "200", description = "Post created successfully", headers = @Header(name = "Location", description = "Link to the newly created post")),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "200", description = "Posts found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Thread not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     public ResponseEntity<?> getPosts(@AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(value = "thread", required = false) Long threadId,
@@ -171,6 +179,13 @@ public class PostApiRestController {
     }
 
     @GetMapping("/{postId}")
+    @Operation(summary = "Get a post", description = "Gets a post.", responses = {
+            @ApiResponse(responseCode = "200", description = "Post found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Post not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     public ResponseEntity<?> getPostsById(@PathVariable String postId) {
         try {
             Post savedPost = postService.getPostById(Long.parseLong(postId));
@@ -182,6 +197,14 @@ public class PostApiRestController {
     }
 
     @PutMapping("/{postId}")
+    @Operation(summary = "Edit a post", description = "Edits a post.", responses = {
+            @ApiResponse(responseCode = "200", description = "Post edited successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Post or Thread not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     public ResponseEntity<?> editPost(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String postId,
             @RequestBody PostAddDTO updatedPostInfo,
             @RequestParam(value = "validate", required = false) boolean validate) {
@@ -191,6 +214,10 @@ public class PostApiRestController {
                 if (existingPost.getOwner().getUsername().equals(userDetails.getUsername())
                         || userService.isAdmin(userDetails.getUsername())) {
                     User activeUser = userService.getUserByUsername(userDetails.getUsername());
+
+                    if (updatedPostInfo.getText().isBlank()) {
+                        return new ResponseEntity<>("The text field can't be blank.", HttpStatus.BAD_REQUEST);
+                    }
 
                     Blob image = null;
                     if (updatedPostInfo.getImageFile() != null) {
@@ -241,20 +268,30 @@ public class PostApiRestController {
     }
 
     @DeleteMapping("/{postId}")
+    @Operation(summary = "Delete a post", description = "Deletes a post.", responses = {
+            @ApiResponse(responseCode = "200", description = "Post deleted successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Post not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     public ResponseEntity<?> deletePost(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String postId) {
         if (userDetails != null) {
-            if (userService.isAdmin(userDetails.getUsername())) {
-                try {
-                    Post post = postService.getPostById(Long.parseLong(postId));
+            try {
+                Post post = postService.getPostById(Long.parseLong(postId));
+                if (post.getOwner().getUsername().equals(userDetails.getUsername())
+                        || userService.isAdmin(userDetails.getUsername())) {
                     PostDTO postDTO = new PostDTO(post);
                     threadService.deletePostFromThread(post.getThread(), post.getId());
                     return new ResponseEntity<>(postDTO, HttpStatus.OK);
-                } catch (NumberFormatException e) {
-                    return new ResponseEntity<>("Invalid postId format. Please provide a valid numeric id.",
-                            HttpStatus.BAD_REQUEST);
-                } catch (EntityNotFoundException e) {
-                    return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
                 }
+                return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+            } catch (NumberFormatException e) {
+                return new ResponseEntity<>("Invalid postId format. Please provide a valid numeric id.",
+                        HttpStatus.BAD_REQUEST);
+            } catch (EntityNotFoundException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             }
         }
         return new ResponseEntity<>(AUTHENTICATED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
