@@ -441,3 +441,24 @@ The application is deployed and can be accessed at the following URL: https://10
 | #4             | [Login Api Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/LoginApiRestController.java)    |
 | #5             | [Post DTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/dto/PostDTO.java)                                               |
 
+### David Moreno Martín
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                                      | Link                                                                                             |
+| ------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | ForumTrending now works properly, Now the API detects if the user is logged in or not, and depending on that it shows you one thing or another| https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/9f26d7d34a8818ca2cd19d2e482fd6a2871b3c6f |
+| #2     | Forum Trending API Rest                                          | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/c5e053182d5ac7aed7f5de4bb95c09f812f52057 |
+| #3     | Forum by Id fixed                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/ccc72f99c94d819c7772f0ef723760d81245fc55 |
+| #4     | Forum.java to improve API display                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/d4525083bb4fbbc7ba8d5c0fb55edb41102be6e2 |
+| #5     | Forums API Rest Update  |  https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/cdd46b5751f151cbbeded9070a39f7cd96eb4664 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Forum Api Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/ForumApiRestController.java)      |
+| #2             | [Forum Trending Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/restcontroller/ForumTrendingApiRestController.java)                                   |
+| #3             | [Forum Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ForumService.java)                                        |
+| #4             | [Forum Not Found Exception](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/exceptions/ForumNotFoundException.java)    |
+| #5             | [Forum](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/model/Forum.java)
