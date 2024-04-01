@@ -211,51 +211,63 @@ public class PostApiRestController {
         if (userDetails != null) {
             try {
                 Post existingPost = postService.getPostById(Long.parseLong(postId));
-                if (existingPost.getOwner().getUsername().equals(userDetails.getUsername())
-                        || userService.isAdmin(userDetails.getUsername())) {
-                    User activeUser = userService.getUserByUsername(userDetails.getUsername());
+                User activeUser = userService.getUserByUsername(userDetails.getUsername());
 
-                    if (updatedPostInfo.getText().isBlank()) {
-                        return new ResponseEntity<>("The text field can't be blank.", HttpStatus.BAD_REQUEST);
-                    }
+                Blob image = null;
+                boolean changeThread = false;
 
-                    Blob image = null;
-                    if (updatedPostInfo.getImageFile() != null) {
-                        byte[] imageBytes = null;
-                        try {
-                            imageBytes = Base64.getDecoder().decode(updatedPostInfo.getImageFile());
-                        } catch (Exception e) {
-                            return new ResponseEntity<>("Image data is not valid Base64 encoded data.",
-                                    HttpStatus.BAD_REQUEST);
+                if (updatedPostInfo.getText() != null || updatedPostInfo.getImageFile() != null
+                        || updatedPostInfo.getThreadId() != null) {
+                    if (existingPost.getOwner().getUsername().equals(userDetails.getUsername())
+                            || userService.isAdmin(userDetails.getUsername())) {
+
+                        if (updatedPostInfo.getText().isBlank()) {
+                            return new ResponseEntity<>("The text field can't be blank.", HttpStatus.BAD_REQUEST);
                         }
-                        try {
-                            image = new SerialBlob(imageBytes);
-                        } catch (SQLException e) {
-                            return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
-                        }
-                    }
 
-                    Post newPost = postService.updatePost(existingPost, updatedPostInfo, activeUser, image);
-                    if (newPost.getThread().getId() != existingPost.getThread().getId()) {
-                        threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
-                        threadService.addPostToThread(newPost.getThread(), newPost);
+                        if (updatedPostInfo.getImageFile() != null) {
+                            byte[] imageBytes = null;
+                            try {
+                                imageBytes = Base64.getDecoder().decode(updatedPostInfo.getImageFile());
+                            } catch (Exception e) {
+                                return new ResponseEntity<>("Image data is not valid Base64 encoded data.",
+                                        HttpStatus.BAD_REQUEST);
+                            }
+                            try {
+                                image = new SerialBlob(imageBytes);
+                            } catch (SQLException e) {
+                                return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
+                            }
+                        }
+
+                        if (updatedPostInfo.getThreadId() != existingPost.getThread().getId()) {
+                            changeThread = true;
+                        }
                     } else {
-                        postService.savePost(newPost);
+                        return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
                     }
-
-                    newPost = postService.invalidatePost(Long.parseLong(postId));
-
-                    if (validate) {
-                        if (userService.isAdmin(userDetails.getUsername())) {
-                            newPost = postService.validatePost(Long.parseLong(postId));
-                        } else {
-                            return new ResponseEntity<>(ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
-                        }
-                    }
-
-                    return new ResponseEntity<>(new PostDTO(newPost), HttpStatus.OK);
                 }
-                return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+
+                Post newPost = postService.updatePost(existingPost, updatedPostInfo, activeUser, image);
+
+                if (changeThread) {
+                    threadService.deletePostFromThread(existingPost.getThread(), existingPost.getId());
+                    threadService.addPostToThread(newPost.getThread(), newPost);
+                } else {
+                    postService.savePost(newPost);
+                }
+
+                newPost = postService.invalidatePost(Long.parseLong(postId));
+
+                if (validate) {
+                    if (userService.isAdmin(userDetails.getUsername())) {
+                        newPost = postService.validatePost(Long.parseLong(postId));
+                    } else {
+                        return new ResponseEntity<>(ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+                    }
+                }
+
+                return new ResponseEntity<>(new PostDTO(newPost), HttpStatus.OK);
             } catch (EntityNotFoundException e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             } catch (BadRequestException e) {
