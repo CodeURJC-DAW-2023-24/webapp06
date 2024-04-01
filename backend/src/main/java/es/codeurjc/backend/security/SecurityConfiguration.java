@@ -64,6 +64,8 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.GET, "/api/posts").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/posts/*").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/threads").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/threads/*").permitAll()
 						// PRIVATE ENDPOINTS
 						.requestMatchers(HttpMethod.POST, "/api/posts").hasRole("USER")
 						.requestMatchers(HttpMethod.PUT, "/api/posts/*").hasAnyRole("USER")
@@ -74,6 +76,8 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.GET, "/api/chart/posts/monthly").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/threads/annually").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/posts/annually").hasRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/threads").hasRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/threads/*").hasAnyRole("USER")
 						// PUBLIC ENDPOINTS
 						.anyRequest().permitAll());
 
