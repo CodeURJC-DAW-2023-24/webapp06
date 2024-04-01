@@ -60,12 +60,16 @@ public class DataLoader {
                 User user12 = new User("DragonRider", "dragonrider@example.com", passwordEncoder.encode("securePass2"),
                                 "USER");
                 User user13 = new User("delete", "delete@example.com", passwordEncoder.encode("securePass2"), "USER");
+                User user14 = new User("example", "example2@example.com", passwordEncoder.encode("securePass3"), "USER");
                 List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10,
                                 user11, user12, user13);
                 for (User i : users) {
                         i.setIsActive(true);
                 }
+                
                 userRepository.saveAll(users);
+                userRepository.save(user14);
+                
                 List<User> userLikes = Arrays.asList(user4, user5, user6, user7, user8, user9);
                 List<User> userDislikes = Arrays.asList(user10, user11, user12, user13);
                 

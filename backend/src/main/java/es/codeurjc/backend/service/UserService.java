@@ -36,6 +36,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public void save(User user){
+        userRepository.save(user);
+    }
+    
     public Boolean deleteUser(String username) {
         try {
             User user = getUserByUsername(username);
