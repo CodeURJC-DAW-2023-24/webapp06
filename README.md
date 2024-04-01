@@ -463,6 +463,24 @@ The application is deployed and can be accessed at the following URL: https://10
 | #4             | [Forum Not Found Exception](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/exceptions/ForumNotFoundException.java)    |
 | #5             | [Forum](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/model/Forum.java)
 
+### Adrián Dueñas Minguez
+
+#### My most significant commits
+
+| Commit | Descripción          | Link                                                                                             |
+| ------ | -------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | ThreadApi basic      | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/892cd3cb9a0286ad3b8cdbb7bff16e6ad19fec64 |
+| #2     | Create new Thread    | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/f266095584b110f86402c38aa645e295a8626a18 |
+
+#### The files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                                |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [ThreadApiRestController](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/restcontroller/ThreadApiRestController.java)        |
+| #2             | [ThreadDTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/dto/ThreadDTO.java)                                   |
+| #3             | [ThreadAddDTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/dto/ThreadAddDTO.java)                             |
+| #4             | [SecurityConfiguration](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/security/SecurityConfiguration.java)      |
+
 ### Miguel Quero Prieto
 
 #### Text description:
