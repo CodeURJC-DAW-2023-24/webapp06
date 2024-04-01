@@ -59,7 +59,7 @@ async function getAnnually(date) {
 
   try {
     const responseThread = await fetch(
-      `https://localhost:8443/chart-rest/threads/annually?date=${date}`,
+      `https://10.100.139.188:8443/chart-rest/threads/annually?date=${date}`,
       {
         method: "GET",
         headers: {
@@ -72,7 +72,7 @@ async function getAnnually(date) {
     }
 
     const responsePost = await fetch(
-      `https://localhost:8443/chart-rest/posts/annually?date=${date}`,
+      `https://10.100.139.188:8443/chart-rest/posts/annually?date=${date}`,
       {
         method: "GET",
         headers: {
@@ -115,8 +115,8 @@ async function getWeekly(date) {
   var weekPicker = document.getElementById("weekPicker");
   weekPicker.style.display = "block";
 
-  const theadUrl = `https://localhost:8443/chart-rest/threads/weekly?date=${date}`;
-  const postUrl = `https://localhost:8443/chart-rest/posts/weekly?date=${date}`;
+  const theadUrl = `https://10.100.139.188:8443/chart-rest/threads/weekly?date=${date}`;
+  const postUrl = `https://10.100.139.188:8443/chart-rest/posts/weekly?date=${date}`;
 
   chart.data.labels = [
     "Monday",
@@ -141,8 +141,8 @@ async function getMonthly(date) {
   var weekPicker = document.getElementById("weekPicker");
   weekPicker.style.display = "none";
 
-  const theadUrl = `https://localhost:8443/chart-rest/threads/monthly?date=${date}`;
-  const postUrl = `https://localhost:8443/chart-rest/posts/monthly?date=${date}`;
+  const theadUrl = `https://10.100.139.188:8443/chart-rest/threads/monthly?date=${date}`;
+  const postUrl = `https://10.100.139.188:8443/chart-rest/posts/monthly?date=${date}`;
   chart.data.labels = [
     "January",
     "February",

@@ -1,5 +1,3 @@
-
-
 function createThreadHtml(thread) {
   return `<a
       href="/t/${thread.name}"
@@ -14,7 +12,11 @@ function createThreadHtml(thread) {
 
 function getThreads() {
   const url =
-    "https://localhost:8443/thread/paginated?page=" + page + "&size=10" + "&nameForum=" + nameForum;
+    "https://10.100.139.188:8443/thread/paginated?page=" +
+    page +
+    "&size=10" +
+    "&nameForum=" +
+    nameForum;
   addNewElements(createThreadHtml, url, "loadMoreButton", "thread-container");
 }
 

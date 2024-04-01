@@ -58,7 +58,8 @@ function createThreadHtml(post) {
 }
 
 function getPosts() {
-  const url = "https://localhost:8443/p/reports" + "?page=" + page + "&size=10";
+  const url =
+    "https://10.100.139.188:8443/p/reports" + "?page=" + page + "&size=10";
   addNewElements(createThreadHtml, url, "loadMoreButton", "post-container");
 }
 

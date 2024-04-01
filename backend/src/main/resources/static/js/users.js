@@ -53,7 +53,8 @@ function createUserHtml(user) {
 async function loadUsers() {
   isSearchMode = false;
   lastSearchQuery = "";
-  const url = "https://localhost:8443/user/paginated?page=" + page + "&size=10";
+  const url =
+    "https://10.100.139.188:8443/user/paginated?page=" + page + "&size=10";
 
   addNewElements(createUserHtml, url, "loadMoreButton", "user-container");
 }
@@ -72,7 +73,7 @@ async function searchUser(lastSearch, pageParameter = 0) {
   }
 
   const url =
-    "https://localhost:8443/user/search?page=" +
+    "https://10.100.139.188:8443/user/search?page=" +
     page +
     "&size=10&username=" +
     username;

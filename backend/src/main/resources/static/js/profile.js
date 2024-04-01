@@ -12,7 +12,7 @@ function createThreadHtml(thread) {
 
 function getThreads() {
   const url =
-    "https://localhost:8443/thread/user/paginated?page=" +
+    "https://10.100.139.188:8443/thread/user/paginated?page=" +
     page +
     "&size=10" +
     "&username=" +
