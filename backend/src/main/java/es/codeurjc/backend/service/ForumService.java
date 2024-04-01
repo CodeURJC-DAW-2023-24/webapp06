@@ -62,4 +62,24 @@ public class ForumService {
     public List<Forum> getAllForumsExcp() throws JsonProcessingException {
         return forumRepository.findAll();
     }
+
+    public List<Forum> getTrendingForumsNoLog() {
+        List<Forum> forums = new ArrayList<>();
+        List<Long> forumsid = new ArrayList<>();
+        forumsid = forumRepository.findForumsWithMostPostsLast48Hours();
+        if (!forumsid.isEmpty()) {
+            forums = forumRepository.findAllById(forumsid);
+        }
+        return forums;
+    }
+
+    public List<Forum> getTrendingForumsLog(Long userid) {
+        List<Forum> forums = new ArrayList<>();
+        List<Long> forumsid = new ArrayList<>();
+        forumsid = forumRepository.findTop5CategoriesLastMonth(userid.toString());
+        if (!forumsid.isEmpty()) {
+            forums = forumRepository.findAllById(forumsid);
+        }
+        return forums;
+    }
 }
