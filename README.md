@@ -418,3 +418,26 @@ The application is deployed and can be accessed at the following URL: https://10
 | #3             | [docker-compose](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/docker/docker-compose.yml)                                                                 |
 | #4             | [ChartService.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/service/ChartService.java)                    |
 | #5             | [SecurityConfiguration.java](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/src/main/java/es/codeurjc/backend/security/SecurityConfiguration.java) |
+
+### Jorge Carbonero Asín
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                                      | Link                                                                                             |
+| ------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Mostly working postApi and removed unused files                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/4f135f1173a1ed79c3b5e1605780655df8c16f98 |
+| #2     | Mostly finished PostApi                                          | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fc7aefcad9bbb95972c1c9b6db61da73244737d1 |
+| #3     | PostApi accepts images                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/b91cb444b17b05225169da62ca5e2099bf9f49ba |
+| #4     | Login to api available via LoginRestController                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/db61bc024d26fccff162a5f533e0cbd3753127fd |
+| #5     | Like, dislike and report post available to all registered users  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/137563e76e665212c08c5bd4fe6d535a43f91673 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Post Api Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/PostApiRestController.java)      |
+| #2             | [Post Service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/service/PostService.java)                                   |
+| #3             | [Post Add DTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/dto/PostAddDTO.java)                                        |
+| #4             | [Login Api Rest Controller](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/restcontroller/LoginApiRestController.java)    |
+| #5             | [Post DTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blame/main/backend/src/main/java/es/codeurjc/backend/dto/PostDTO.java)                                               |
+
