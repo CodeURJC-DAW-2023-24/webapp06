@@ -6,10 +6,307 @@ servers:
 - url: http://localhost:8443
   description: Generated server url
 paths:
+  /api/users/{userId}/activate:
+    put:
+      tags:
+      - user-api-rest-controller
+      summary: Activate user
+      description: Activate an user
+      operationId: activateUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User successfully activated
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/posts/{postId}:
+    get:
+      tags:
+      - post-api-rest-controller
+      summary: Get a post
+      description: Gets a post.
+      operationId: getPostsById
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Post found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        "400":
+          description: Bad request body
+        "404":
+          description: Post not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - post-api-rest-controller
+      summary: Edit a post
+      description: Edits a post.
+      operationId: editPost
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: validate
+        in: query
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostAddDTO'
+        required: true
+      responses:
+        "200":
+          description: Post edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        "400":
+          description: Bad request body
+        "401":
+          description: Unauthorized
+        "404":
+          description: Post or Thread not found
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - post-api-rest-controller
+      summary: Delete a post
+      description: Deletes a post.
+      operationId: deletePost_1
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Post deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        "400":
+          description: Bad request body
+        "401":
+          description: Unauthorized
+        "404":
+          description: Post not found
+        "500":
+          description: Internal server error
+  /api/users/:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Get all users
+      description: Get all users without paginated
+      operationId: getUsersPaginated_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+      - user-api-rest-controller
+      summary: Create user
+      description: Create a new user and add it to the app.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+        required: true
+      responses:
+        "201":
+          description: User created successfully
+          headers:
+            Location:
+              description: Link to the newly created user
+              style: simple
+              schema:
+                type: string
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad request body
+  /api/threads/:
+    get:
+      tags:
+      - thread-api-rest-controller
+      summary: Get all thread from a forum
+      description: Gets all thread from a forum.
+      operationId: getThreadsByForum
+      parameters:
+      - name: forumName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Threads found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadDTO'
+        "404":
+          description: Forum not found
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - thread-api-rest-controller
+      summary: Create thread
+      description: Create a new thread and add it to the forum.
+      operationId: addThread
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThreadAddDTO'
+        required: true
+      responses:
+        "201":
+          description: Thread created successfully
+          headers:
+            Location:
+              description: Link to the newly created thread
+              style: simple
+              schema:
+                type: string
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/posts/:
+    get:
+      tags:
+      - post-api-rest-controller
+      summary: Get all posts
+      description: Gets all posts.
+      operationId: getPosts
+      parameters:
+      - name: thread
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: reported
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Posts found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        "400":
+          description: Bad request body
+        "401":
+          description: Unauthorized
+        "404":
+          description: Thread not found
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - post-api-rest-controller
+      summary: Create post
+      description: Create a new post and add it to the thread.
+      operationId: addPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostAddDTO'
+        required: true
+      responses:
+        "201":
+          description: Post created successfully
+          headers:
+            Location:
+              description: Link to the newly created post
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        "400":
+          description: Bad request body
+        "401":
+          description: Unauthorized
+        "404":
+          description: Thread not found
+        "500":
+          description: Internal server error
   /api/auth/refresh:
     post:
       tags:
-      - login-api-controller
+      - login-api-rest-controller
       operationId: refreshToken
       parameters:
       - name: refreshToken
@@ -27,7 +324,7 @@ paths:
   /api/auth/logout:
     post:
       tags:
-      - login-api-controller
+      - login-api-rest-controller
       operationId: logOut
       responses:
         "200":
@@ -39,7 +336,7 @@ paths:
   /api/auth/login:
     post:
       tags:
-      - login-api-controller
+      - login-api-rest-controller
       operationId: login
       parameters:
       - name: accessToken
@@ -65,65 +362,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-  /user/search:
-    get:
-      tags:
-      - user-rest-controller
-      operationId: getUsersByUsernameStartingWithPaginated
-      parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      - name: username
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/PageUser'
-  /user/paginated:
-    get:
-      tags:
-      - user-rest-controller
-      operationId: getUsersPaginated
-      parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/PageUser'
   /thread/user/paginated:
     get:
       tags:
@@ -279,7 +517,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/PagePostDTO'
+                $ref: '#/components/schemas/PagePostReportDTO'
   /p/report/{postId}:
     get:
       tags:
@@ -485,6 +723,224 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/users/{userId}:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Get user
+      description: Get user by id
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User successfully found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - user-api-rest-controller
+      summary: Delete user
+      description: Delete user by id
+      operationId: deleteUserById
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User successfully deleted
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users/{userId}/status:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Get user status
+      description: Get the status of an user by id
+      operationId: checkUserStatus
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User successfully found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users/{userId}/image:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Get user image
+      description: Get the image of an user by id
+      operationId: getUserImage
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User successfully found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users/search:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Search Users
+      description: Search users by username starting with paginated
+      operationId: getUsersByUsernameStartingWithPaginated
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: username
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUser'
+  /api/users/paginated:
+    get:
+      tags:
+      - user-api-rest-controller
+      summary: Paginated Users
+      description: Get all users paginated
+      operationId: getUsersPaginated
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUser'
+  /api/threads/{threadId}:
+    get:
+      tags:
+      - thread-api-rest-controller
+      summary: Get a thread
+      description: Gets a thread.
+      operationId: getThreadById
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Thread found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadDTO'
+        "404":
+          description: Thread not found
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - thread-api-rest-controller
+      operationId: deleteThread
+      parameters:
+      - name: threadId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
   /api/forums:
     get:
       tags:
@@ -528,6 +984,24 @@ paths:
             '*/*':
               schema:
                 type: object
+        "500":
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/forums/trending:
+    get:
+      tags:
+      - forum-trending-api-rest-controller
+      summary: Gets trending forums
+      description: Provides a list of the trending forums in the web.
+      operationId: getTrendingForums
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json: {}
         "500":
           description: Internal server error
           content:
@@ -728,6 +1202,80 @@ paths:
                 type: string
 components:
   schemas:
+    PostDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        text:
+          type: string
+        imageFile:
+          type: array
+          items:
+            type: string
+            format: byte
+        ownerUsername:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        threadName:
+          type: string
+        likes:
+          type: integer
+          format: int32
+        dislikes:
+          type: integer
+          format: int32
+        reports:
+          type: integer
+          format: int32
+        image:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+            format: byte
+        thread:
+          type: string
+          writeOnly: true
+    PostAddDTO:
+      type: object
+      properties:
+        text:
+          type: string
+        imageFile:
+          type: array
+          items:
+            type: string
+            format: byte
+        threadId:
+          type: integer
+          format: int64
+        liked:
+          type: boolean
+        disliked:
+          type: boolean
+        reported:
+          type: boolean
+    UserDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    ThreadAddDTO:
+      type: object
+      properties:
+        forumId:
+          type: integer
+          format: int64
+        text:
+          type: string
     AuthResponse:
       type: object
       properties:
@@ -747,41 +1295,56 @@ components:
           type: string
         password:
           type: string
-    PageUser:
+    Forum:
       type: object
       properties:
-        totalPages:
+        id:
           type: integer
-          format: int32
+          format: int64
+        name:
+          type: string
+        icon:
+          type: string
+    PageThread:
+      type: object
+      properties:
         totalElements:
           type: integer
           format: int64
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
+        totalPages:
+          type: integer
+          format: int32
         first:
           type: boolean
         last:
           type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
         size:
           type: integer
           format: int32
         content:
           type: array
           items:
-            $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/Thread'
         number:
           type: integer
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
       type: object
       properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
         pageNumber:
           type: integer
           format: int32
@@ -791,87 +1354,6 @@ components:
         paged:
           type: boolean
         unpaged:
-          type: boolean
-        offset:
-          type: integer
-          format: int64
-        sort:
-          $ref: '#/components/schemas/SortObject'
-    SortObject:
-      type: object
-      properties:
-        sorted:
-          type: boolean
-        unsorted:
-          type: boolean
-        empty:
-          type: boolean
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        username:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        isActive:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        roles:
-          type: array
-          items:
-            type: string
-    Forum:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        threads:
-          type: array
-          items:
-            $ref: '#/components/schemas/Thread'
-        icon:
-          type: string
-    PageThread:
-      type: object
-      properties:
-        totalPages:
-          type: integer
-          format: int32
-        totalElements:
-          type: integer
-          format: int64
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
-        size:
-          type: integer
-          format: int32
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Thread'
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortObject'
-        empty:
           type: boolean
     Post:
       type: object
@@ -899,18 +1381,21 @@ components:
         reports:
           type: integer
           format: int32
-        image:
-          type: object
-          properties:
-            binaryStream:
-              type: object
-          writeOnly: true
         likes:
           type: integer
           format: int32
         dislikes:
           type: integer
           format: int32
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
     Thread:
       type: object
       properties:
@@ -933,24 +1418,38 @@ components:
         numberPosts:
           type: integer
           format: int32
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        roles:
+          type: array
+          items:
+            type: string
     PagePost:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
+        totalPages:
+          type: integer
+          format: int32
         first:
           type: boolean
         last:
           type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
         size:
           type: integer
           format: int32
@@ -963,41 +1462,46 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        empty:
-          type: boolean
-    PagePostDTO:
-      type: object
-      properties:
-        totalPages:
+        numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PagePostReportDTO:
+      type: object
+      properties:
         totalElements:
           type: integer
           format: int64
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
+        totalPages:
+          type: integer
+          format: int32
         first:
           type: boolean
         last:
           type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
         size:
           type: integer
           format: int32
         content:
           type: array
           items:
-            $ref: '#/components/schemas/PostDTO'
+            $ref: '#/components/schemas/PostReportDTO'
         number:
           type: integer
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
-    PostDTO:
+    PostReportDTO:
       type: object
       properties:
         id:
@@ -1010,5 +1514,59 @@ components:
         thread:
           $ref: '#/components/schemas/Thread'
         reports:
+          type: integer
+          format: int32
+    PageUser:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ThreadDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        forum:
+          $ref: '#/components/schemas/Forum'
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        owner:
+          $ref: '#/components/schemas/User'
+        createdAt:
+          type: string
+          format: date-time
+        numberPosts:
           type: integer
           format: int32
