@@ -20,6 +20,7 @@ import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -149,10 +150,12 @@ public class UserApiRestController {
     @PostMapping("/")
     @Operation(summary = "Create user", description = "Create a new user and add it to the app.", responses = {
         @ApiResponse(responseCode = "201", description = "User created successfully", headers = @Header(name = "Location", description = "Link to the newly created user")),
-        @ApiResponse(responseCode = "406", description = "Not Acceptable")
+        @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
     })
     public ResponseEntity<?> createUser(@RequestBody User u) {
-        if(u.getEmail()!=null && u.getUsername()!=null && u.getPassword()!=null){
+        if(u.getEmail()==null || u.getUsername()==null || u.getPassword()==null){
+            return new ResponseEntity<>("Invalid Body", HttpStatus.BAD_REQUEST);
+        } else {
             userService.createUser(u.getUsername(), u.getEmail(), u.getPassword());
             Optional<User> o = userService.getUserByUsernameNoException(u.getUsername());
             String userUrl = ServletUriComponentsBuilder
@@ -161,8 +164,6 @@ public class UserApiRestController {
                 .buildAndExpand(o.get().getId())
                 .toUriString();
             return ResponseEntity.created(URI.create(userUrl)).body(o.get());
-        } else {
-            return new ResponseEntity<>("Invalid Body", HttpStatus.NOT_ACCEPTABLE);
         }
     }
     
