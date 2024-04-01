@@ -4,6 +4,7 @@ package es.codeurjc.backend.restcontroller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +32,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/userApiController")
+@RequestMapping("/api/users")
 public class UserApiRestController {
 
     @Autowired
     private UserService userService;
 
     
+    @GetMapping("/")
+    @Operation(summary = "Get all users", description = "Get all users without paginated")
+    public List<User> getUsersPaginated(){
+        return userService.getAllUsers();
+    }
+
     @GetMapping("/paginated")
     @Operation(summary = "Paginated Users", description = "Get all users paginated")
     public Page<User> getUsersPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -118,6 +126,22 @@ public class UserApiRestController {
             return new ResponseEntity<>("User with id " + userId + " not found.", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(o.get(), HttpStatus.OK);
+        }
+    }
+
+    
+    @DeleteMapping("/{userId}")
+    @Operation(summary = "Delete user", description = "Delete user by id", responses = {
+        @ApiResponse(responseCode = "200", description = "User successfully deleted"),
+        @ApiResponse(responseCode = "404", description = "User Not Found")
+    })
+    public ResponseEntity<?> deleteUserById(@PathVariable Long userId) {
+        Optional<User> o = userService.getUserById(userId);
+        if (!o.isPresent()){
+            return new ResponseEntity<>("User with id " + userId + " not found.", HttpStatus.NOT_FOUND);
+        } else {
+            userService.deleteUser(o.get().getUsername());
+            return new ResponseEntity<>("User with id "+ userId+ " succesfully deleted", HttpStatus.OK);
         }
     }
 

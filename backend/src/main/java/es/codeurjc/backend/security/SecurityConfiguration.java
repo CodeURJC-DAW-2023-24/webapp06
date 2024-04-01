@@ -66,6 +66,8 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.GET, "/api/posts/*").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/threads").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/threads/*").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/users/*").permitAll()
 						// PRIVATE ENDPOINTS
 						.requestMatchers(HttpMethod.POST, "/api/posts").hasRole("USER")
 						.requestMatchers(HttpMethod.PUT, "/api/posts/*").hasRole("USER")
