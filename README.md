@@ -355,11 +355,26 @@ The REST API documentation is automatically generated and can be accessed in the
 - [OpenAPI Specification (YAML)](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/backend/api-docs/api-docs.yaml)
 - [OpenAPI Specification (HTML)](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp06/faac735416132b7587d515b4aefea415206016dd/backend/api-docs/index.html)
 
-## Docker Application Execution Instructions
+## Docker Application Execution Instructions and Image Construction
+1. Clone this repository
+```
+https://github.com/CodeURJC-DAW-2023-24/webapp06.git
+```
 
-## Docker Image Construction Documentation
-
-## Deployment on Virtual Machine
+2. Install Docker
+3. Run Docker
+4. Go to webapp06 folder
+```
+cd ./webapp6
+```
+5. Execute create_image.sh file
+```
+./create_image.sh
+```
+6. Execute run.sh file
+```
+./run.sh
+```
 
 ## Virtual Machine Application URL and Example Users
 

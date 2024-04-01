@@ -92,6 +92,7 @@ public class User {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -124,11 +125,11 @@ public class User {
         this.imageFile = image;
     }
 
-    public Boolean getIsActive(){
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public Boolean setIsActive(boolean isActive){
+    public Boolean setIsActive(boolean isActive) {
         return this.isActive = isActive;
     }
 
