@@ -1,7 +1,5 @@
 package es.codeurjc.backend.dto;
 
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.Date;
 
 import es.codeurjc.backend.model.Post;
@@ -9,7 +7,6 @@ import es.codeurjc.backend.model.Post;
 public class PostDTO {
     private Long id;
     private String text;
-    private byte[] imageFile;
     private String ownerUsername;
     private Date createdAt;
     private String threadName;
@@ -20,11 +17,10 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Long id, String text, byte[] imageFile, String ownerUsername, Date createdAt, String threadName,
+    public PostDTO(Long id, String text, String ownerUsername, Date createdAt, String threadName,
             int likes, int dislikes, int reports) {
         this.id = id;
         this.text = text;
-        this.imageFile = imageFile;
         this.ownerUsername = ownerUsername;
         this.createdAt = createdAt;
         this.threadName = threadName;
@@ -34,20 +30,8 @@ public class PostDTO {
     }
 
     public PostDTO(Post post) {
-        Blob imageBlob = post.getImageFile();
-        byte[] imageFile = null;
-
-        if (imageBlob != null) {
-            try {
-                imageFile = imageBlob.getBytes(1, (int) imageBlob.length());
-            } catch (SQLException e) {
-                // e.printStackTrace();
-            }
-        }
-
         this.id = post.getId();
         this.text = post.getText();
-        this.imageFile = imageFile;
         this.ownerUsername = post.getOwner().getUsername();
         this.createdAt = post.getCreatedAt();
         this.threadName = post.getThread().getName();
@@ -70,14 +54,6 @@ public class PostDTO {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public byte[] getImageFile() {
-        return imageFile;
-    }
-
-    public void setImage(byte[] imageFile) {
-        this.imageFile = imageFile;
     }
 
     public String getOwnerUsername() {

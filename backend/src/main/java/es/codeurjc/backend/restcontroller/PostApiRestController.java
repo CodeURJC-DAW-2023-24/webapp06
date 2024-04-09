@@ -1,5 +1,8 @@
 package es.codeurjc.backend.restcontroller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -9,10 +12,13 @@ import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +30,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.codeurjc.backend.dto.PostAddDTO;
@@ -186,11 +194,48 @@ public class PostApiRestController {
             @ApiResponse(responseCode = "404", description = "Post not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    public ResponseEntity<?> getPostsById(@PathVariable String postId) {
+    public ResponseEntity<?> getPostById(@PathVariable String postId) {
         try {
             Post savedPost = postService.getPostById(Long.parseLong(postId));
             PostDTO post = new PostDTO(savedPost);
             return new ResponseEntity<>(post, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{postId}/image")
+    @Operation(summary = "Get a post image", description = "Gets a post image.", responses = {
+            @ApiResponse(responseCode = "200", description = "Image found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Image not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    public ResponseEntity<?> getPostImageById(@PathVariable Long postId) {
+        try {
+            Post post = postService.getPostById(postId);
+            try {
+
+                InputStream inputStream = post.getImageFile().getBinaryStream();
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                byte[] imageBytes = outputStream.toByteArray();
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_PNG);
+
+                return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+            } catch (NullPointerException e) {
+                return new ResponseEntity<>("This post doesn't have an image.", HttpStatus.NOT_FOUND);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -273,6 +318,46 @@ public class PostApiRestController {
             } catch (BadRequestException e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             } catch (ThreadNotFoundException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(AUTHENTICATED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
+    }
+
+    @PutMapping("/{postId}/image")
+    @Operation(summary = "Edit a post image", description = "Edits a post image.", responses = {
+            @ApiResponse(responseCode = "200", description = "Post image edited successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Post or Thread not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    public ResponseEntity<?> editPostImage(@AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable String postId, @RequestPart MultipartFile image) {
+        if (userDetails != null) {
+            try {
+                Post post = postService.getPostById(Long.parseLong(postId));
+
+                if (post.getOwner().getUsername().equals(userDetails.getUsername())
+                        || userService.isAdmin(userDetails.getUsername())) {
+                    if (image == null) {
+                        return new ResponseEntity<>("Include an image.", HttpStatus.BAD_REQUEST);
+                    }
+
+                    try {
+                        Blob imageFile = new SerialBlob(image.getBytes());
+                        post.setImageFile(imageFile);
+                        postService.savePost(post);
+
+                        return new ResponseEntity<>("Image changed successfully.", HttpStatus.OK);
+                    } catch (SQLException | IOException e) {
+                        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
+                } else {
+                    return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
+                }
+            } catch (EntityNotFoundException e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             }
         }

@@ -64,6 +64,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.GET, "/api/posts").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/posts/*").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/posts/*/image").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/threads").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/threads/*").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
@@ -71,6 +72,7 @@ public class SecurityConfiguration {
 						// PRIVATE ENDPOINTS
 						.requestMatchers(HttpMethod.POST, "/api/posts").hasRole("USER")
 						.requestMatchers(HttpMethod.PUT, "/api/posts/*").hasRole("USER")
+						.requestMatchers(HttpMethod.PUT, "/api/posts/*/image").hasRole("USER")
 						.requestMatchers(HttpMethod.DELETE, "/api/posts/*").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/threads/weekly").hasRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/chart/posts/weekly").hasRole("USER")
