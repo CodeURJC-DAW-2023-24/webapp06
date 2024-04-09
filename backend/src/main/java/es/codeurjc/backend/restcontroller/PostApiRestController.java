@@ -330,7 +330,7 @@ public class PostApiRestController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
             @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Post or Thread not found", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Post not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     public ResponseEntity<?> editPostImage(@AuthenticationPrincipal UserDetails userDetails,
