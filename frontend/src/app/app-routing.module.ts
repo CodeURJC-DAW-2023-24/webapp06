@@ -11,6 +11,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
