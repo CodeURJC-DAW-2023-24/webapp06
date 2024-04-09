@@ -34,7 +34,6 @@ export class LoginService {
   }
 
   logIn(user: string, pass: string) {
-    console.log('respuesta aaa');
     this.http
       .post(
         this.apiUrl + BASE_URL + '/login',

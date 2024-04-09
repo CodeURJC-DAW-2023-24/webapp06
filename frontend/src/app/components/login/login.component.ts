@@ -14,9 +14,4 @@ export class LoginComponent {
     console.log('prueba');
     this.loginService.logIn(user, pass);
   }
-
-  prueba(): any {
-    console.log('prueba');
-    alert('Prueba');
-  }
 }
