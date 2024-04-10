@@ -1,5 +1,4 @@
 export const environment = {
-    production: false,
-    backendUrl: 'https://10.100.139.188:8443/api'
-  };
-  
+  production: false,
+  backendUrl: 'https://127.0.0.1:8443/api',
+};
