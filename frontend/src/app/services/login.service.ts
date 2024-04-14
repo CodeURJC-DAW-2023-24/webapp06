@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environments';
 
-const BASE_URL = '/auth';
+const BASE_URL = '/api/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,6 @@ const BASE_URL = '/auth';
 export class LoginService {
   user?: User;
   logged: boolean = false;
-  private apiUrl = environment.backendUrl;
 
   constructor(private http: HttpClient) {
     //this.reqIsLogged();
@@ -36,7 +35,7 @@ export class LoginService {
   logIn(user: string, pass: string) {
     this.http
       .post(
-        this.apiUrl + BASE_URL + '/login',
+        BASE_URL + '/login',
         { username: user, password: pass },
         { withCredentials: true }
       )
@@ -48,7 +47,7 @@ export class LoginService {
 
   logOut() {
     return this.http
-      .post(this.apiUrl + BASE_URL + '/logout', { withCredentials: true })
+      .post(BASE_URL + '/logout', { withCredentials: true })
       .subscribe((resp: any) => {
         console.log('LOGOUT: Successfully');
         this.logged = false;
