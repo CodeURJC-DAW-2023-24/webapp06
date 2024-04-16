@@ -37,6 +37,9 @@ RUN mvn dependency:go-offline
 # Copia el código del proyecto
 COPY backend/src /project/src
 
+# Copia los archivos estáticos de Angular al directorio correcto dentro del proyecto Spring Boot
+COPY --from=angular-build /angular-app/dist/* /project/src/main/resources/public/new/
+
 # Compila el proyecto
 RUN mvn clean package -DskipTests
 
