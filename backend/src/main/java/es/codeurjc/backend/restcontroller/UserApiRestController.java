@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mysql.cj.jdbc.Blob;
 
 import es.codeurjc.backend.dto.UserDTO;
 import es.codeurjc.backend.model.User;
@@ -283,7 +282,21 @@ public class UserApiRestController {
     }
 
     
-
+    @GetMapping("/me")
+    @Operation(summary = "Get current user", description = "Get information of the currently logged user")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null) {
+            String username = userDetails.getUsername();
+            Optional<User> userOptional = userService.getUserByUsernameNoException(username);
+            if (userOptional.isPresent()) {
+                return ResponseEntity.ok(userOptional.get());
+            } else {
+                return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>("Authenticated user not found.", HttpStatus.UNAUTHORIZED);
+        }
+}
 
 
 }
