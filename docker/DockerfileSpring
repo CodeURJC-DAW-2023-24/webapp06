@@ -1,3 +1,25 @@
+
+#################################################
+# Imagen base para el contenedor de compilación de Angular
+#################################################
+FROM node:20.12.1 as angular-build
+
+# Define el directorio de trabajo donde ejecutar comandos para Angular
+WORKDIR /angular-app
+
+# Copia el package.json y package-lock.json (o yarn.lock si usas yarn)
+COPY frontend/package*.json ./
+
+# Instala todas las dependencias necesarias
+RUN npm install
+
+# Copia el código fuente de la aplicación Angular
+COPY frontend/ .
+
+# Construye la aplicación Angular para producción
+RUN npm run build -- --prod --base-href="/new/"
+
+
 #################################################
 # Imagen base para el contenedor de compilación
 #################################################

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    image: jk2024/spring-boot-daw:latest
+    image: jk2024/spring-boot-daw:3.0
     ports:
       - "8443:8443"
     environment:
@@ -15,7 +15,6 @@ services:
       - SERVER_SSL_KEY_STORE_TYPE=PKCS12
       - SERVER_SSL_KEY_ALIAS=inforum
       - JWT_SECRET=change
-      # Define el resto de las variables de entorno según sea necesario.
     depends_on:
       - db
     restart: on-failure
@@ -33,4 +32,4 @@ services:
       - db-data:/var/lib/mysql
 
 volumes:
-  db-data: # Esto persistirá los datos entre los despliegues del contenedor.
+  db-data:
