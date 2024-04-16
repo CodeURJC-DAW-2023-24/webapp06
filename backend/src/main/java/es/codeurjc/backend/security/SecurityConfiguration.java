@@ -111,6 +111,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/css/**").permitAll()
+						.requestMatchers("/new/**").permitAll()
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/register").permitAll()
 						.requestMatchers("/register/post").permitAll()
