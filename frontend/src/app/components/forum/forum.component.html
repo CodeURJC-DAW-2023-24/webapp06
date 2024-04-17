@@ -1,8 +1,8 @@
 <button  *ngIf="loggedIn" type="button">
   New thread
 </button>
+  <h1>{{forumName}}</h1>
 <div *ngIf="threads.length > 0">
-  <h1>Threads</h1>
   <ul class="items">
     <li *ngFor="let thread of threads">
       <a [routerLink]="['/t', thread.name]">{{thread.name}} {{thread.numberPosts}}</a>

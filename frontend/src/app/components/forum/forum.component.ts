@@ -12,10 +12,12 @@ import { Thread } from '../../models/thread.model';
 export class ForumComponent{
 
   threads: any = [] = [];
+  forumName: string = "";
 
   constructor(public LoginService: LoginService, private activatedRoute: ActivatedRoute, private threadService: ThreadService) {
 
     const forumName = activatedRoute.snapshot.params['forumName'];
+    this.forumName = forumName;
     threadService.getThreadsByName(forumName).subscribe(
       (threads: Thread[]) => this.threads = threads
 
