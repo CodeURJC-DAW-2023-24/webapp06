@@ -13,16 +13,18 @@ export class ForumComponent{
 
   threads: any = [] = [];
   forumName: string = "";
+  forumIcon: string ="";
+  forums: any = [] = [];
 
   constructor(public LoginService: LoginService, private activatedRoute: ActivatedRoute, private threadService: ThreadService) {
 
     const forumName = activatedRoute.snapshot.params['forumName'];
     this.forumName = forumName;
+    this.forumIcon = threadService.getForumIcon(forumName);
+    this.forums = threadService.getForums();
     threadService.getThreadsByName(forumName).subscribe(
       (threads: Thread[]) => this.threads = threads
-
     );
-
   }
 
 

@@ -12,6 +12,7 @@ const BASE_URL = '/api/threads';
 
 export class ThreadService {
 
+
   constructor(private HttpClient: HttpClient) { }
 
   getThreadsByName(forumName:string): Observable<Thread[]> {
@@ -29,4 +30,45 @@ export class ThreadService {
   public setNumberOfPost(thread: Thread) {
     thread.numberPosts = thread.posts.length;
   }
+
+  getForumIcon(forumName: string) : string{
+    if(forumName === "books"){
+      return "book";
+    } else if(forumName === "tecnology"){
+      return "laptop-code";
+    } else if (forumName === "science"){
+      return "flask";
+    } else if (forumName === "sports"){
+      return "football-ball";
+    } else if (forumName === "music"){
+      return "music";
+    } else if (forumName === "movies"){
+      return "film";
+    } else if (forumName === "gastronomy"){
+      return "utensils";
+    } else if (forumName === "travel"){
+      return "plane";
+    } else if (forumName === "gaming"){
+      return "gamepad";
+    }
+
+
+    return "";
 }
+
+  getForums(): any {
+    return [
+      {name: "books", icon: "book"},
+      {name: "tecnology", icon: "laptop-code"},
+      {name: "science", icon: "flask"},
+      {name: "sports", icon: "football-ball"},
+      {name: "music", icon: "music"},
+      {name: "movies", icon: "film"},
+      {name: "gastronomy", icon: "utensils"},
+      {name: "travel", icon: "plane"},
+      {name: "gaming", icon: "gamepad"}
+    ];
+  }
+
+}
+
