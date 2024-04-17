@@ -5,7 +5,7 @@
 <div *ngIf="threads.length > 0">
   <ul class="items">
     <li *ngFor="let thread of threads">
-      <a [routerLink]="['/t', thread.name]">{{thread.name}} {{thread.numberPosts}}</a>
+      <a [routerLink]="['/t', thread.name]">{{thread.name}} {{thread.posts.length}}</a>
     </li>
   </ul>
 
