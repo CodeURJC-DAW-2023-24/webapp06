@@ -13,6 +13,7 @@ const BASE_URL = '/api/threads';
 export class ThreadService {
 
 
+
   constructor(private HttpClient: HttpClient) { }
 
   getThreadsByName(forumName:string): Observable<Thread[]> {
@@ -20,6 +21,12 @@ export class ThreadService {
     map((response: any)=> response.content)
   ) as Observable<Thread[]>;
 	}
+
+  getThreadsByUser(userName:string): Observable<Thread[]> {
+    return this.HttpClient.get(BASE_URL + '/user/?userName=' + userName).pipe(
+      map((response: any)=> response.content)
+    ) as Observable<Thread[]>;
+  }
 
   private handleError(error: any) {
     console.log("ERROR:");

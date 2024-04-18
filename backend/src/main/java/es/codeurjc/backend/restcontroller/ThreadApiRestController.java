@@ -72,6 +72,25 @@ public class ThreadApiRestController {
         }
     }
 
+    @GetMapping("/user")
+    @Operation(summary = "Get all thread from an username", description = "Gets all thread from an username.", responses = {
+            @ApiResponse(responseCode = "200", description = "Threads found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ThreadDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "threads not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    public ResponseEntity<?> getThreadsByUsername(@RequestParam(value = "username", required = true) String username) {
+        try {
+            
+            Page<Thread> threads = threadService.getPaginatedThreadsByUsername(0, 10, username);
+            Page<ThreadDTO> threadData = threads.map(thread -> new ThreadDTO(thread));
+            return new ResponseEntity<>(threadData, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Forum with name " + username + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @GetMapping("/{threadId}")
     @Operation(summary = "Get a thread", description = "Gets a thread.", responses = {
             @ApiResponse(responseCode = "200", description = "Thread found", content = {
