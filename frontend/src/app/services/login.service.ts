@@ -3,8 +3,9 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
-const BASE_URL = '/api/auth';
+const BASE_URL = '/api/';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +13,15 @@ const BASE_URL = '/api/auth';
 export class LoginService {
   user?: User;
   logged: boolean = false;
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
-    this.reqIsLogged()
-  }
+  isLoggedIn = this.loggedIn.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   reqIsLogged(): Observable<boolean> {
     return this.http
-      .post<any>(`${BASE_URL}/users/me`, { withCredentials: true })
+      .get<any>(`${BASE_URL}users/me`, { withCredentials: true })
       .pipe(
         map((response) => {
           this.user = response as User;
@@ -27,6 +29,9 @@ export class LoginService {
           return true;
         }),
         catchError((error) => {
+          if (error.status === 401) {
+            this.logOut();
+          }
           return throwError(() => new Error('Wrong credentials'));
         })
       );
@@ -35,37 +40,46 @@ export class LoginService {
   logIn(user: string, pass: string): Observable<boolean> {
     return this.http
       .post<any>(
-        `${BASE_URL}/login`,
+        `${BASE_URL}auth/login`,
         { username: user, password: pass },
         { withCredentials: true }
       )
       .pipe(
-        map((response) => true),
+        map((response) => {
+          this.loggedIn.next(true);
+          return true;
+        }),
         catchError((error) => {
           return throwError(() => new Error('Wrong credentials'));
         })
       );
   }
 
-  logOut() {
+  logOut(): Observable<boolean> {
     return this.http
-      .post(BASE_URL + '/logout', { withCredentials: true })
-      .subscribe((resp: any) => {
-        console.log('LOGOUT: Successfully');
-        this.logged = false;
-        this.user = undefined;
-      });
+      .post(BASE_URL + 'auth/logout', { withCredentials: true })
+      .pipe(
+        map((response) => {
+          this.logged = false;
+          this.user = undefined;
+          this.loggedIn.next(false);
+          return true;
+        }),
+        catchError((error) => {
+          return throwError(() => new Error('Wrong credentials'));
+        })
+      );
   }
 
   isLogged(): boolean {
     return this.logged;
   }
 
-  isAdmin() {
+  isAdmin(): boolean | undefined {
     return this.user && this.user.roles.indexOf('ADMIN') !== -1;
   }
 
-  currentUser() {
+  currentUser(): User | undefined {
     return this.user;
   }
 }
