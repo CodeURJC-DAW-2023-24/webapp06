@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environments';
 
 const BASE_URL = '/api/auth';
@@ -12,36 +14,35 @@ export class LoginService {
   user?: User;
   logged: boolean = false;
 
-  constructor(private http: HttpClient) {
-    //this.reqIsLogged();
+  constructor(private http: HttpClient) {}
+
+  reqIsLogged(): Observable<boolean> {
+    return this.http
+      .post<any>(`${BASE_URL}/users/me`, { withCredentials: true })
+      .pipe(
+        map((response) => {
+          this.user = response as User;
+          this.logged = true;
+          return true;
+        }),
+        catchError((error) => {
+          return throwError(() => new Error('Wrong credentials'));
+        })
+      );
   }
 
-  reqIsLogged() {
-    this.http.get('/api/users/me', { withCredentials: true }).subscribe(
-      (response) => {
-        this.user = response as User;
-        this.logged = true;
-      },
-      (error) => {
-        if (error.status != 404) {
-          console.error(
-            'Error when asking if logged: ' + JSON.stringify(error)
-          );
-        }
-      }
-    );
-  }
-
-  logIn(user: string, pass: string) {
-    this.http
-      .post(
-        BASE_URL + '/login',
+  logIn(user: string, pass: string): Observable<boolean> {
+    return this.http
+      .post<any>(
+        `${BASE_URL}/login`,
         { username: user, password: pass },
         { withCredentials: true }
       )
-      .subscribe(
-        (response) => console.log('respuesta', response),
-        (error) => alert('Wrong credentials')
+      .pipe(
+        map((response) => true),
+        catchError((error) => {
+          return throwError(() => new Error('Wrong credentials'));
+        })
       );
   }
 
