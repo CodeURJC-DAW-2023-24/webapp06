@@ -23,7 +23,7 @@ export class ThreadService {
 	}
 
   getThreadsByUser(userName:string): Observable<Thread[]> {
-    return this.HttpClient.get(BASE_URL + '/user/?userName=' + userName).pipe(
+    return this.HttpClient.get(BASE_URL + '/user?username=' + userName).pipe(
       map((response: any)=> response.content)
     ) as Observable<Thread[]>;
   }
