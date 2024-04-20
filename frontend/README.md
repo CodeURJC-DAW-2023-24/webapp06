@@ -32,9 +32,9 @@ This guide outlines the Angular CLI commands for generating services and compone
 
 ### Services
 ```
-ng generate service frontend/services/login
+ng generate service ./services/login
 ```
 ### Components
 ```
-ng generate component frontend/components/reported_posts
+ng generate component ./components/reported_posts
 ```
