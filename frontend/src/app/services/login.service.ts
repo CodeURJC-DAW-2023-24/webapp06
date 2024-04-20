@@ -3,7 +3,6 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../../environments/environments';
 
 const BASE_URL = '/api/auth';
 
@@ -14,7 +13,9 @@ export class LoginService {
   user?: User;
   logged: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.reqIsLogged()
+  }
 
   reqIsLogged(): Observable<boolean> {
     return this.http
