@@ -20,6 +20,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ReportedPostsComponent } from './components/reported-posts/reported-pos
     StatisticsComponent,
     UsersComponent,
     ReportedPostsComponent,
+    NavbarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],

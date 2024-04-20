@@ -16,12 +16,12 @@ export class LoginComponent {
     this.loginService.logIn(user, pass).subscribe({
       next: (loggedIn) => {
         if (loggedIn) {
-          this.router.navigate(['/'])
+          this.router.navigate(['/']);
         }
       },
       error: (error) => {
         alert(error.message);
-      }
+      },
     });
   }
 }
