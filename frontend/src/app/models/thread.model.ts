@@ -4,4 +4,5 @@ export interface Thread {
     posts: any[];
     numberPosts: number;
     forumName: string;
+    owner: string;
 }
