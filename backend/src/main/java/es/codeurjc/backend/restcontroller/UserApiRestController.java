@@ -104,6 +104,41 @@ public class UserApiRestController {
         }
     }
 
+    @GetMapping("/{username}/image")
+    @Operation(summary = "Get user image", description = "Get the image of an user by his username", responses = {
+            @ApiResponse(responseCode = "200", description = "User successfully found"),
+            @ApiResponse(responseCode = "404", description = "User Not Found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    public ResponseEntity<?> getUserImageByName(@PathVariable String username) {
+        Optional<User> o = userService.getUserByname(username);
+        if (!o.isPresent()) {
+            return new ResponseEntity<>("User with id " + username + " not found.", HttpStatus.NOT_FOUND);
+        } else {
+            try {
+
+                InputStream inputStream = o.get().getImageFile().getBinaryStream();
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                byte[] imageBytes = outputStream.toByteArray();
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_PNG);
+
+                return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
+
+
     @GetMapping("/{userId}/status")
     @Operation(summary = "Get user status", description = "Get the status of an user by id", responses = {
             @ApiResponse(responseCode = "200", description = "User successfully found"),

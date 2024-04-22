@@ -2,6 +2,9 @@ package es.codeurjc.backend.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +42,11 @@ public class UserService {
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public Optional<User> getUserByname(String username) {
+        return userRepository.findByUsername(username);
+    }
+    
 
     public void save(User user){
         userRepository.save(user);

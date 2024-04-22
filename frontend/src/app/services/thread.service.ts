@@ -22,6 +22,16 @@ export class ThreadService {
   ) as Observable<Thread[]>;
 	}
 
+  getUserImageByName(userName: string): any {
+    return this.HttpClient.get(BASE_URL + '/users/'+ userName+'image');
+  }
+
+  getUserImageById(userId: number): Observable<Blob> {
+    return this.HttpClient.get('api/users/' + userId + '/image', { responseType: 'arraybuffer' }).pipe(
+      map(response => new Blob([response], { type: 'image/png' }))
+    );
+  }
+
   getThreadsByUser(userName:string): Observable<Thread[]> {
     return this.HttpClient.get(BASE_URL + '/user?username=' + userName).pipe(
       map((response: any)=> response.content)
