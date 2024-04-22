@@ -18,4 +18,10 @@ export class PostService {
       map((response: any) => response.content)
     ) as Observable<Post[]>;
   }
+
+  getPostImage(postId: number): Observable<Uint8Array> {
+    return this.HttpClient.get(BASE_URL + '/' + postId + '/image', { responseType: 'arraybuffer' }).pipe(
+      map((response: ArrayBuffer) => new Uint8Array(response))
+    ) as Observable<Uint8Array>;
+  }
 }
