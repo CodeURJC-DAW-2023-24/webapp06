@@ -24,6 +24,12 @@ export class ThreadService {
     ) as Observable<Thread[]>;
   }
 
+  getUserImageById(userId: number): Observable<Blob> {
+    return this.HttpClient.get('api/users/' + userId + '/image', {
+      responseType: 'arraybuffer',
+    }).pipe(map((response) => new Blob([response], { type: 'image/png' })));
+  }
+
   private handleError(error: any) {
     console.log('ERROR:');
     console.error(error);

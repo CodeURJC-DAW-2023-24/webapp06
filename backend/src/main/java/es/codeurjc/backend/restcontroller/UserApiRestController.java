@@ -104,6 +104,7 @@ public class UserApiRestController {
         }
     }
 
+
     @GetMapping("/{userId}/status")
     @Operation(summary = "Get user status", description = "Get the status of an user by id", responses = {
             @ApiResponse(responseCode = "200", description = "User successfully found"),
