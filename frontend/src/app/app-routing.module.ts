@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'f/:forumName', component: ForumComponent },
-  { path: 't/:threadName', component: ThreadComponent },
+  { path: 't/:threadId', component: ThreadComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: SignUpComponent },
   { path: 'user/profile/:userName', component: ProfileComponent },

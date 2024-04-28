@@ -22,7 +22,7 @@ export class ForumComponent{
     this.forumName = forumName;
     this.forumIcon = threadService.getForumIcon(forumName);
     this.forums = threadService.getForums();
-    threadService.getThreadsByName(forumName).subscribe(
+    threadService.getThreadsByForumName(forumName).subscribe(
       (threads: Thread[]) => this.threads = threads
     );
   }

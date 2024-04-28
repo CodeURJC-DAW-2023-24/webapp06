@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ForumComponent } from './components/forum/forum.component';
 import { ThreadComponent } from './components/thread/thread.component';
+import { PostComponent } from './components/post/post.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -21,6 +22,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     UsersComponent,
     ReportedPostsComponent,
     NavbarComponent,
+    PostComponent,
+    CategoriesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
