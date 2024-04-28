@@ -24,7 +24,7 @@
       <h2>Threads</h2>
     <div class="list-group" id="thread-container">
       <div *ngFor="let thread of threads">
-        <a [routerLink]="['/t', thread.name]" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a [routerLink]="['/t', thread.id]" class="list-group-item list-group-item-action d-flex align-items-center">
           <i>{{thread.name}}</i>
         </a>
       </div>
