@@ -12,7 +12,7 @@ const BASE_URL = '/api/threads';
 export class ThreadService {
   constructor(private HttpClient: HttpClient) {}
 
-  getThreadsByName(forumName: string): Observable<Thread[]> {
+  getThreadsByForumName(forumName: string): Observable<Thread[]> {
     return this.HttpClient.get(BASE_URL + '/?forumName=' + forumName).pipe(
       map((response: any) => response.content)
     ) as Observable<Thread[]>;
@@ -22,6 +22,12 @@ export class ThreadService {
     return this.HttpClient.get(BASE_URL + '/user?username=' + userName).pipe(
       map((response: any) => response.content)
     ) as Observable<Thread[]>;
+  }
+
+  getThreadById(threadId: number): Observable<Thread> {
+    return this.HttpClient.get(BASE_URL + '/' + threadId).pipe(
+      map((response: any) => response)
+    ) as Observable<Thread>;
   }
 
   getUserImageById(userId: number): Observable<Blob> {

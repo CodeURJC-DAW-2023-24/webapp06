@@ -1,8 +1,12 @@
+import { Forum } from "./forum.model";
+import { User } from "./user.model";
+
 export interface Thread {
-    id?: number;
+    id: number;
     name: string;
+    forum: Forum;
+    owner: User;
     posts: any[];
     numberPosts: number;
-    forumName: string;
-    owner: string;
+    createdAt: Date;
 }

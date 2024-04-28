@@ -4,110 +4,21 @@
       <div
         class="col-12 d-flex justify-content-between align-items-center mb-3"
       >
-        <h2 class="mb-0 col-8">
-          <a href="/f/{{ forumName }}"
-            ><i class="fas fa-{{ forumIcon }} fa-lg"></i
+        <div class="mb-0 col-8">
+          <a href="/f/{{ thread?.forum?.name }}"
+            ><i class="fas fa-{{ thread?.forum?.icon }} fa-lg"></i
           ></a>
-          {{ threadName }}
-        </h2>
+          <h2>
+            {{ thread?.name }}
+          </h2>
+        </div>
         <div></div>
       </div>
       <div class="list-group">
-        <div *ngFor="let post of posts" class="col-12 mb-3">
-          <div class="card no-hover">
-            <div class="card-header bg-white">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <img
-                    src="/image/user/{{post.author}}"
-                    alt="Imagen de perfil"
-                    class="rounded-circle mr-2"
-                    style="width: 30px; height: 30px"
-                  />
-                  <h6 class="mb-0">{{post.author}}</h6>
-                </div>
-                <div class="text-muted">
-                  <small>{{post.elapsedTime}}</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body">
-              <p class="card-text">{{post.text}}</p>
-            </div>
-            <div *ngIf="post.hasImage" class="d-flex justify-content-center pb-3">
-              <img
-                src="/api/posts/{{post.id}}/image"
-                class="img-fluid"
-                style="max-width: 50%"
-                alt="..."
-              />
-            </div>
-
-            <div
-              class="card-footer bg-transparent d-flex justify-content-start align-items-center"
-            >
-              <button
-                *ngIf="post.isLiked"
-                id="likes"
-                type="button"
-                class="btn btn-link text-decoration-none text-dark mr-2"
-                onclick="toggleLike(this);"
-                data-liked="true"
-              >
-              <i *ngIf="post.isLiked" id="likeIcon" class="fas fa-thumbs-up liked"></i>
-              <button
-                *ngIf="!post.isLiked"
-                id="likes"
-                type="button"
-                class="btn btn-link text-decoration-none text-dark mr-2"
-                onclick="toggleLike(this);"
-                data-liked="false"
-              >
-                <i *ngIf="!post.isLiked" id="likeIcon" class="fas fa-thumbs-up"></i>
-                <span id="likeText">{{post.likes}}</span>
-              </button>
-              <span class="text-muted mx-2">|</span>
-              <button
-                *ngIf="post.isDisliked"
-                id="dislikes"
-                type="button"
-                class="btn btn-link text-decoration-none text-dark"
-                onclick="toggleDislike(this);"
-                data-disliked="true"
-              >
-              <i *ngIf="post.isDisliked" id="dislikeIcon" class="fas fa-thumbs-down disliked"></i>
-              <button
-              *ngIf="!post.isDisliked"
-                id="dislikes"
-                type="button"
-                class="btn btn-link text-decoration-none text-dark"
-                onclick="toggleDislike(this);"
-                data-disliked="false"
-              >
-              <i *ngIf="!post.isDisliked" id="dislikeIcon" class="fas fa-thumbs-down"></i>
-              <span id="dislikeText">{{post.dislikes}}</span>
-              </button>
-              <div class="ml-auto"></div>
-              <button *ngIf="loggedIn" type="button" class="btn btn-link text-decoration-none"
-              id="reporter"
-              onclick="reportPost(this);">
-                <i class="fas fa-exclamation-circle"></i>
-              </button>
-              <button
-                *ngIf="post.isAuthor"
-                id="editer"
-                type="button"
-                class="btn btn-link text-decoration-none text-dark"
-                data-toggle="modal"
-                data-target="#updateModal"
-                onclick="editPost(this);"
-              >
-                <i class="fas fa-edit"></i>
-              </button>
-              <button
-              *ngIf="post.isAuthor" type="button" class="btn btn-link text-decoration-none"
-              id="deleter"
-              onclick="deletePost(this);">
-                <i class="fas fa-trash btn-delete"></i>
-              </button>
+        <div *ngFor="let post of thread?.posts" class="col-12 mb-3">
+          <app-post [post]="post"></app-post>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

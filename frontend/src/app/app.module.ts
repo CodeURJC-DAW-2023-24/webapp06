@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ForumComponent } from './components/forum/forum.component';
 import { ThreadComponent } from './components/thread/thread.component';
+import { PostComponent } from './components/post/post.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -36,6 +37,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     UsersComponent,
     ReportedPostsComponent,
     NavbarComponent,
+    PostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
