@@ -16,6 +16,7 @@ export class PostComponent {
   @Input()
   post: Post = {} as Post;
   isAuthor: boolean = false;
+  isAdmin: boolean = false;
   elapsedTime: String = '';
   hasImage: boolean = false;
   isLiked: boolean = false;
@@ -27,6 +28,9 @@ export class PostComponent {
   ) {
     this.loggedIn = this.loginService.isLogged();
     this.activeUser = this.loginService.currentUser();
+    if (this.loggedIn && this.activeUser != undefined) {
+      this.isAdmin = this.activeUser.roles.includes('ADMIN');
+    }
   }
 
   ngOnInit(): void {
@@ -47,6 +51,10 @@ export class PostComponent {
       this.elapsedTime = minutes + ' minutes ago';
     } else {
       this.elapsedTime = seconds + ' seconds ago';
+    }
+
+    if (this.activeUser != undefined) {
+      this.isAuthor = this.activeUser.id === this.post.owner.id;
     }
 
     const postId: number = this.post.id;

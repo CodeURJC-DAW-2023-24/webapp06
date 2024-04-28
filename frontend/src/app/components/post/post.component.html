@@ -49,6 +49,7 @@
     </button>
     <div class="ml-auto"></div>
     <button
+      *ngIf="loggedIn"
       type="button"
       class="btn btn-link text-decoration-none"
       id="reporter"
@@ -57,6 +58,7 @@
       <i class="fas fa-exclamation-circle"></i>
     </button>
     <button
+    *ngIf="isAuthor || isAdmin"
       id="editer"
       type="button"
       class="btn btn-link text-decoration-none text-dark"
@@ -67,6 +69,7 @@
       <i class="fas fa-edit"></i>
     </button>
     <button
+    *ngIf="isAuthor || isAdmin"
       type="button"
       class="btn btn-link text-decoration-none"
       id="deleter"
