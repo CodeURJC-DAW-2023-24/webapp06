@@ -3,12 +3,12 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <img
-          [src]="'/api/users/' + post?.owner?.id + '/image'"
+          [src]="'/api/users/' + post.owner.id + '/image'"
           alt="Imagen de perfil"
           class="rounded-circle mr-2"
           style="width: 30px; height: 30px"
         />
-        <h6 class="mb-0">{{ post?.owner?.username }}</h6>
+        <h6 class="mb-0">{{ post.owner.username }}</h6>
       </div>
       <div class="text-muted">
         <small>{{ elapsedTime }}</small>
@@ -17,11 +17,11 @@
   </div>
 
   <div class="card-body">
-    <p class="card-text">{{ post?.text }}</p>
+    <p class="card-text">{{ post.text }}</p>
   </div>
   <div class="d-flex justify-content-center pb-3" *ngIf="hasImage">
     <img
-      src="/api/posts/{{ post?.id }}/image"
+      src="/api/posts/{{ post.id }}/image"
       class="img-fluid"
       style="max-width: 50%"
     />
@@ -31,85 +31,48 @@
     class="card-footer bg-transparent d-flex justify-content-start align-items-center"
   >
     <button
-      *ngIf="isLiked"
       id="likes"
       type="button"
       class="btn btn-link text-decoration-none text-dark mr-2"
-      onclick="toggleLike(this);"
-      data-liked="true"
+      (click)="toggleLike()"
     >
-      <i *ngIf="isLiked" id="likeIcon" class="fas fa-thumbs-up liked"></i>
-      <button
-        *ngIf="!isLiked"
-        id="likes"
-        type="button"
-        class="btn btn-link text-decoration-none text-dark mr-2"
-        onclick="toggleLike(this);"
-        data-liked="false"
-      >
-        <i *ngIf="!isLiked" id="likeIcon" class="fas fa-thumbs-up"></i>
-        <span id="likeText">{{ post?.likes }}</span>
-      </button>
-      <span class="text-muted mx-2">|</span>
-      <button
-        *ngIf="isDisliked"
-        id="dislikes"
-        type="button"
-        class="btn btn-link text-decoration-none text-dark"
-        onclick="toggleDislike(this);"
-        data-disliked="true"
-      >
-        <i
-          *ngIf="isDisliked"
-          id="dislikeIcon"
-          class="fas fa-thumbs-down disliked"
-        ></i>
-        <button
-          *ngIf="!isDisliked"
-          id="dislikes"
-          type="button"
-          class="btn btn-link text-decoration-none text-dark"
-          onclick="toggleDislike(this);"
-          data-disliked="false"
-        >
-          <i
-            *ngIf="!isDisliked"
-            id="dislikeIcon"
-            class="fas fa-thumbs-down"
-          ></i>
-          <span id="dislikeText">{{ post?.dislikes }}</span>
-        </button>
-        <div class="ml-auto"></div>
-        <button
-          *ngIf="loggedIn"
-          type="button"
-          class="btn btn-link text-decoration-none"
-          id="reporter"
-          onclick="reportPost(this);"
-        >
-          <i class="fas fa-exclamation-circle"></i>
-        </button>
-        <button
-          *ngIf="isAuthor"
-          id="editer"
-          type="button"
-          class="btn btn-link text-decoration-none text-dark"
-          data-toggle="modal"
-          data-target="#updateModal"
-          onclick="editPost(this);"
-        >
-          <i class="fas fa-edit"></i>
-        </button>
-        <button
-          *ngIf="isAuthor"
-          type="button"
-          class="btn btn-link text-decoration-none"
-          id="deleter"
-          onclick="deletePost(this);"
-        >
-          <i class="fas fa-trash btn-delete"></i>
-        </button>
-      </button>
+      <i id="likeIcon" class="fas fa-thumbs-up liked"></i>
+    </button>
+    <span class="text-muted mx-2">|</span>
+    <button
+      id="dislikes"
+      type="button"
+      class="btn btn-link text-decoration-none text-dark"
+      (click)="toggleDislike()"
+    >
+      <i id="dislikeIcon" class="fas fa-thumbs-down"></i>
+    </button>
+    <div class="ml-auto"></div>
+    <button
+      type="button"
+      class="btn btn-link text-decoration-none"
+      id="reporter"
+      (click)="reportPost()"
+    >
+      <i class="fas fa-exclamation-circle"></i>
+    </button>
+    <button
+      id="editer"
+      type="button"
+      class="btn btn-link text-decoration-none text-dark"
+      data-toggle="modal"
+      data-target="#updateModal"
+      (click)="editPost()"
+    >
+      <i class="fas fa-edit"></i>
+    </button>
+    <button
+      type="button"
+      class="btn btn-link text-decoration-none"
+      id="deleter"
+      (click)="deletePost()"
+    >
+      <i class="fas fa-trash btn-delete"></i>
     </button>
   </div>
 </div>

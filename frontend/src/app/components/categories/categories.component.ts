@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Forum } from '../../models/forum.model';
 import { ForumService } from '../../services/forum.service';
+import { ThreadService } from '../../services/thread.service';
 
 @Component({
   selector: 'app-categories',
@@ -8,11 +9,15 @@ import { ForumService } from '../../services/forum.service';
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
-  forums: Forum[] = [];
+  forums: Forum[];
 
-  constructor(private forumService: ForumService) {
+  constructor(private forumService: ForumService, private threadService: ThreadService) {
+    // TODO - get forums from forumService
+    /*
     this.forumService.getForums().subscribe(
-      (forums: Forum[]) => (this.forums = forums)
+      (forums: Forum[]) => this.forums = forums
     );
+    */
+    this.forums = threadService.getForums();
   }
 }

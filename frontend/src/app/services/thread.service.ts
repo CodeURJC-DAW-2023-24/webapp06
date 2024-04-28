@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Thread } from '../models/thread.model';
+import { Forum } from '../models/forum.model';
 
 const BASE_URL = '/api/threads';
 
@@ -70,17 +71,17 @@ export class ThreadService {
     return '';
   }
 
-  getForums(): any {
+  getForums(): Forum[] {
     return [
-      { name: 'Books', icon: 'book' },
-      { name: 'Technology', icon: 'laptop-code' },
-      { name: 'Science', icon: 'flask' },
-      { name: 'Sports', icon: 'football-ball' },
-      { name: 'Music', icon: 'music' },
-      { name: 'Movies', icon: 'film' },
-      { name: 'Gastronomy', icon: 'utensils' },
-      { name: 'Travel', icon: 'plane' },
-      { name: 'Gaming', icon: 'gamepad' },
+      { id: 1, name: 'Books', icon: 'book' },
+      { id: 2, name: 'Technology', icon: 'laptop-code' },
+      { id: 3, name: 'Science', icon: 'flask' },
+      { id: 4, name: 'Sports', icon: 'football-ball' },
+      { id: 5, name: 'Music', icon: 'music' },
+      { id: 6, name: 'Movies', icon: 'film' },
+      { id: 7, name: 'Gastronomy', icon: 'utensils' },
+      { id: 8, name: 'Travel', icon: 'plane' },
+      { id: 9, name: 'Gaming', icon: 'gamepad' },
     ];
   }
 }

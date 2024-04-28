@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { LoginService } from '../../services/login.service';
-import { ThreadService } from '../../services/thread.service';
-import { map } from 'rxjs';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-post',
@@ -11,10 +10,11 @@ import { map } from 'rxjs';
   styleUrl: './post.component.css',
 })
 export class PostComponent {
-  @Input()
-  post: Post | undefined;
-
   loggedIn: boolean;
+  activeUser: User | undefined;
+
+  @Input()
+  post: Post = {} as Post;
   isAuthor: boolean = false;
   elapsedTime: String = '';
   hasImage: boolean = false;
@@ -23,10 +23,10 @@ export class PostComponent {
 
   constructor(
     private loginService: LoginService,
-    private postService: PostService,
-    private threadService: ThreadService
+    private postService: PostService
   ) {
     this.loggedIn = this.loginService.isLogged();
+    this.activeUser = this.loginService.currentUser();
   }
 
   ngOnInit(): void {
@@ -49,12 +49,29 @@ export class PostComponent {
       this.elapsedTime = seconds + ' seconds ago';
     }
 
-    const postId: number = this.post?.id || 0;
-    this.postService.getPostImage(postId).pipe(
-        map((image: any) => {
-          return image != null;
-        })
-      )
-      .subscribe((hasImage: boolean) => (this.hasImage = hasImage));
+    const postId: number = this.post.id;
+    this.postService.getPostImage(postId).subscribe(
+      (hasImage: boolean) => (this.hasImage = hasImage)
+    );
+  }
+
+  toggleLike() {
+    throw new Error('Method not implemented.');
+  }
+  
+  toggleDislike() {
+    throw new Error('Method not implemented.');
+  }
+
+  reportPost() {
+    throw new Error('Method not implemented.');
+  }
+
+  editPost() {
+    throw new Error('Method not implemented.');
+  }
+
+  deletePost() {
+    throw new Error('Method not implemented.');
   }
 }
