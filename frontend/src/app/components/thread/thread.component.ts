@@ -26,9 +26,9 @@ export class ThreadComponent {
     this.user = this.loginService.user;
     this.loggedIn = this.loginService.isLogged();
 
-    this.threadService.getThreadById(threadId).subscribe((thread: Thread) => {
-      this.thread = thread;
-    });
+    this.threadService.getThreadById(threadId).subscribe(
+      (thread: Thread) => this.thread = thread
+    );
 
     if (this.loggedIn && this.user != undefined) {
       this.isAdmin = this.user.roles.includes('ADMIN');

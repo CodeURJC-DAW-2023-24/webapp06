@@ -22,6 +22,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ReportedPostsComponent,
     NavbarComponent,
     PostComponent,
+    CategoriesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
