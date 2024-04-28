@@ -4,7 +4,7 @@ export interface Post {
     id: number;
     text: string;
     owner: User;
-    createdAt: Date;
+    createdAt: string;
     userLikes: User[];
     userDislikes: User[];
     reports: number;

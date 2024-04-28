@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Thread } from '../models/thread.model';
 import { Post } from '../models/post.model';
 
 const BASE_URL = '/api/posts';
@@ -19,9 +18,14 @@ export class PostService {
     ) as Observable<Post[]>;
   }
 
-  getPostImage(postId: number): Observable<Uint8Array> {
-    return this.HttpClient.get(BASE_URL + '/' + postId + '/image', { responseType: 'arraybuffer' }).pipe(
-      map((response: ArrayBuffer) => new Uint8Array(response))
-    ) as Observable<Uint8Array>;
+  getPostImage(postId: number): Observable<any> {
+    return this.HttpClient.get(BASE_URL + '/' + postId + '/image', {
+      responseType: 'arraybuffer',
+    }).pipe(
+      map((response: ArrayBuffer) => new Uint8Array(response)),
+      catchError(() => {
+        return new Uint8Array();
+      })
+    );
   }
 }
