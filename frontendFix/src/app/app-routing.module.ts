@@ -11,19 +11,18 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'f/:forumName', component: ForumComponent },
-  { path: 't/:threadId', component: ThreadComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: SignUpComponent },
-  { path: 'user/profile/:userName', component: ProfileComponent },
-  { path: 'user/edit-profile', component: EditProfileComponent },
-  { path: 'chart', component: StatisticsComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'reports', component: ReportedPostsComponent },
+  { path: '', component: HomeComponent, data: { title: 'Home' } },
+  { path: 'f/:forumName', component: ForumComponent, data: { title: 'Forum' } },
+  { path: 't/:threadId', component: ThreadComponent, data: { title: 'Thread' } },
+  { path: 'login', component: LoginComponent, data: { title: 'Login' } },
+  { path: 'register', component: SignUpComponent, data: { title: 'Register' } },
+  { path: 'user/profile/:userName', component: ProfileComponent, data: { title: 'Profile' } },
+  { path: 'user/edit-profile', component: EditProfileComponent, data: { title: 'Edit profile' } },
+  { path: 'chart', component: StatisticsComponent, data: { title: 'Chart' } },
+  { path: 'users', component: UsersComponent, data: { title: 'Users' } },
+  { path: 'reports', component: ReportedPostsComponent, data: { title: 'Reports' } },
 ];
 
 @NgModule({

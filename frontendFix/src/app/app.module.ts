@@ -1,14 +1,9 @@
 import { NgModule } from '@angular/core';
-import {
-  BrowserModule,
-} from '@angular/platform-browser';
-import {
-  HttpClientModule,
-  provideHttpClient,
-  withFetch,
-} from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { ForumComponent } from './components/forum/forum.component';
 import { ThreadComponent } from './components/thread/thread.component';
@@ -38,10 +33,10 @@ import { CategoriesComponent } from './components/categories/categories.componen
     ReportedPostsComponent,
     NavbarComponent,
     PostComponent,
-    CategoriesComponent,
+    CategoriesComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [provideHttpClient(withFetch())],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
