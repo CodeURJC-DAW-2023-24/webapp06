@@ -22,14 +22,7 @@
 </div>
 
 <div class="col-md-4 mb-3">
-  <h2 class="">Categories</h2>
-  <div class="list-group mb-3" id="thread-container">
-    <div *ngFor="let forum of forums">
-      <a [routerLink]="['/f', forum.name]" class="list-group-item list-group-item-action d-flex align-items-center">
-        <i class="fas fa-{{forum.icon}} mr-2"></i> {{forum.name}}
-      </a>
-    </div>
-  </div>
+  <app-categories></app-categories>
 </div>
 </div>
 </div>

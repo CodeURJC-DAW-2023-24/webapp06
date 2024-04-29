@@ -3,9 +3,10 @@
   <div *ngFor="let forum of forums">
     <a
       [routerLink]="['/f', forum.name]"
-      class="list-group-item list-group-item-action d-flex align-items-center"
+      class="row list-group-item list-group-item-action d-flex align-items-center"
     >
-      <i class="fas fa-{{ forum.icon }} mr-2"></i> {{ forum.name }}
+      <i class="col-1 d-flex justify-content-center align-items-center fas fa-{{ forum.icon }}"></i>
+      <span class="col-8">{{ forum.name }}</span>
     </a>
   </div>
 </div>
