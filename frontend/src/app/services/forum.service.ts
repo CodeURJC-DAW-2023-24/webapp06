@@ -13,4 +13,8 @@ export class ForumService {
   getForums(): Observable<Forum[]> {
     return this.HttpClient.get('/api/forums') as Observable<Forum[]>;
   }
+
+  getTrending(): Observable<Forum[]> {
+    return this.HttpClient.get('/api/forums/trending') as Observable<Forum[]>;
+  }
 }
