@@ -23,3 +23,80 @@
     </div>
   </div>
 </div>
+<!--
+<div
+  class="modal fade"
+  id="uploadModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="uploadModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Upload Post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form
+        id="uploadForm"
+        action="/t/{{ threadName }}/addPost"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="_csrf" value="{{ token }}" />
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputText">Text</label>
+            <textarea
+              class="form-control"
+              id="inputTextArea"
+              name="post-form-text"
+              rows="3"
+              placeholder="Introduce un texto"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="dropzone">Image</label>
+            <div class="text-center w-100">
+              <input
+                type="file"
+                class="form-control-file"
+                id="postPicture"
+                name="imageFile"
+                accept="image/*"
+                onchange="loadFile(event)"
+              />
+              <img
+                id="output"
+                class="w-100 mt-3"
+                style="width: 150px; height: 150px; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-link text-decoration-none"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->

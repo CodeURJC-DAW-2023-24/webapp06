@@ -12,6 +12,12 @@ const BASE_URL = '/api/posts';
 export class PostService {
   constructor(private HttpClient: HttpClient) {}
 
+  getPostById(postId: number): Observable<Post> {
+    return this.HttpClient.get(BASE_URL + '/' + postId).pipe(
+      map((response: any) => response.content)
+    ) as Observable<Post>;
+  }
+
   getPostsByThread(threadId: number): Observable<Post[]> {
     return this.HttpClient.get(BASE_URL + '/?threadId=' + threadId).pipe(
       map((response: any) => response.content)
@@ -27,5 +33,25 @@ export class PostService {
         return new Uint8Array();
       })
     );
+  }
+
+  likePost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, {liked: true});
+  }
+
+  unlikePost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, {liked: false});
+  }
+
+  dislikePost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, {disliked: true});
+  }
+
+  undislikePost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, {disliked: true});
+  }
+
+  reportPost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, {reported: true});
   }
 }

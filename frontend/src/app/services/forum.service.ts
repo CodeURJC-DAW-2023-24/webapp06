@@ -11,8 +11,6 @@ export class ForumService {
   constructor(private HttpClient: HttpClient) { }
   
   getForums(): Observable<Forum[]> {
-    return this.HttpClient.get('/api/forums').pipe(
-      map((response: any) => response.content)
-    ) as Observable<Forum[]>;
+    return this.HttpClient.get('/api/forums') as Observable<Forum[]>;
   }
 }

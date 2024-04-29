@@ -21,6 +21,7 @@ export class PostComponent {
   hasImage: boolean = false;
   isLiked: boolean = false;
   isDisliked: boolean = false;
+  isReported: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -55,31 +56,85 @@ export class PostComponent {
 
     if (this.activeUser != undefined) {
       this.isAuthor = this.activeUser.id === this.post.owner.id;
+
+      if (this.post.userLikes.includes(this.activeUser)) {
+        this.isLiked = true;
+      }
+
+      if (this.post.userDislikes.includes(this.activeUser)) {
+        this.isDisliked = true;
+      }
     }
 
     const postId: number = this.post.id;
-    this.postService.getPostImage(postId).subscribe(
-      (hasImage: boolean) => (this.hasImage = hasImage)
-    );
+    this.postService
+      .getPostImage(postId)
+      .subscribe((hasImage: boolean) => (this.hasImage = hasImage));
   }
 
   toggleLike() {
-    throw new Error('Method not implemented.');
+    if (this.loggedIn) {
+      if (this.isLiked) {
+        this.postService.unlikePost(this.post.id).subscribe(() => {
+          this.isLiked = false;
+        });
+      } else {
+        this.postService.likePost(this.post.id).subscribe(() => {
+          this.isLiked = true;
+        });
+        if (this.isDisliked) {
+          this.postService.undislikePost(this.post.id).subscribe(() => {
+            this.isDisliked = false;
+          });
+        }
+      }
+
+      this.postService.getPostById(this.post.id).subscribe((post: Post) => {
+        this.post = post;
+      });
+    }
   }
-  
+
   toggleDislike() {
-    throw new Error('Method not implemented.');
+    if (this.loggedIn) {
+      if (this.isDisliked) {
+        this.postService.undislikePost(this.post.id).subscribe(() => {
+          this.isDisliked = false;
+        });
+      } else {
+        this.postService.dislikePost(this.post.id).subscribe(() => {
+          this.isDisliked = true;
+        });
+        if (this.isLiked) {
+          this.postService.unlikePost(this.post.id).subscribe(() => {
+            this.isLiked = false;
+          });
+        }
+      }
+
+      this.postService.getPostById(this.post.id).subscribe((post: Post) => {
+        this.post = post;
+      });
+    }
   }
 
   reportPost() {
-    throw new Error('Method not implemented.');
+    if (this.loggedIn) {
+      if (!this.isReported) {
+        this.postService.reportPost(this.post.id).subscribe(() => {
+          this.isReported = true;
+        });
+      }
+    }
   }
 
   editPost() {
-    throw new Error('Method not implemented.');
+    if (this.isAdmin || this.isAuthor) {
+    }
   }
 
   deletePost() {
-    throw new Error('Method not implemented.');
+    if (this.isAdmin || this.isAuthor) {
+    }
   }
 }

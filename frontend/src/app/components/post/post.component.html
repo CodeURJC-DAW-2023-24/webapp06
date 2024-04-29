@@ -36,7 +36,8 @@
       class="btn btn-link text-decoration-none text-dark mr-2"
       (click)="toggleLike()"
     >
-      <i id="likeIcon" class="fas fa-thumbs-up liked"></i>
+      <i id="likeIcon" class="fas fa-thumbs-up" [ngClass]="{'liked': isLiked}"></i>
+      <span id="likeText"> {{post.likes}}</span>
     </button>
     <span class="text-muted mx-2">|</span>
     <button
@@ -45,7 +46,8 @@
       class="btn btn-link text-decoration-none text-dark"
       (click)="toggleDislike()"
     >
-      <i id="dislikeIcon" class="fas fa-thumbs-down"></i>
+      <i id="dislikeIcon" class="fas fa-thumbs-down" [ngClass]="{'disliked': isDisliked}"></i>
+      <span id="dislikeText"> {{post.dislikes}}</span>
     </button>
     <div class="ml-auto"></div>
     <button
@@ -55,7 +57,7 @@
       id="reporter"
       (click)="reportPost()"
     >
-      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-exclamation-circle" [ngClass]="{'disliked': isReported}"></i>
     </button>
     <button
     *ngIf="isAuthor || isAdmin"
@@ -79,3 +81,78 @@
     </button>
   </div>
 </div>
+
+<!--
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="uploadModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Update Post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>      
+      
+      <form id="updateForm" action="/t/{{threadName}}/updatePost" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="inputText">Text</label>
+            <textarea
+              class="form-control"
+              id="inputTextAreaUpdate"
+              name="post-form-text"
+              rows="3"
+              placeholder="Introduce un texto"
+              required
+            ></textarea>
+            <input type="hidden" id="inputIdUpdate" name="copiaId">
+          </div>
+          
+          <div class="form-group">
+            <label for="dropzone">Image</label>
+            <div id="dropzone" class="dropzone dz-clickable">
+              <div class="text-center w-100">
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="postPicture"
+                  name="imageFile"
+                  accept="image/*"
+                  onchange="loadFile(event)"
+                />
+                <img
+                  id="image_post"
+                  class=" w-100 mt-3"
+                  style="width: 150px; height: 150px; object-fit: cover"
+                />
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-link text-decoration-none"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->

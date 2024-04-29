@@ -9,15 +9,16 @@ import { ThreadService } from '../../services/thread.service';
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
-  forums: Forum[];
+  forums: Forum[] = [];
 
-  constructor(private forumService: ForumService, private threadService: ThreadService) {
-    // TODO - get forums from forumService
-    /*
-    this.forumService.getForums().subscribe(
-      (forums: Forum[]) => this.forums = forums
-    );
-    */
-    this.forums = threadService.getForums();
+  constructor(
+    private forumService: ForumService,
+    private threadService: ThreadService
+  ) {}
+
+  ngOnInit(): void {
+    this.forumService.getForums().subscribe((forums: Forum[]) => {
+      this.forums = forums;
+    });
   }
 }
