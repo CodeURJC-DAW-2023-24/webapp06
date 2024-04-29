@@ -10,7 +10,25 @@
           ></a>
           {{ thread?.name }}
         </h2>
-        <div></div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-delete"
+            (click)="deleteThread()"
+            *ngIf="isAdmin || isThreadOwner"
+          >
+            Delete Thread
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-toggle="modal"
+            data-target="#uploadModal"
+            *ngIf="loggedIn"
+          >
+            Add Post
+          </button>
+        </div>
       </div>
       <div class="list-group">
         <div *ngFor="let post of thread?.posts" class="col-12 mb-3">
@@ -23,7 +41,7 @@
     </div>
   </div>
 </div>
-<!--
+
 <div
   class="modal fade"
   id="uploadModal"
@@ -48,11 +66,9 @@
 
       <form
         id="uploadForm"
-        action="/t/{{ threadName }}/addPost"
-        method="post"
+        (ngSubmit)="uploadPost()"
         enctype="multipart/form-data"
       >
-        <input type="hidden" name="_csrf" value="{{ token }}" />
         <div class="modal-body">
           <div class="form-group">
             <label for="inputText">Text</label>
@@ -99,4 +115,3 @@
     </div>
   </div>
 </div>
--->

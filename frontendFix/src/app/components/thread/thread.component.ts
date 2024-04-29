@@ -12,7 +12,8 @@ import { User } from '../../models/user.model';
 })
 export class ThreadComponent {
   user: User | undefined;
-  loggedIn: boolean;
+  loggedIn: boolean = false;
+  threadId: number = 0;
   thread: Thread | undefined;
   isAdmin: boolean = false;
   isThreadOwner: boolean = false;
@@ -22,11 +23,14 @@ export class ThreadComponent {
     private threadService: ThreadService,
     private activatedRoute: ActivatedRoute
   ) {
-    const threadId = activatedRoute.snapshot.params['threadId'];
+  }
+
+  ngOnInit() {
+    this.threadId = this.activatedRoute.snapshot.params['threadId'];
     this.user = this.loginService.user;
     this.loggedIn = this.loginService.isLogged();
 
-    this.threadService.getThreadById(threadId).subscribe(
+    this.threadService.getThreadById(this.threadId).subscribe(
       (thread: Thread) => this.thread = thread
     );
 
@@ -34,5 +38,14 @@ export class ThreadComponent {
       this.isAdmin = this.user.roles.includes('ADMIN');
       this.isThreadOwner = this.thread?.owner.id === this.user.id;
     }
+
+  }
+  
+  uploadPost() {
+  throw new Error('Method not implemented.');
+  }
+
+  deleteThread() {
+    throw new Error('Method not implemented.');
   }
 }
