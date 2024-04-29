@@ -24,6 +24,7 @@
       src="/api/posts/{{ post.id }}/image"
       class="img-fluid"
       style="max-width: 50%"
+      (error)="handleImageError()"
     />
   </div>
 

@@ -18,7 +18,7 @@ export class PostComponent {
   isAuthor: boolean = false;
   isAdmin: boolean = false;
   elapsedTime: String = '';
-  hasImage: boolean = false;
+  hasImage: boolean = true;
   isLiked: boolean = false;
   isDisliked: boolean = false;
   isReported: boolean = false;
@@ -53,68 +53,55 @@ export class PostComponent {
     } else {
       this.elapsedTime = seconds + ' seconds ago';
     }
-
+    
     if (this.activeUser != undefined) {
       this.isAuthor = this.activeUser.id === this.post.owner.id;
+      
+      this.isLiked = this.post.userLikes.some(user => user.id === this.activeUser?.id);
 
-      if (this.post.userLikes.includes(this.activeUser)) {
-        this.isLiked = true;
-      }
-
-      if (this.post.userDislikes.includes(this.activeUser)) {
-        this.isDisliked = true;
-      }
+      this.isDisliked = this.post.userDislikes.some(user => user.id === this.activeUser?.id);
     }
+  }
 
-    const postId: number = this.post.id;
-    this.postService
-      .getPostImage(postId)
-      .subscribe((hasImage: boolean) => (this.hasImage = hasImage));
+  handleImageError() {
+    this.hasImage = false;
   }
 
   toggleLike() {
     if (this.loggedIn) {
       if (this.isLiked) {
-        this.postService.unlikePost(this.post.id).subscribe(() => {
-          this.isLiked = false;
-        });
+        this.postService.unlikePost(this.post.id).subscribe(() => {});
+        this.isLiked = false;
+        this.post.likes--;
       } else {
-        this.postService.likePost(this.post.id).subscribe(() => {
-          this.isLiked = true;
-        });
+        this.postService.likePost(this.post.id).subscribe(() => {});
+        this.isLiked = true;
+        this.post.likes++;
         if (this.isDisliked) {
-          this.postService.undislikePost(this.post.id).subscribe(() => {
-            this.isDisliked = false;
-          });
+          this.postService.undislikePost(this.post.id).subscribe(() => {});
+          this.isDisliked = false;
+          this.post.dislikes--;
         }
       }
-
-      this.postService.getPostById(this.post.id).subscribe((post: Post) => {
-        this.post = post;
-      });
     }
   }
 
   toggleDislike() {
     if (this.loggedIn) {
       if (this.isDisliked) {
-        this.postService.undislikePost(this.post.id).subscribe(() => {
-          this.isDisliked = false;
-        });
+        this.postService.undislikePost(this.post.id).subscribe(() => {});
+        this.isDisliked = false;
+        this.post.dislikes--;
       } else {
-        this.postService.dislikePost(this.post.id).subscribe(() => {
-          this.isDisliked = true;
-        });
+        this.postService.dislikePost(this.post.id).subscribe(() => {});
+        this.isDisliked = true;
+        this.post.dislikes++;
         if (this.isLiked) {
-          this.postService.unlikePost(this.post.id).subscribe(() => {
-            this.isLiked = false;
-          });
+          this.postService.unlikePost(this.post.id).subscribe(() => {});
+          this.isLiked = false;
+          this.post.likes--;
         }
       }
-
-      this.postService.getPostById(this.post.id).subscribe((post: Post) => {
-        this.post = post;
-      });
     }
   }
 
