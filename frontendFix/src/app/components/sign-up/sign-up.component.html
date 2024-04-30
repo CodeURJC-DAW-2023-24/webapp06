@@ -1,1 +1,58 @@
-<p>sign-up works!</p>
+<div class="container mt-4 flex-grow-1">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="registration-form bg-light mt-4 p-4">
+            <form (ngSubmit)="onSubmit()">
+            <div class="col-12 d-flex justify-content-center">
+              <h4 class="text-center mb-3">User Registration</h4>
+            </div>
+            <div class="col-12">
+              <label>Username</label>
+              <input #username
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Username"
+                required
+                ngModel
+              />
+            </div>
+            <div class="col-12 mt-2">
+              <label>Email</label>
+              <input #email
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Email"
+                required
+                ngModel
+              />
+            </div>
+            <div class="col-12 mt-2">
+              <label>Password</label>
+              <input #password
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+                required
+                ngModel
+              />
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-3">
+              <button type="submit" class="btn btn-primary col-12">
+                Sign up
+              </button>
+            </div>
+          </form>
+          <hr class="mt-4" />
+          <div class="col-12 text-center">
+            <p class="mb-0">
+              Already have an account? <a href="login">Log in</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
