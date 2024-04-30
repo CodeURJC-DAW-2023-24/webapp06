@@ -23,13 +23,7 @@ export class ThreadComponent {
     private threadService: ThreadService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.threadId = this.activatedRoute.snapshot.params['threadId'];
     this.reqThread();
-    this.threadService.obsThread.subscribe((thread) => {
-      this.thread = thread;
-    });
-
-    this.reqIslogged();
     this.loginService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
       if (loggedIn) {
@@ -44,9 +38,11 @@ export class ThreadComponent {
   }
 
   reqThread() {
+    this.threadId = this.activatedRoute.snapshot.params['threadId'];
     this.threadService.getThreadById(this.threadId).subscribe({
       next: (thread) => {
         this.thread = thread;
+        this.reqIslogged();
       },
       error: () => {}
     });
