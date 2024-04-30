@@ -2,7 +2,7 @@
 <div class="container mt-4 flex-grow-1">
     <h2>Categories</h2>
     <div class="row">
-        <ng-container *ngIf="$forums | async as forums; else noforums">
+        <ng-container *ngIf="$forums | async as forums">
             <div *ngFor="let forum of forums" class="col-md-4 mb-3">
                 <a [routerLink]="['/f', forum.name]" class="card text-decoration-none text-dark">
                     <div class="card-body text-center">
@@ -11,15 +11,16 @@
                     </div>
                 </a>
             </div>
+            <div *ngIf="forums.length == 0" class="col-md-12 mb-3 ">
+                <div class="card-body text-center"><h5>No categories yet</h5></div>
+            </div>
         </ng-container>
-        <ng-template #noforums>
-            <div class="card-body text-center"><h5>No categories yet</h5></div>
-        </ng-template>
+
     </div>
 
     <h2 class="mt-4">Trending Categories</h2>
     <div class="row">
-        <ng-container *ngIf="$trending | async as trending; else notrending">
+        <ng-container *ngIf="$trending | async as trending">
             <div *ngFor="let t of trending" class="col-md-4 mb-3">
                 <a [routerLink]="['/f', t.name]" class="card text-decoration-none text-dark">
                     <div class="card-body text-center">
@@ -28,9 +29,10 @@
                     </div>
                 </a>
             </div>
+            <div *ngIf="trending.length ==0" class="col-md-12 mb-3 ">
+                <div class="card-body text-center"><h5>No trending categories yet</h5></div>
+            </div>
         </ng-container>
-        <ng-template #notrending>
-            <div class="card-body text-center"><h5>No trending categories yet</h5></div>
-        </ng-template>
     </div>
+    
 </div>

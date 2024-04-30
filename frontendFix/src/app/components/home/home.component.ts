@@ -15,6 +15,7 @@ export class HomeComponent {
   $trending: Observable<Forum[]>;
 
   constructor(private activatedRoute: ActivatedRoute, private forumService: ForumService) {
+    //this.$forums = forumService.getForums();
     this.$forums = forumService.getForums();
     this.$trending = forumService.getTrending();
   }
