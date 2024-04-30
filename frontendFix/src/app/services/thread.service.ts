@@ -13,8 +13,6 @@ const BASE_URL = '/api/threads';
 export class ThreadService {
   private thread = new BehaviorSubject<Thread>({} as Thread);
 
-  obsThread = this.thread.asObservable();
-
   constructor(private http: HttpClient) {}
 
   getThreadsByForumName(forumName: string): Observable<Thread[]> {

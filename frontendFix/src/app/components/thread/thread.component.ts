@@ -24,17 +24,6 @@ export class ThreadComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.reqThread();
-    this.loginService.isLoggedIn.subscribe((loggedIn) => {
-      this.loggedIn = loggedIn;
-      if (loggedIn) {
-        this.reqIslogged();
-      } else {
-        this.user = undefined;
-        this.isAdmin = false;
-        this.isThreadOwner = false;
-        this.loggedIn = false;
-      }
-    });
   }
 
   reqThread() {
