@@ -10,7 +10,7 @@ import { User } from '../../models/user.model';
   styleUrl: './post.component.css',
 })
 export class PostComponent {
-  loggedIn: boolean;
+  loggedIn: boolean = false;
   activeUser: User | undefined;
 
   @Input()
@@ -27,14 +27,15 @@ export class PostComponent {
     private loginService: LoginService,
     private postService: PostService
   ) {
+  }
+
+  ngOnInit(): void {
     this.loggedIn = this.loginService.isLogged();
     this.activeUser = this.loginService.currentUser();
     if (this.loggedIn && this.activeUser != undefined) {
       this.isAdmin = this.activeUser.roles.includes('ADMIN');
     }
-  }
 
-  ngOnInit(): void {
     const postTime: Date = new Date(this.post?.createdAt || '');
     const currentTime: Date = new Date();
     const seconds: number = Math.floor(

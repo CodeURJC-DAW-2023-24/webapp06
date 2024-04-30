@@ -15,37 +15,66 @@ export class ThreadComponent {
   loggedIn: boolean = false;
   threadId: number = 0;
   thread: Thread | undefined;
-  isAdmin: boolean = false;
-  isThreadOwner: boolean = false;
+  isAdmin: boolean | undefined;
+  isThreadOwner: boolean | undefined;
 
   constructor(
     private loginService: LoginService,
     private threadService: ThreadService,
     private activatedRoute: ActivatedRoute
   ) {
-  }
-
-  ngOnInit() {
     this.threadId = this.activatedRoute.snapshot.params['threadId'];
-    this.user = this.loginService.user;
-    this.loggedIn = this.loginService.isLogged();
+    this.reqThread();
+    this.threadService.obsThread.subscribe((thread) => {
+      this.thread = thread;
+    });
 
-    this.threadService.getThreadById(this.threadId).subscribe(
-      (thread: Thread) => this.thread = thread
-    );
-
-    if (this.loggedIn && this.user != undefined) {
-      this.isAdmin = this.user.roles.includes('ADMIN');
-      this.isThreadOwner = this.thread?.owner.id === this.user.id;
-    }
-
+    this.reqIslogged();
+    this.loginService.isLoggedIn.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+      if (loggedIn) {
+        this.reqIslogged();
+      } else {
+        this.user = undefined;
+        this.isAdmin = false;
+        this.isThreadOwner = false;
+        this.loggedIn = false;
+      }
+    });
   }
-  
+
+  reqThread() {
+    this.threadService.getThreadById(this.threadId).subscribe({
+      next: (thread) => {
+        this.thread = thread;
+      },
+      error: () => {}
+    });
+  }
+
+  reqIslogged() {
+    this.loginService.reqIsLogged().subscribe({
+      next: (isLogged) => {
+        this.loggedIn = isLogged;
+        if (isLogged) {
+          this.user = this.loginService.currentUser();
+          this.isAdmin = this.loginService.isAdmin();
+          this.isThreadOwner = this.thread?.owner.id === this.user?.id;
+        } else {
+          this.user = undefined;
+          this.isAdmin = false;
+          this.isThreadOwner = false;
+        }
+      },
+      error: () => {}
+    });
+  }
+
   uploadPost() {
-  throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
 
   deleteThread() {
-    throw new Error('Method not implemented.');
+    this.threadService.deleteThread(this.threadId).subscribe();
   }
 }
