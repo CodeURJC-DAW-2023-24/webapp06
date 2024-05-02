@@ -16,6 +16,12 @@ export class PostService {
     return this.HttpClient.get(BASE_URL + '/' + postId) as Observable<Post>;
   }
 
+  getPostsByUser(username:string): Observable<Post[]> {
+    return this.HttpClient.get(
+      BASE_URL + '/'
+    ) as Observable<Post[]>;
+  }
+
   getPostsByThread(threadId: number): Observable<Post[]> {
     return this.HttpClient.get(
       BASE_URL + '/?threadId=' + threadId

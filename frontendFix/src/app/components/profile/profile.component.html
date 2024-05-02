@@ -1,16 +1,22 @@
+<div *ngIf="userId === null; else noUserCont">
+  <h1>This user does no exist :(</h1>
+</div>
+<ng-template #noUserCont>
 <div class="container mt-5 flex-grow-1">
   <div class="row">
     <div class="col-md-4">
       <div class="text-center">
       <img [src]="'/api/users/' + userId + '/image'" alt="User Image" class="rounded-circle mb-3"
           style="width: 150px; height: 150px">
-        <h3>{{userName}}</h3>
-        <!-- <p>{{numberPosts}} Post</p> -->
-        <p>Number of Posts</p>
-        <!-- <p>{{numberThreads}} Threads</p> -->
-        <p>Number of Threads</p>
-
-
+        <h2>{{userName}}</h2>
+        <p *ngIf="numberPosts==1; else onePost">{{numberPosts}} Post</p>
+        <ng-template #onePost>
+          <p>{{numberPosts}} Posts</p>
+        </ng-template>
+        <p *ngIf="numberThreads==1; else OneThread" >{{numberThreads}} Thread</p>
+        <ng-template #OneThread>
+          <p>{{numberThreads}} Threads</p>
+        </ng-template>
         <button *ngIf="isAdmin" type="button" class="btn btn-link text-decoration-none btn-delete" data-toggle="modal">
           <i class="fas fa-trash btn-delete"></i> Delete Account
         </button>
@@ -34,3 +40,4 @@
     </ng-template>
     </div>
   </div>
+</ng-template>
