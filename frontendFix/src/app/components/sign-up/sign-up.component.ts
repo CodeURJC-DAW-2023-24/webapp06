@@ -1,4 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component} from '@angular/core';
+import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -6,16 +9,37 @@ import { Component, ViewChild } from '@angular/core';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  @ViewChild('username') usernameInput: any;
-  @ViewChild('email') emailInput: any;
-  @ViewChild('password') passwordInput: any;
+  myForm: FormGroup;
+  error: boolean = false;
+  done: boolean = false;
 
-  onSubmit() { 
-    const username: string = this.usernameInput.nativeElement.value;
-    const email: string = this.emailInput.nativeElement.value;
-    const password: string = this.passwordInput.nativeElement.value;
-    console.log(username);
-    console.log(email);
-    console.log(password);
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,) { 
+    this.myForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
+  
+  onSubmit() {
+    if (this.myForm.valid) {
+      const formData = this.myForm.value;
+      this.http.post<any>('http://localhost:4200/api/users/', formData).subscribe({
+        next: (response) => {
+          this.done = true;
+        },
+        error: (error) => {
+          this.error = true;
+        }
+      });
+    } else {
+      if (this.myForm.get('email')?.hasError('email')) {
+        alert('Please enter a valid email address.');
+      } else {
+        alert('Please complete all fields.');
+      }
+      
+    }
+  }
+  
 }

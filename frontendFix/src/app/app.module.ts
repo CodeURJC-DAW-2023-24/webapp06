@@ -17,6 +17,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
     PostComponent,
     CategoriesComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
