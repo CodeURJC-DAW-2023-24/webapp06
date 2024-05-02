@@ -18,13 +18,17 @@ export class ForumComponent{
 
   constructor(public LoginService: LoginService, private activatedRoute: ActivatedRoute, private threadService: ThreadService) {
 
-    const forumName = activatedRoute.snapshot.params['forumName'];
-    this.forumName = forumName;
-    this.forumIcon = threadService.getForumIcon(forumName);
-    this.forums = threadService.getForums();
-    threadService.getThreadsByForumName(forumName).subscribe(
-      (threads: Thread[]) => this.threads = threads
-    );
+  }
+
+  ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe(params => {
+      this.forumName = params['forumName'];
+      this.threadService.getThreadsByForumName(this.forumName).subscribe((threads: Thread[]) => {
+        this.threads = threads;
+        this.forumIcon = this.threadService.getForumIcon(this.forumName);
+      });
+    });
   }
 
 
