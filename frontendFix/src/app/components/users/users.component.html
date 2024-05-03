@@ -20,16 +20,21 @@
     </div>
   </form>
 
-  <!-- Lista de nombres de usuario encontrados -->
-  <div *ngIf="usernames.length > 0; else noUserTemplate">
-    <h5 class="mt-4">Found Usernames:</h5>
-    <ul class="list-group mt-2">
-      <li *ngFor="let username of usernames" class="list-group-item">
-        {{ username }}
+  <div *ngIf="users && users.length > 0; else noUserTemplate">
+    <ul class="list-group">
+      <li *ngFor="let user of users" class="list-group-item d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img [src]="'/api/users/' + user.id + '/image'" alt="User Image" class="rounded-circle me-2 user-image">
+          <span class="user-name">{{ user.username }}</span>
+        </div>
+        <a [routerLink]="['/edit-profile', user.id]" class="btn">
+          <i class="fas fa-edit"></i>
+        </a>
       </li>
     </ul>
   </div>
   <ng-template #noUserTemplate>
-    <h5 class="mt-4 text-muted">No users found with that username.</h5>
+    <h5 class="text-muted">No users found with that username.</h5>
   </ng-template>
+  
 </div>

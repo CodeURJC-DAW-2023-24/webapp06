@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { LoginService } from './../../services/login.service';
 
 @Component({
   selector: 'app-users',
@@ -8,17 +9,18 @@ import { User } from '../../models/user.model';
   styleUrl: './users.component.css'
 })
 export class UsersComponent {
-  usernames: string[] = [];
+  users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private loginService: LoginService) { }
 
   searchUser(username: string): void {
-    this.userService.getUsernamesByUsername(username).subscribe({
-      next: (usernames) => {
-        this.usernames = usernames;
+    if (!this.loginService.isAdmin()) return;
+    this.userService.getUsersByUsername(username).subscribe({
+      next: (users) => {
+        this.users = users;
       },
       error: (error) => {
-        console.error('Error fetching usernames', error);
+        console.error('Error fetching users', error);
       }
     });
   }
