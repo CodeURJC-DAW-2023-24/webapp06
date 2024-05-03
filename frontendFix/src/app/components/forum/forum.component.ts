@@ -71,7 +71,7 @@ export class ForumComponent{
     if (this.uploadForm.valid) {
       this.threadService.addThread(this.uploadForm.value).subscribe({
         next: (response) => {
-          console.log('Thread uploaded successfully', response);
+          this.threads.push(response);
         },
         error: (error) => {
           console.error('Error uploading thread', error);
