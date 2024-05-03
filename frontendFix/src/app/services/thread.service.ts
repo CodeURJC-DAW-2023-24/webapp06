@@ -42,6 +42,10 @@ export class ThreadService {
       .pipe(catchError(this.handleError));
   }
 
+  addThread(threadData: {forumId:number, text: string}): Observable<any>{
+    return this.http.post(BASE_URL + '/', threadData)
+  }
+
   getUserImageById(userId: number): Observable<Blob> {
     return this.http
       .get('api/users/' + userId + '/image', {
@@ -59,6 +63,7 @@ export class ThreadService {
   public setNumberOfPost(thread: Thread) {
     thread.numberPosts = thread.posts.length;
   }
+
 
   getForumIcon(forumName: string): string {
     if (forumName === 'Books') {
@@ -82,6 +87,30 @@ export class ThreadService {
     }
 
     return '';
+  }
+
+  getForumId(forumName: string): number {
+    if (forumName === 'Books') {
+      return 1;
+    } else if (forumName === 'Technology') {
+      return 2;
+    } else if (forumName === 'Science') {
+      return 3;
+    } else if (forumName === 'Sports') {
+      return 4;
+    } else if (forumName === 'Music') {
+      return 5;
+    } else if (forumName === 'Movies') {
+      return 6;
+    } else if (forumName === 'Gastronomy') {
+      return 7;
+    } else if (forumName === 'Travel') {
+      return 8;
+    } else if (forumName === 'Gaming') {
+      return 9;
+    }
+
+    return 10;
   }
 
   getForums(): Forum[] {
