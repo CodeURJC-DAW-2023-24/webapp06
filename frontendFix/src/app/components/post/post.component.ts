@@ -26,8 +26,7 @@ export class PostComponent {
   constructor(
     private loginService: LoginService,
     private postService: PostService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loggedIn = this.loginService.isLogged();
@@ -38,8 +37,9 @@ export class PostComponent {
 
     const postTime: Date = new Date(this.post?.createdAt || '');
     const currentTime: Date = new Date();
-    const seconds: number = Math.floor(
-      (currentTime.getTime() - postTime.getTime()) / 1000
+    const seconds: number = Math.max(
+      Math.floor((currentTime.getTime() - postTime.getTime()) / 1000),
+      0
     );
     const days: number = Math.floor(seconds / (60 * 60 * 24));
     const hours: number = Math.floor(seconds / (60 * 60));
@@ -54,13 +54,17 @@ export class PostComponent {
     } else {
       this.elapsedTime = seconds + ' seconds ago';
     }
-    
+
     if (this.activeUser != undefined) {
       this.isAuthor = this.activeUser.id === this.post.owner.id;
-      
-      this.isLiked = this.post.userLikes.some(user => user.id === this.activeUser?.id);
 
-      this.isDisliked = this.post.userDislikes.some(user => user.id === this.activeUser?.id);
+      this.isLiked = this.post.userLikes.some(
+        (user) => user.id === this.activeUser?.id
+      );
+
+      this.isDisliked = this.post.userDislikes.some(
+        (user) => user.id === this.activeUser?.id
+      );
     }
   }
 

@@ -41,6 +41,18 @@ export class PostService {
     );
   }
 
+  createPost(text: string, threadId: number): Observable<Post> {
+    return this.HttpClient.post(BASE_URL + '/', {text, threadId: +threadId}) as Observable<Post>;
+  }
+
+  setPostImage(postId: number, formData: FormData): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId + '/image', formData);
+  }
+
+  editPost(postId: number, text: string): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId, { text });
+  }
+
   likePost(postId: number): Observable<any> {
     return this.HttpClient.put(BASE_URL + '/' + postId, { liked: true });
   }

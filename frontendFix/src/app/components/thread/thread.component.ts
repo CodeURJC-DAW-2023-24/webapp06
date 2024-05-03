@@ -4,6 +4,8 @@ import { ThreadService } from '../../services/thread.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Thread } from '../../models/thread.model';
 import { User } from '../../models/user.model';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { PostModalComponent } from '../post-modal/post-modal.component';
 
 @Component({
   selector: 'app-thread',
@@ -21,7 +23,8 @@ export class ThreadComponent {
   constructor(
     private loginService: LoginService,
     private threadService: ThreadService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: BsModalService
   ) {
     this.reqThread();
   }
@@ -52,6 +55,16 @@ export class ThreadComponent {
         }
       },
       error: () => {}
+    });
+  }
+
+  openModal() {
+    const initialState = {
+      threadId: this.threadId,
+    };
+    const modalRef = this.modalService.show(PostModalComponent, { initialState });
+    modalRef.content?.postCreated.subscribe(() => {
+      this.reqThread();
     });
   }
 

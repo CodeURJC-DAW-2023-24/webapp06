@@ -10,4 +10,5 @@ export interface Post {
     reports: number;
     likes: number;
     dislikes: number;
+    hasImage: boolean;
 }

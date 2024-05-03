@@ -22,8 +22,7 @@
           <button
             type="button"
             class="btn btn-outline-primary"
-            data-toggle="modal"
-            data-target="#uploadModal"
+            (click)="openModal()"
             *ngIf="loggedIn"
           >
             Add Post
@@ -41,5 +40,3 @@
     </div>
   </div>
 </div>
-
-<app-post-modal></app-post-modal>
