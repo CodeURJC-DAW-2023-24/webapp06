@@ -3,7 +3,7 @@
     <div class="col-md-6 col-lg-4">
       <div class="login-form bg-light mt-4 p-4">
         <h4 class="text-center mb-3">Welcome</h4>
-        <form action="/login" method="post" class="row g-3">
+        <form (ngSubmit)="logIn($event, user.value, pass.value)" class="row g-3">
           <div class="col-12">
             <label>Username</label>
             <input
@@ -26,8 +26,7 @@
           </div>
           <div class="col-12 d-flex justify-content-center mt-3">
             <button
-              type="button"
-              (click)="logIn($event, user.value, pass.value)"
+              type="submit"
               class="btn btn-primary col-12"
             >
               Login
