@@ -85,6 +85,10 @@ public class Post {
         this.text = text;
     }
 
+    public boolean getHasImage() {
+        return imageFile != null;
+    }
+
     public Blob getImageFile() {
         return imageFile;
     }
