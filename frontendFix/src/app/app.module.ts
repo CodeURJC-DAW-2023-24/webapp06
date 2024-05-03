@@ -18,6 +18,7 @@ import { ReportedPostsComponent } from './components/reported-posts/reported-pos
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostModalComponent } from './components/post-modal/post-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReportedPostsComponent,
     NavbarComponent,
     PostComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    PostModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

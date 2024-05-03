@@ -1,0 +1,75 @@
+<div
+  class="modal fade"
+  id="uploadModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Upload Post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form
+        id="uploadForm"
+        [formGroup]="postForm"
+        (ngSubmit)="uploadPost()"
+        enctype="multipart/form-data"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputText">Text</label>
+            <textarea
+              formControlName="text"
+              class="form-control"
+              id="inputTextArea"
+              name="post-form-text"
+              rows="3"
+              placeholder="What do you want to say?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="dropzone">Image</label>
+            <div class="text-center w-100">
+              <input
+                formControlName="imageFile"
+                type="file"
+                class="form-control-file mb-3"
+                id="postPicture"
+                name="imageFile"
+                accept="image/*"
+                aria-label="Choose an image"
+                (change)="loadFile($event)"
+              />
+              <img
+                id="imagePreview"
+                style="height: 150px;"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-link text-decoration-none"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

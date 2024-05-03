@@ -55,10 +55,6 @@ export class ThreadComponent {
     });
   }
 
-  uploadPost() {
-    throw new Error('Method not implemented.');
-  }
-
   deleteThread() {
     this.threadService.deleteThread(this.threadId).subscribe();
   }
