@@ -507,4 +507,64 @@ During this practice, I focused on enhancing the functionality of the web applic
 | #4             | [Security Configuration](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/security/SecurityConfiguration.java)         |                     
 | #5             | [User DTO](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/backend/src/main/java/es/codeurjc/backend/dto/UserDTO.java)  		                                  |
 
+<br><br>
 
+
+# Phase 4
+
+## Set up of the Development Environment for SPA Application with Angular
+
+This document provides the necessary instructions for setting up the development environment to compile and run a SPA (Single Page Application) application using Angular.
+
+## 1. Node.js and npm Installation
+
+Angular requires Node.js and npm to run the environment and manage project dependencies, so you will need to install both.
+
+- **Download Node.js**: Visit  [nodejs.org](https://nodejs.org/) and download the LTS version that is compatible with your operating system.
+
+- **Installation verification**: Make sure Node.js and npm are correctly installed with the following commands::
+
+  ```bash
+  node --version
+  npm --version
+
+## 2. Installing Angular CLI
+
+This tool will be essential when creating and managing Angular applications.
+
+- **Install Angular CLI**: Run the following command to install Angular CLI globally:
+
+    ```bash
+  npm install -g @angular/cli
+
+- **Verify the installation**: Check that Angular CLI is correctly installed:
+
+    ```bash
+  ng version
+
+## 3. Project configuration
+
+Now that we have installed everything necessary, it will be necessary to clone the repository, and and locate yourself on:
+
+```bash
+webapp06\frontendFix
+```
+Once there, it is necessary to install all the necessary dependencies of the project:
+
+```bash
+npm install
+```
+
+Now, with everything ready, we can do:
+
+```bash
+npm start
+```
+
+And the project will start automatically thanks to predefined settings in the files  
+
+**package.json** y **proxy.conf.json**
+
+To use the web, simply access in your browser to:
+
+ **http://localhost:4200/**
