@@ -1,1 +1,35 @@
-<p>users works!</p>
+<div class="container mt-5 flex-grow-1 mb-3">
+  <form (ngSubmit)="searchUser(usernameInput.value)">
+    <div class="col mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Find user by username..."
+          #usernameInput
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="submit"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Lista de nombres de usuario encontrados -->
+  <div *ngIf="usernames.length > 0; else noUserTemplate">
+    <h5 class="mt-4">Found Usernames:</h5>
+    <ul class="list-group mt-2">
+      <li *ngFor="let username of usernames" class="list-group-item">
+        {{ username }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #noUserTemplate>
+    <h5 class="mt-4 text-muted">No users found with that username.</h5>
+  </ng-template>
+</div>

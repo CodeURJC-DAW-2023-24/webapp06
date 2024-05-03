@@ -25,4 +25,10 @@ export class UserService {
     );
   }
 
+  getUsernamesByUsername(username: string): Observable<string[]> {
+    return this.getAllUsers().pipe(
+      map(users => users.filter(u => u.username.includes(username)).map(u => u.username))
+    );
+  }
+
 }
