@@ -6,6 +6,7 @@ import { Thread } from '../../models/thread.model';
 import { User } from '../../models/user.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { PostModalComponent } from '../post-modal/post-modal.component';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-thread',
@@ -20,6 +21,11 @@ export class ThreadComponent {
   isAdmin: boolean | undefined;
   isThreadOwner: boolean | undefined;
 
+  loading: boolean = true;
+  postsShown: Post[] = [];
+  currentPage: number = 0;
+  totalPages: number = 0;
+
   constructor(
     private loginService: LoginService,
     private threadService: ThreadService,
@@ -30,15 +36,28 @@ export class ThreadComponent {
     this.reqThread();
   }
 
-  reqThread() {
+  reqThread(loadMore: boolean = true) {
     this.threadId = this.activatedRoute.snapshot.params['threadId'];
     this.threadService.getThreadById(this.threadId).subscribe({
       next: (thread) => {
         this.thread = thread;
         this.reqIslogged();
+        if (loadMore) {
+          const page = this.thread.posts.slice(
+            0 + this.currentPage * 10,
+            Math.min((this.currentPage + 1) * 10, this.thread.posts.length)
+          );
+          this.postsShown = this.postsShown.concat(page);
+          this.totalPages = Math.floor((this.thread.posts.length - 1) / 10) + 1;
+        } else {
+          this.postsShown = this.thread.posts.slice(0, this.postsShown.length);
+          this.totalPages = Math.floor((this.thread.posts.length - 1) / 10) + 1;
+        }
+        this.loading = false;
       },
       error: () => {},
     });
+    console.log(this);
   }
 
   reqIslogged() {
@@ -59,6 +78,11 @@ export class ThreadComponent {
     });
   }
 
+  getMorePosts() {
+    this.currentPage++;
+    this.reqThread();
+  }
+
   openModal() {
     const initialState = {
       threadId: this.threadId,
@@ -67,6 +91,8 @@ export class ThreadComponent {
       initialState,
     });
     modalRef.content?.postCreated.subscribe(() => {
+      this.postsShown = [];
+      this.currentPage = 0;
       this.reqThread();
     });
   }
@@ -83,10 +109,12 @@ export class ThreadComponent {
   }
 
   editPost() {
-    this.reqThread();
+    this.reqThread(false);
   }
 
   deletePost() {
+    this.postsShown = [];
+    this.currentPage = 0;
     this.reqThread();
   }
 }

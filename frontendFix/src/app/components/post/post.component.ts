@@ -26,8 +26,9 @@ export class PostComponent {
   isLiked: boolean = false;
   isDisliked: boolean = false;
   isReported: boolean = false;
-  
+
   @Output() edited: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     private loginService: LoginService,
@@ -145,8 +146,10 @@ export class PostComponent {
 
   deletePost() {
     if (this.isAdmin || this.isAuthor) {
-      this.postService.deletePost(this.post.id).subscribe(() => {
-        this.edited.emit();
+      this.postService.deletePost(this.post.id).subscribe({
+        next: () => {
+          this.deleted.emit(this.post.id);
+        },
       });
     }
   }
