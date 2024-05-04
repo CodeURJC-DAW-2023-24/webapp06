@@ -30,14 +30,10 @@ export class ProfileComponent {
         userId => {
           if (userId !== null) {
             this.userId = userId;
-            this.PostService.getPostsByUser(this.userName).subscribe(
+            this.PostService.getPostsByUser(this.userId).subscribe(
               (response: any) => {
                 const posts = response.content;
-                for (let i = 0; i < posts.length; i++) {
-                  if (posts[i].ownerUsername == userName) {
-                    this.numberPosts += 1;
-                  }
-                }
+                this.numberPosts = posts.length;
               }
             );
           } else {
