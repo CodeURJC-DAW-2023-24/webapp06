@@ -27,12 +27,20 @@ export class ReportedPostsComponent {
         this.lastPage = posts.last;
         this.loading = false;
       },
-      error: () => {}
+      error: () => {},
     });
   }
-  
+
   getMorePosts() {
     this.currentPage++;
     this.reqPosts();
+  }
+
+  removePostFromList(postId: number) {
+    this.posts.find((post, index) => {
+      if (post.id === postId) {
+        this.posts.splice(index, 1);
+      }
+    });
   }
 }

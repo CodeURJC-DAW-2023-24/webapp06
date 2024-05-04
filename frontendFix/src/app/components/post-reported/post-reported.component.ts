@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReportedPost } from '../../models/reportedPost.model';
 import { ThreadService } from '../../services/thread.service';
 import { PostService } from '../../services/post.service';
@@ -12,6 +12,7 @@ export class PostReportedComponent {
   @Input()
   post!: ReportedPost;
   validationSuccessful: boolean = false;
+  @Output() postValidated: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     private postService: PostService,
@@ -22,6 +23,7 @@ export class PostReportedComponent {
     this.postService.validatePost(this.post.id).subscribe({
       next: () => {
         this.validationSuccessful = true;
+        this.postValidated.emit(this.post.id);
       },
       error: () => {},
     });
