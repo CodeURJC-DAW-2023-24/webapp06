@@ -1,7 +1,7 @@
-<div class="list-group-item d-flex align-items-center justify-content-between">
+<div class="list-group-item d-flex align-items-center justify-content-between" *ngIf="!validationSuccessful">
   <div class="d-flex align-items-center">
     <img
-      [src]="'/api/users/' + post.ownerUsername + '/image'"
+      [src]="'/api/users/' + post.ownerId + '/image'"
       class="rounded-circle"
       style="width: 50px; height: 50px"
       alt="User Photo"

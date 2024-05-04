@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ReportedPost } from '../../models/reportedPost.model';
 import { ThreadService } from '../../services/thread.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-reported',
@@ -10,12 +11,19 @@ import { ThreadService } from '../../services/thread.service';
 export class PostReportedComponent {
   @Input()
   post!: ReportedPost;
+  validationSuccessful: boolean = false;
 
-  constructor(private threadService: ThreadService) {
-    
-  }
+  constructor(
+    private postService: PostService,
+    private threadService: ThreadService
+  ) {}
 
   validatePost() {
-  throw new Error('Method not implemented.');
-  }  
+    this.postService.validatePost(this.post.id).subscribe({
+      next: () => {
+        this.validationSuccessful = true;
+      },
+      error: () => {},
+    });
+  }
 }
