@@ -141,8 +141,10 @@ public class ThreadApiRestController {
                 Thread thread = threadService.getThreadById(Long.parseLong(threadId));
                 if (thread.getOwner().getUsername().equals(userDetails.getUsername())
                         || userService.isAdmin(userDetails.getUsername())) {
-                    threadService.deleteThread(thread);
-                    return new ResponseEntity<>("Thread deleted", HttpStatus.OK);
+                    if (threadService.deleteThread(thread)) {
+                        return new ResponseEntity<>("Thread deleted", HttpStatus.OK);
+                    }
+                    return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
                 return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
             } catch (Exception e) {

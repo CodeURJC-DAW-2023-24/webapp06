@@ -12,6 +12,7 @@ import es.codeurjc.backend.exceptions.ThreadNotFoundException;
 import es.codeurjc.backend.model.Forum;
 import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
+import es.codeurjc.backend.repository.ForumRepository;
 import es.codeurjc.backend.repository.PostRepository;
 import es.codeurjc.backend.repository.ThreadRepository;
 
@@ -23,6 +24,9 @@ public class ThreadService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ForumRepository forumRepository;
 
     public Thread getThreadById(Long id) {
         Thread thread = threadRepository.getReferenceById(id);
@@ -68,8 +72,14 @@ public class ThreadService {
 
     public Boolean deleteThread(Thread thread) {
         try {
-            for (Post post : thread.getPosts())
+            for (Post post : thread.getPosts()) {
                 postRepository.delete(post);
+            }
+            Forum forum = forumRepository.findById(thread.getForum().getId()).orElse(null);
+            if (forum != null) {
+                forum.getThreads().remove(thread);
+                forumRepository.save(forum);
+            }
             threadRepository.delete(thread);
             return true;
         } catch (Exception e) {
