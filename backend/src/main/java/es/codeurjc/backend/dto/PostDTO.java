@@ -7,6 +7,7 @@ import es.codeurjc.backend.model.Post;
 public class PostDTO {
     private Long id;
     private String text;
+    private Long ownerId;
     private String ownerUsername;
     private Date createdAt;
     private Long threadId;
@@ -17,10 +18,11 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Long id, String text, String ownerUsername, Date createdAt, Long threadId,
+    public PostDTO(Long id, String text, Long ownerId, String ownerUsername, Date createdAt, Long threadId,
             int likes, int dislikes, int reports) {
         this.id = id;
         this.text = text;
+        this.ownerId = ownerId;
         this.ownerUsername = ownerUsername;
         this.createdAt = createdAt;
         this.threadId = threadId;
@@ -32,6 +34,7 @@ public class PostDTO {
     public PostDTO(Post post) {
         this.id = post.getId();
         this.text = post.getText();
+        this.ownerId = post.getOwner().getId();
         this.ownerUsername = post.getOwner().getUsername();
         this.createdAt = post.getCreatedAt();
         this.threadId = post.getThread().getId();
@@ -54,6 +57,14 @@ public class PostDTO {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getOwnerUsername() {
