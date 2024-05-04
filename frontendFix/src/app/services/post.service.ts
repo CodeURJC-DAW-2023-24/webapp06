@@ -16,10 +16,8 @@ export class PostService {
     return this.HttpClient.get(BASE_URL + '/' + postId) as Observable<Post>;
   }
 
-  getPostsByUser(username:string): Observable<Post[]> {
-    return this.HttpClient.get(
-      BASE_URL + '/'
-    ) as Observable<Post[]>;
+  getPostsByUser(username: string): Observable<Post[]> {
+    return this.HttpClient.get(BASE_URL + '/') as Observable<Post[]>;
   }
 
   getPostsByThread(threadId: number): Observable<Post[]> {
@@ -42,11 +40,21 @@ export class PostService {
   }
 
   createPost(text: string, threadId: number): Observable<Post> {
-    return this.HttpClient.post(BASE_URL + '/', {text, threadId: +threadId}) as Observable<Post>;
+    return this.HttpClient.post(BASE_URL + '/', {
+      text,
+      threadId: +threadId,
+    }) as Observable<Post>;
   }
 
   setPostImage(postId: number, formData: FormData): Observable<any> {
-    return this.HttpClient.put(BASE_URL + '/' + postId + '/image', formData);
+    const options = {
+      responseType: 'text' as 'json',
+    };
+    return this.HttpClient.put(
+      BASE_URL + '/' + postId + '/image',
+      formData,
+      options
+    );
   }
 
   editPost(postId: number, text: string): Observable<any> {

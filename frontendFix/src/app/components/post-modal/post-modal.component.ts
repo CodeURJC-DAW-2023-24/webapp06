@@ -92,9 +92,10 @@ export class PostModalComponent {
         if (fileInput.files && fileInput.files[0]) {
           const postId = response.id;
           this.uploadImage(postId, formData);
+        } else {
+          this.postCreated.emit();
+          this.resetFormAndCloseModal();
         }
-        this.postCreated.emit();
-        this.resetFormAndCloseModal();
       },
       error: (error) => {
         console.error('Error uploading post', error);
@@ -104,7 +105,10 @@ export class PostModalComponent {
 
   uploadImage(postId: number, formData: FormData) {
     this.postService.setPostImage(postId, formData).subscribe({
-      next: () => {},
+      next: () => {
+        this.postCreated.emit();
+        this.resetFormAndCloseModal();
+      },
       error: (error) => {
         console.error('Error uploading image', error);
       },

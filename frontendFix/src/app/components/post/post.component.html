@@ -21,7 +21,7 @@
   </div>
   <div class="d-flex justify-content-center pb-3" *ngIf="post.hasImage">
     <img
-      src="/api/posts/{{ post.id }}/image"
+      [src]="'/api/posts/' + post.id + '/image'"
       class="img-fluid"
       style="max-width: 50%"
       (error)="handleImageError()"
@@ -37,8 +37,12 @@
       class="btn btn-link text-decoration-none text-dark mr-2"
       (click)="toggleLike()"
     >
-      <i id="likeIcon" class="fas fa-thumbs-up" [ngClass]="{'liked': isLiked}"></i>
-      <span id="likeText"> {{post.likes}}</span>
+      <i
+        id="likeIcon"
+        class="fas fa-thumbs-up"
+        [ngClass]="{ liked: isLiked }"
+      ></i>
+      <span id="likeText"> {{ post.likes }}</span>
     </button>
     <span class="text-muted mx-2">|</span>
     <button
@@ -47,8 +51,12 @@
       class="btn btn-link text-decoration-none text-dark"
       (click)="toggleDislike()"
     >
-      <i id="dislikeIcon" class="fas fa-thumbs-down" [ngClass]="{'disliked': isDisliked}"></i>
-      <span id="dislikeText"> {{post.dislikes}}</span>
+      <i
+        id="dislikeIcon"
+        class="fas fa-thumbs-down"
+        [ngClass]="{ disliked: isDisliked }"
+      ></i>
+      <span id="dislikeText"> {{ post.dislikes }}</span>
     </button>
     <div class="ml-auto"></div>
     <button
@@ -58,10 +66,13 @@
       id="reporter"
       (click)="reportPost()"
     >
-      <i class="fas fa-exclamation-circle" [ngClass]="{'disliked': isReported}"></i>
+      <i
+        class="fas fa-exclamation-circle"
+        [ngClass]="{ disliked: isReported }"
+      ></i>
     </button>
     <button
-    *ngIf="isAuthor || isAdmin"
+      *ngIf="isAuthor || isAdmin"
       id="editer"
       type="button"
       class="btn btn-link text-decoration-none text-dark"
@@ -72,7 +83,7 @@
       <i class="fas fa-edit"></i>
     </button>
     <button
-    *ngIf="isAuthor || isAdmin"
+      *ngIf="isAuthor || isAdmin"
       type="button"
       class="btn btn-link text-decoration-none"
       id="deleter"
