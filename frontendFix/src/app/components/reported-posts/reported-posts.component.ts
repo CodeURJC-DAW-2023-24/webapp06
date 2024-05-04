@@ -9,17 +9,22 @@ import { ReportedPost } from '../../models/reportedPost.model';
   styleUrl: './reported-posts.component.css',
 })
 export class ReportedPostsComponent {
-  posts!: ReportedPost[];
+  posts: ReportedPost[] = [];
   loading: boolean = true;
+  currentPage: number = 0;
+  totalPages: number = 0;
+  lastPage: boolean = false;
 
   constructor(private postService: PostService, private router: Router) {
     this.reqPosts();
   }
 
   reqPosts() {
-    this.postService.getReportedPosts().subscribe({
+    this.postService.getReportedPosts(this.currentPage).subscribe({
       next: (posts) => {
-        this.posts = posts.content;
+        this.posts = this.posts.concat(posts.content);
+        this.totalPages = posts.totalPages;
+        this.lastPage = posts.last;
         this.loading = false;
       },
       error: () => {}
@@ -27,6 +32,7 @@ export class ReportedPostsComponent {
   }
   
   getMorePosts() {
-    throw new Error('Method not implemented.');
+    this.currentPage++;
+    this.reqPosts();
   }
 }

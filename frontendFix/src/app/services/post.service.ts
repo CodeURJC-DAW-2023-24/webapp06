@@ -29,10 +29,10 @@ export class PostService {
     ) as Observable<Post[]>;
   }
 
-  getReportedPosts() {
+  getReportedPosts(page: number): Observable<any> {
     return this.HttpClient.get(
-      BASE_URL + '/?reported=true'
-    ) as Observable<any>;
+      BASE_URL + '/?reported=true&page=' + page
+    );
   }
 
   getPostImage(postId: number): Observable<any> {
