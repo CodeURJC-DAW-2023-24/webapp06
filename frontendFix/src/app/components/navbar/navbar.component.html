@@ -51,7 +51,8 @@
           [routerLink]="['/user/profile/' + user?.username]"
           >View Profile</a
         >
-        <a class="dropdown-item" routerLink="/user/edit-profile"
+        <a class="dropdown-item"
+          [routerLink]="['/user/edit-profile/' + user?.username]"
           >Edit Profile</a
         >
         <a class="dropdown-item" routerLink="/chart">Statistics</a>

@@ -1,1 +1,40 @@
-<p>edit-profile works!</p>
+<div class="container mt-5 flex-grow-1">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="mb-3">Edit Profile</h2>
+        <form (ngSubmit)="updateProfile()" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+            type="text"
+            class="form-control"
+            id="username"
+            [(ngModel)]="userName"
+            name="username"
+            placeholder="Enter your new username"
+            required
+          />
+          </div>
+          <div class="form-group d-flex flex-column align-items-start">
+            <label for="profilePicture" class="mb-2">Profile Picture</label>
+            <div class="text-center w-100">
+              <input
+                type="file"
+                class="form-control-file"
+                id="profilePicture"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+            <img [src]="'/api/users/' + userId + '/image'" alt="User Image" class="rounded-circle mt-3"
+          style="width: 150px; height: 150px">
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary col-8">
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
   { path: 'register', component: SignUpComponent, data: { title: 'Register' } },
   { path: 'user/profile/:userName', component: ProfileComponent, data: { title: 'Profile' } },
-  { path: 'user/edit-profile', component: EditProfileComponent, data: { title: 'Edit profile' } },
+  { path: 'user/edit-profile/:userName', component: EditProfileComponent, data: { title: 'Edit profile' } },
   { path: 'chart', component: StatisticsComponent, data: { title: 'Chart' } },
   { path: 'users', component: UsersComponent, data: { title: 'Users' } },
   { path: 'reports', component: ReportedPostsComponent, data: { title: 'Reports' } },
