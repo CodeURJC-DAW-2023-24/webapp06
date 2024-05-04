@@ -37,13 +37,14 @@ export class ThreadService {
   }
 
   deleteThread(threadId: number): Observable<any> {
-    return this.http
-      .delete(BASE_URL + '/' + threadId)
-      .pipe(catchError(this.handleError));
+    const options = {
+      responseType: 'text' as 'json',
+    };
+    return this.http.delete(BASE_URL + '/' + threadId, options);
   }
 
-  addThread(threadData: {forumId:number, text: string}): Observable<any>{
-    return this.http.post(BASE_URL + '/', threadData)
+  addThread(threadData: { forumId: number; text: string }): Observable<any> {
+    return this.http.post(BASE_URL + '/', threadData);
   }
 
   getUserImageById(userId: number): Observable<Blob> {
@@ -63,7 +64,6 @@ export class ThreadService {
   public setNumberOfPost(thread: Thread) {
     thread.numberPosts = thread.posts.length;
   }
-
 
   getForumIcon(forumName: string): string {
     if (forumName === 'Books') {

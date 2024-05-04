@@ -23,6 +23,7 @@ export class ThreadComponent {
   constructor(
     private loginService: LoginService,
     private threadService: ThreadService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private modalService: BsModalService
   ) {
@@ -36,7 +37,7 @@ export class ThreadComponent {
         this.thread = thread;
         this.reqIslogged();
       },
-      error: () => {}
+      error: () => {},
     });
   }
 
@@ -54,7 +55,7 @@ export class ThreadComponent {
           this.isThreadOwner = false;
         }
       },
-      error: () => {}
+      error: () => {},
     });
   }
 
@@ -62,13 +63,22 @@ export class ThreadComponent {
     const initialState = {
       threadId: this.threadId,
     };
-    const modalRef = this.modalService.show(PostModalComponent, { initialState });
+    const modalRef = this.modalService.show(PostModalComponent, {
+      initialState,
+    });
     modalRef.content?.postCreated.subscribe(() => {
       this.reqThread();
     });
   }
 
   deleteThread() {
-    this.threadService.deleteThread(this.threadId).subscribe();
+    this.threadService.deleteThread(this.threadId).subscribe({
+      next: () => {
+        this.router.navigate(['/f', this.thread?.forum.name], {
+          replaceUrl: true,
+        });
+      },
+      error: () => {},
+    });
   }
 }
