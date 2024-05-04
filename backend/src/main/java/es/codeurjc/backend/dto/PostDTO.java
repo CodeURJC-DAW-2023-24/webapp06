@@ -9,7 +9,7 @@ public class PostDTO {
     private String text;
     private String ownerUsername;
     private Date createdAt;
-    private String threadName;
+    private Long threadId;
     private int likes;
     private int dislikes;
     private int reports;
@@ -17,13 +17,13 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Long id, String text, String ownerUsername, Date createdAt, String threadName,
+    public PostDTO(Long id, String text, String ownerUsername, Date createdAt, Long threadId,
             int likes, int dislikes, int reports) {
         this.id = id;
         this.text = text;
         this.ownerUsername = ownerUsername;
         this.createdAt = createdAt;
-        this.threadName = threadName;
+        this.threadId = threadId;
         this.likes = likes;
         this.dislikes = dislikes;
         this.reports = reports;
@@ -34,7 +34,7 @@ public class PostDTO {
         this.text = post.getText();
         this.ownerUsername = post.getOwner().getUsername();
         this.createdAt = post.getCreatedAt();
-        this.threadName = post.getThread().getName();
+        this.threadId = post.getThread().getId();
         this.likes = post.getLikes();
         this.dislikes = post.getDislikes();
         this.reports = post.getReports();
@@ -64,12 +64,12 @@ public class PostDTO {
         this.ownerUsername = ownerUsername;
     }
 
-    public String getThreadName() {
-        return threadName;
+    public Long getThreadId() {
+        return threadId;
     }
 
-    public void setThread(String threadName) {
-        this.threadName = threadName;
+    public void setThreadId(Long threadId) {
+        this.threadId = threadId;
     }
 
     public Date getCreatedAt() {
