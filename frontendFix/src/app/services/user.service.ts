@@ -37,4 +37,8 @@ export class UserService {
     );
   }
 
+  deleteUser(id: number): Observable<any> {
+    return this.HttpClient.delete('http://localhost:4200/api/users/' + id);
+  }
+
 }

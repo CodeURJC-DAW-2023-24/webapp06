@@ -10,6 +10,7 @@ import { LoginService } from './../../services/login.service';
 })
 export class UsersComponent {
   users: User[] = [];
+  id: number = -1;
 
   constructor(private userService: UserService, private loginService: LoginService) { }
 
@@ -21,6 +22,20 @@ export class UsersComponent {
       },
       error: (error) => {
         console.error('Error fetching users', error);
+      }
+    });
+  }
+
+  deleteUser(id?: number) {
+    if (id === undefined) return;
+    if (!this.loginService.isAdmin()) return;
+
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
+        alert('User deleted successfully');
+      },
+      error: (error) => {
+        alert('Failed to delete user');
       }
     });
   }

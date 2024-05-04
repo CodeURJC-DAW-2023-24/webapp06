@@ -27,9 +27,17 @@
           <img [src]="'/api/users/' + user.id + '/image'" alt="User Image" class="rounded-circle me-2 user-image">
           <span class="user-name">{{ user.username }}</span>
         </div>
-        <a [routerLink]="['/user/edit-profile/' + user?.username]" class="btn">
-          <i class="fas fa-edit"></i>
-        </a>
+        <div>
+          <a [routerLink]="['/user/profile/' + user?.username]" class="btn" title="View Profile">
+            <i class="fas fa-user-circle"></i>
+          </a>
+          <a [routerLink]="['/user/edit-profile/' + user?.username]" class="btn" title="Edit Profile">
+            <i class="fas fa-edit"></i>
+          </a>
+          <button class="btn" (click)="deleteUser(user?.id)" title="Delete User">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </li>
     </ul>
   </div>
