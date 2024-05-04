@@ -1,13 +1,11 @@
-import { PostService } from './../../../../../frontendFix/src/app/services/post.service';
-import { User } from './../../models/user.model';
-import { ProfileService } from './../../services/profile.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoginService } from './../../services/login.service';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Thread } from '../../models/thread.model';
+import { PostService } from '../../services/post.service';
 import { ThreadService } from '../../services/thread.service';
 import { UserService } from '../../services/user.service';
-import { Thread } from '../../models/thread.model';
-import { response } from 'express';
+import { LoginService } from './../../services/login.service';
+import { ProfileService } from './../../services/profile.service';
 
 @Component({
   selector: 'app-profile',
