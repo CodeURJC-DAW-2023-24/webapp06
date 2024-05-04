@@ -15,6 +15,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -145,17 +146,26 @@ public class PostApiRestController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = PostDTO.class)) }),
             @ApiResponse(responseCode = "400", description = "Bad request body", content = @Content),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
             @ApiResponse(responseCode = "404", description = "Thread not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     public ResponseEntity<?> getPosts(@AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(value = "owner", required = false) Long ownerId,
             @RequestParam(value = "thread", required = false) Long threadId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "reported", required = false) boolean reported) {
         try {
             Page<Post> posts;
-            if (threadId == null) {
+            if (ownerId != null) {
+                User owner = userService.getUserById(ownerId).orElse(null);
+                if (owner == null) {
+                    return new ResponseEntity<>("User not found with id: " + ownerId + ".", HttpStatus.NOT_FOUND);
+                }
+                List<Post> userPosts = postService.getPostByOwner(owner);
+                posts = new PageImpl<>(userPosts);
+            } else if (threadId == null) {
                 if (reported) {
                     if (userDetails == null) {
                         return new ResponseEntity<>(AUTHENTICATED_USER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
