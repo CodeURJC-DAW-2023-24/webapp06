@@ -12,7 +12,6 @@ export class LoginComponent {
 
   logIn(event: any, user: string, pass: string) {
     event.preventDefault();
-    console.log('prueba');
     this.loginService.logIn(user, pass).subscribe({
       next: (loggedIn) => {
         if (loggedIn) {

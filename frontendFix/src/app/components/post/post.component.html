@@ -19,7 +19,7 @@
   <div class="card-body">
     <p class="card-text">{{ post.text }}</p>
   </div>
-  <div class="d-flex justify-content-center pb-3" *ngIf="hasImage">
+  <div class="d-flex justify-content-center pb-3" *ngIf="post.hasImage">
     <img
       src="/api/posts/{{ post.id }}/image"
       class="img-fluid"

@@ -18,7 +18,6 @@ export class PostComponent {
   isAuthor: boolean = false;
   isAdmin: boolean = false;
   elapsedTime: String = '';
-  hasImage: boolean = true;
   isLiked: boolean = false;
   isDisliked: boolean = false;
   isReported: boolean = false;
@@ -69,7 +68,7 @@ export class PostComponent {
   }
 
   handleImageError() {
-    this.hasImage = false;
+    this.post.hasImage = false;
   }
 
   toggleLike() {
