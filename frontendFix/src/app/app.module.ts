@@ -20,6 +20,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostModalComponent } from './components/post-modal/post-modal.component';
+import { PostReportedComponent } from './components/post-reported/post-reported.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PostModalComponent } from './components/post-modal/post-modal.component
     PostComponent,
     CategoriesComponent,
     PostModalComponent,
+    PostReportedComponent,
   ],
   imports: [
     BrowserModule,

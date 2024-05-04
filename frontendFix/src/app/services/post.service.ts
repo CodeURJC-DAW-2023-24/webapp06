@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, scheduled, asyncScheduler } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Post } from '../models/post.model';
+import { ReportedPost } from '../models/reportedPost.model';
 
 const BASE_URL = '/api/posts';
 
@@ -26,6 +27,12 @@ export class PostService {
     return this.HttpClient.get(
       BASE_URL + '/?threadId=' + threadId
     ) as Observable<Post[]>;
+  }
+
+  getReportedPosts() {
+    return this.HttpClient.get(
+      BASE_URL + '/?reported=true'
+    ) as Observable<ReportedPost[]>;
   }
 
   getPostImage(postId: number): Observable<any> {
@@ -81,6 +88,10 @@ export class PostService {
 
   reportPost(postId: number): Observable<any> {
     return this.HttpClient.put(BASE_URL + '/' + postId, { reported: true });
+  }
+
+  validatePost(postId: number): Observable<any> {
+    return this.HttpClient.put(BASE_URL + '/' + postId + '?validate=true', {});
   }
 
   deletePost(postId: number): Observable<any> {
