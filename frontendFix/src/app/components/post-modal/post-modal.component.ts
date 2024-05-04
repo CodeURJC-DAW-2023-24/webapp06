@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../../services/post.service';
-import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-modal',
@@ -13,12 +13,13 @@ export class PostModalComponent {
   @Output() postCreated: EventEmitter<void> = new EventEmitter<void>();
   postForm: FormGroup;
   fileErrorMessage: string | null = null;
-  threadId!: number;
+  @Input() threadId: number | undefined;
+  @Input() isEditMode: boolean = false;
+  @Input() post: Post | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
-    private activatedRoute: ActivatedRoute,
     public bsModalRef: BsModalRef
   ) {
     this.postForm = this.formBuilder.group({
@@ -32,6 +33,22 @@ export class PostModalComponent {
       ],
       imageFile: [null],
     });
+  }
+
+  ngOnInit() {
+    this.setInitialValues();
+  }
+
+  setInitialValues() {
+    if (this.isEditMode && this.post) {
+      this.postForm.patchValue({
+        text: this.post.text,
+      });
+      const output = document.getElementById('imagePreview') as HTMLInputElement;
+      if (this.post.hasImage) {
+        output.src = '/api/posts/' + this.post.id + '/image';
+      }
+    }
   }
 
   validateFileType(control: any) {
@@ -64,6 +81,10 @@ export class PostModalComponent {
   }
 
   imagePreviewHeight() {
+    const output = document.getElementById('imagePreview') as HTMLInputElement;
+    if (output.src !== '') {
+      return '150';
+    }
     return this.postForm.get('imageFile')?.value ? '150' : 'auto';
   }
 
@@ -86,21 +107,36 @@ export class PostModalComponent {
     if (fileInput.files && fileInput.files[0]) {
       formData.append('image', fileInput.files[0]);
     }
-
-    this.postService.createPost(text, this.threadId).subscribe({
-      next: (response) => {
-        if (fileInput.files && fileInput.files[0]) {
-          const postId = response.id;
-          this.uploadImage(postId, formData);
-        } else {
-          this.postCreated.emit();
-          this.resetFormAndCloseModal();
-        }
-      },
-      error: (error) => {
-        console.error('Error uploading post', error);
-      },
-    });
+    if (!this.isEditMode && this.threadId) {
+      this.postService.createPost(text, this.threadId).subscribe({
+        next: (response) => {
+          if (fileInput.files && fileInput.files[0]) {
+            const postId = response.id;
+            this.uploadImage(postId, formData);
+          } else {
+            this.postCreated.emit();
+            this.resetFormAndCloseModal();
+          }
+        },
+        error: (error) => {
+          console.error('Error uploading post', error);
+        },
+      });
+    } else if (this.isEditMode && this.post && this.threadId) {
+      this.postService.editPost(this.post.id, text).subscribe({
+        next: () => {
+          if (fileInput.files && fileInput.files[0] && this.post) {
+            this.uploadImage(this.post.id, formData);
+          } else {
+            this.postCreated.emit();
+            this.resetFormAndCloseModal();
+          }
+        },
+        error: (error) => {
+          console.error('Error editing post', error);
+        },
+      });
+    }
   }
 
   uploadImage(postId: number, formData: FormData) {

@@ -31,7 +31,7 @@
       </div>
       <div class="list-group">
         <div *ngFor="let post of thread?.posts" class="col-12 mb-3">
-          <app-post [post]="post"></app-post>
+          <app-post [post]="post" [threadId]="threadId" (edited)="editPost()" (deleted)="deletePost()"></app-post>
         </div>
       </div>
     </div>

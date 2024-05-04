@@ -81,4 +81,12 @@ export class ThreadComponent {
       error: () => {},
     });
   }
+
+  editPost() {
+    this.reqThread();
+  }
+
+  deletePost() {
+    this.reqThread();
+  }
 }

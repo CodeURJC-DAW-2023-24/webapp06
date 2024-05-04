@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { LoginService } from '../../services/login.service';
 import { User } from '../../models/user.model';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { PostModalComponent } from '../post-modal/post-modal.component';
+import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
 
 @Component({
   selector: 'app-post',
@@ -14,17 +17,22 @@ export class PostComponent {
   activeUser: User | undefined;
 
   @Input()
-  post: Post = {} as Post;
+  post!: Post;
+  @Input()
+  threadId!: number;
   isAuthor: boolean = false;
   isAdmin: boolean = false;
   elapsedTime: String = '';
   isLiked: boolean = false;
   isDisliked: boolean = false;
   isReported: boolean = false;
+  
+  @Output() edited: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private loginService: LoginService,
-    private postService: PostService
+    private postService: PostService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -121,11 +129,25 @@ export class PostComponent {
 
   editPost() {
     if (this.isAdmin || this.isAuthor) {
+      const initialState = {
+        threadId: this.threadId,
+        post: this.post,
+        isEditMode: true,
+      };
+      const modalRef = this.modalService.show(PostModalComponent, {
+        initialState,
+      });
+      modalRef.content?.postCreated.subscribe(() => {
+        this.edited.emit();
+      });
     }
   }
 
   deletePost() {
     if (this.isAdmin || this.isAuthor) {
+      this.postService.deletePost(this.post.id).subscribe(() => {
+        this.edited.emit();
+      });
     }
   }
 }

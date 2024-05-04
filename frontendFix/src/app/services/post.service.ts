@@ -82,4 +82,8 @@ export class PostService {
   reportPost(postId: number): Observable<any> {
     return this.HttpClient.put(BASE_URL + '/' + postId, { reported: true });
   }
+
+  deletePost(postId: number): Observable<any> {
+    return this.HttpClient.delete(BASE_URL + '/' + postId);
+  }
 }
