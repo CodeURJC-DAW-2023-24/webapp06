@@ -32,7 +32,7 @@ export class PostService {
   getReportedPosts() {
     return this.HttpClient.get(
       BASE_URL + '/?reported=true'
-    ) as Observable<ReportedPost[]>;
+    ) as Observable<any>;
   }
 
   getPostImage(postId: number): Observable<any> {

@@ -10,6 +10,7 @@ import { ReportedPost } from '../../models/reportedPost.model';
 })
 export class ReportedPostsComponent {
   posts!: ReportedPost[];
+  loading: boolean = true;
 
   constructor(private postService: PostService, private router: Router) {
     this.reqPosts();
@@ -18,9 +19,10 @@ export class ReportedPostsComponent {
   reqPosts() {
     this.postService.getReportedPosts().subscribe({
       next: (posts) => {
-        this.posts = posts;
+        this.posts = posts.content;
+        this.loading = false;
       },
-      error: () => {},
+      error: () => {}
     });
   }
   

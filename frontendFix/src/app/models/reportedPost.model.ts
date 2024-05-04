@@ -3,7 +3,7 @@ export interface ReportedPost {
     text: string;
     ownerUsername: string;
     createdAt: string;
-    threadName: string;
+    threadId: number;
     likes: number;
     dislikes: number;
     reports: number;

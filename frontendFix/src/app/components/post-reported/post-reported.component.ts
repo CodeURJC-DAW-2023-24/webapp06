@@ -15,5 +15,7 @@ export class PostReportedComponent {
     
   }
 
-  
+  validatePost() {
+  throw new Error('Method not implemented.');
+  }  
 }
