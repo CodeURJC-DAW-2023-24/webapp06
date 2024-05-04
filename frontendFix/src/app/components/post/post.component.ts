@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Post } from '../../models/post.model';
-import { PostService } from '../../services/post.service';
-import { LoginService } from '../../services/login.service';
-import { User } from '../../models/user.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { Post } from '../../models/post.model';
+import { User } from '../../models/user.model';
+import { LoginService } from '../../services/login.service';
+import { PostService } from '../../services/post.service';
 import { PostModalComponent } from '../post-modal/post-modal.component';
-import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
 
 @Component({
   selector: 'app-post',

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { LoginService } from './../../services/login.service';
-import { ThreadService } from '../../services/thread.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { Post } from '../../models/post.model';
 import { Thread } from '../../models/thread.model';
 import { User } from '../../models/user.model';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { ThreadService } from '../../services/thread.service';
 import { PostModalComponent } from '../post-modal/post-modal.component';
-import { Post } from '../../models/post.model';
+import { LoginService } from './../../services/login.service';
 
 @Component({
   selector: 'app-thread',
@@ -57,7 +57,6 @@ export class ThreadComponent {
       },
       error: () => {},
     });
-    console.log(this);
   }
 
   reqIslogged() {

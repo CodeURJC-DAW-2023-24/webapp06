@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostService } from '../../services/post.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Post } from '../../models/post.model';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-modal',

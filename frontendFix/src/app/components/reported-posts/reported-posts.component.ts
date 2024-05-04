@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PostService } from '../../services/post.service';
 import { ReportedPost } from '../../models/reportedPost.model';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-reported-posts',

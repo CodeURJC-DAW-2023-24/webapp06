@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReportedPost } from '../../models/reportedPost.model';
-import { ThreadService } from '../../services/thread.service';
 import { PostService } from '../../services/post.service';
+import { ThreadService } from '../../services/thread.service';
 
 @Component({
   selector: 'app-post-reported',
