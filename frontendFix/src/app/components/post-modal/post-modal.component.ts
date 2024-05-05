@@ -89,8 +89,8 @@ export class PostModalComponent {
   }
 
   resetFormAndCloseModal() {
-    this.postForm.reset();
     this.bsModalRef.hide();
+    this.postForm.reset();
   }
 
   uploadPost() {

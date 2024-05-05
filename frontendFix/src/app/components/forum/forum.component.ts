@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Thread } from '../../models/thread.model';
 import { User } from '../../models/user.model';
@@ -7,6 +6,8 @@ import { LoginService } from './../../services/login.service';
 import { ThreadService } from './../../services/thread.service';
 import { Forum } from '../../models/forum.model';
 import { ForumService } from '../../services/forum.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ThreadModalComponent } from '../thread-modal/thread-modal.component';
 
 @Component({
   selector: 'app-forum',
@@ -25,20 +26,13 @@ export class ForumComponent {
   totalPages: number = 0;
   lastPage: boolean = true;
 
-  uploadForm!: FormGroup;
-
   constructor(
     public LoginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private forumService: ForumService,
     private threadService: ThreadService,
-    private fb: FormBuilder
-  ) {
-    this.uploadForm = this.fb.group({
-      text: ['', Validators.required],
-      forumId: [this.forumId, Validators.required],
-    });
-  }
+    private modalService: BsModalService
+  ) {}
 
   ngOnInit(): void {
     this.reqIslogged();
@@ -79,15 +73,17 @@ export class ForumComponent {
 
   reqThreads() {
     if (this.forum) {
-      this.threadService.getThreadsByForumName(this.forum.name, this.currentPage).subscribe({
-        next: (threads) => {
-          this.threads = this.threads.concat(threads.content);
-          this.totalPages = threads.totalPages;
-          this.lastPage = threads.last;
-          this.loading = false;
-        },
-        error: () => {},
-      });
+      this.threadService
+        .getThreadsByForumName(this.forum.name, this.currentPage)
+        .subscribe({
+          next: (threads) => {
+            this.threads = this.threads.concat(threads.content);
+            this.totalPages = threads.totalPages;
+            this.lastPage = threads.last;
+            this.loading = false;
+          },
+          error: () => {},
+        });
     }
   }
 
@@ -96,19 +92,17 @@ export class ForumComponent {
     this.reqThreads();
   }
 
-  uploadThread() {
-    console.log(this.uploadForm);
-    if (this.uploadForm.valid) {
-      this.threadService.addThread(this.uploadForm.value).subscribe({
-        next: (response) => {
-          this.threads.push(response);
-        },
-        error: (error) => {
-          console.error('Error uploading thread', error);
-        },
-      });
-    } else {
-      console.log('Form is not valid');
-    }
+  openModal() {
+    const initialState = {
+      forumId: this.forumId,
+    };
+    const modalRef = this.modalService.show(ThreadModalComponent, {
+      initialState,
+    });
+    modalRef.content?.threadCreated.subscribe((response) => {
+      if (this.lastPage) {
+        this.threads.push(response);
+      }
+    });
   }
 }

@@ -569,6 +569,11 @@ To use the web, simply access in your browser to:
 
  **http://localhost:4200/**
 
+
+## Diagram
+![Class diagram](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/images/phase_4/diagram.drawio.png)
+
+
  ## 🚀 Member participation
 
 ### Miguel Quero Prieto
