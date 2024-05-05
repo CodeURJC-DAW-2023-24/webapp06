@@ -39,4 +39,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
   @Query("SELECT p FROM Post p WHERE p.reports >= 1 ORDER BY p.reports DESC")
   Page<Post> findPostsWithReports(Pageable pageable);
+
+  @Query("SELECT p FROM Post p JOIN p.userDislikes u WHERE u.id = :userId")
+  List<Post> findAllByDislikesUserId(Long userId);
+
+  @Query("SELECT p FROM Post p JOIN p.userLikes u WHERE u.id = :userId")
+  List<Post> findAllByLikesUserId(Long userId);
 }

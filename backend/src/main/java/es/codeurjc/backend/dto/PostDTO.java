@@ -1,7 +1,5 @@
 package es.codeurjc.backend.dto;
 
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.Date;
 
 import es.codeurjc.backend.model.Post;
@@ -9,10 +7,10 @@ import es.codeurjc.backend.model.Post;
 public class PostDTO {
     private Long id;
     private String text;
-    private byte[] imageFile;
+    private Long ownerId;
     private String ownerUsername;
     private Date createdAt;
-    private String threadName;
+    private Long threadId;
     private int likes;
     private int dislikes;
     private int reports;
@@ -20,37 +18,26 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Long id, String text, byte[] imageFile, String ownerUsername, Date createdAt, String threadName,
+    public PostDTO(Long id, String text, Long ownerId, String ownerUsername, Date createdAt, Long threadId,
             int likes, int dislikes, int reports) {
         this.id = id;
         this.text = text;
-        this.imageFile = imageFile;
+        this.ownerId = ownerId;
         this.ownerUsername = ownerUsername;
         this.createdAt = createdAt;
-        this.threadName = threadName;
+        this.threadId = threadId;
         this.likes = likes;
         this.dislikes = dislikes;
         this.reports = reports;
     }
 
     public PostDTO(Post post) {
-        Blob imageBlob = post.getImageFile();
-        byte[] imageFile = null;
-
-        if (imageBlob != null) {
-            try {
-                imageFile = imageBlob.getBytes(1, (int) imageBlob.length());
-            } catch (SQLException e) {
-                // e.printStackTrace();
-            }
-        }
-
         this.id = post.getId();
         this.text = post.getText();
-        this.imageFile = imageFile;
+        this.ownerId = post.getOwner().getId();
         this.ownerUsername = post.getOwner().getUsername();
         this.createdAt = post.getCreatedAt();
-        this.threadName = post.getThread().getName();
+        this.threadId = post.getThread().getId();
         this.likes = post.getLikes();
         this.dislikes = post.getDislikes();
         this.reports = post.getReports();
@@ -72,12 +59,12 @@ public class PostDTO {
         this.text = text;
     }
 
-    public byte[] getImageFile() {
-        return imageFile;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setImage(byte[] imageFile) {
-        this.imageFile = imageFile;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getOwnerUsername() {
@@ -88,12 +75,12 @@ public class PostDTO {
         this.ownerUsername = ownerUsername;
     }
 
-    public String getThreadName() {
-        return threadName;
+    public Long getThreadId() {
+        return threadId;
     }
 
-    public void setThread(String threadName) {
-        this.threadName = threadName;
+    public void setThreadId(Long threadId) {
+        this.threadId = threadId;
     }
 
     public Date getCreatedAt() {

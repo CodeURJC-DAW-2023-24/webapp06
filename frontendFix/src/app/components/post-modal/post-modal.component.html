@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="uploadModalLabel">{{ isEditMode ? 'Edit Post' : 'Upload Post' }}</h5>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="resetFormAndCloseModal()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form
+  id="uploadForm"
+  [formGroup]="postForm"
+  (ngSubmit)="uploadPost()"
+  enctype="multipart/form-data"
+>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputTextArea">Text</label>
+      <textarea
+        formControlName="text"
+        class="form-control"
+        id="inputTextArea"
+        name="post-form-text"
+        rows="5"
+        placeholder="What do you want to say?"
+        style="resize: none"
+        required
+      ></textarea>
+      <div
+        *ngIf="
+          postForm.get('text')?.invalid &&
+          (postForm.get('text')?.dirty || postForm.get('text')?.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="postForm.get('text')?.errors?.['required']">
+          Text is required.
+        </div>
+        <div *ngIf="postForm.get('text')?.errors?.['minlength']">
+          Minimum length should be 1 character.
+        </div>
+        <div *ngIf="postForm.get('text')?.errors?.['maxlength']">
+          Maximum length should be 255 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="postPicture">Image</label>
+      <div class="text-center w-100">
+        <input
+          formControlName="imageFile"
+          type="file"
+          class="form-control-file mb-3"
+          id="postPicture"
+          name="imageFile"
+          accept="image/*"
+          aria-label="Choose an image"
+          (change)="loadFile($event)"
+        />
+        <img id="imagePreview" [style.height.px]="imagePreviewHeight()" />
+        <div class="text-danger">{{ fileErrorMessage }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-link text-decoration-none"
+      (click)="resetFormAndCloseModal()"
+    >
+      Close
+    </button>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </div>
+</form>

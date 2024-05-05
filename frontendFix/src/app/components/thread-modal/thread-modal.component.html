@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="uploadModalLabel">Upload Thread</h5>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="resetFormAndCloseModal()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form
+  id="uploadForm"
+  [formGroup]="uploadForm"
+  (ngSubmit)="uploadThread()"
+  enctype="multipart/form-data"
+>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputTextArea">Title</label>
+      <textarea
+        formControlName="title"
+        class="form-control"
+        id="inputTextArea"
+        name="post-form-text"
+        rows="3"
+        placeholder="Enter the thread tittle"
+        style="resize: none"
+        required
+      ></textarea>
+      <div
+        *ngIf="
+          uploadForm.get('title')?.invalid &&
+          (uploadForm.get('title')?.dirty || uploadForm.get('title')?.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="uploadForm.get('title')?.errors?.['required']">
+          Title is required.
+        </div>
+        <div *ngIf="uploadForm.get('title')?.errors?.['minlength']">
+          Minimum length should be 1 character.
+        </div>
+        <div *ngIf="uploadForm.get('title')?.errors?.['maxlength']">
+          Maximum length should be 255 characters.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-link text-decoration-none"
+      (click)="resetFormAndCloseModal()"
+    >
+      Close
+    </button>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </div>
+</form>

@@ -7,29 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import es.codeurjc.backend.dto.ThreadAddDTO;
+import es.codeurjc.backend.dto.ThreadDTO;
 import es.codeurjc.backend.model.Forum;
+import es.codeurjc.backend.model.Post;
 import es.codeurjc.backend.model.Thread;
 import es.codeurjc.backend.service.ForumService;
 import es.codeurjc.backend.service.ThreadService;
-import es.codeurjc.backend.dto.ThreadDTO;
-import es.codeurjc.backend.dto.PostDTO;
-import es.codeurjc.backend.dto.ThreadAddDTO;
-import es.codeurjc.backend.model.Post;
-import es.codeurjc.backend.service.PostService;
 import es.codeurjc.backend.service.UserService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,8 +44,6 @@ public class ThreadApiRestController {
     private ThreadService threadService;
     @Autowired
     private ForumService forumService;
-    @Autowired
-    private PostService postService;
 
     final private String ERROR_OCURRED = "Error occurred, try again later";
     final private String OWNER_ADMIN_AUTHORIZATION_REQUIRED = "Owner or Admin authorization is required.";
@@ -61,14 +56,34 @@ public class ThreadApiRestController {
             @ApiResponse(responseCode = "404", description = "Forum not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    public ResponseEntity<?> getThreadsByForum(@RequestParam(value = "forumName", required = true) String forumName) {
+    public ResponseEntity<?> getThreadsByForum(@RequestParam(value = "forumName", required = true) String forumName,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
             Forum forum = forumService.getForumByName(forumName);
-            Page<Thread> threads = threadService.getPaginatedThreads(0, 10, forum);
+            Page<Thread> threads = threadService.getPaginatedThreads(page, size, forum);
             Page<ThreadDTO> threadData = threads.map(thread -> new ThreadDTO(thread));
             return new ResponseEntity<>(threadData, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Forum with name " + forumName + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/user")
+    @Operation(summary = "Get all thread from an username", description = "Gets all thread from an username.", responses = {
+            @ApiResponse(responseCode = "200", description = "Threads found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ThreadDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "threads not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    public ResponseEntity<?> getThreadsByUsername(@RequestParam(value = "username", required = true) String username) {
+        try {
+
+            Page<Thread> threads = threadService.getPaginatedThreadsByUsername(0, 10, username);
+            Page<ThreadDTO> threadData = threads.map(thread -> new ThreadDTO(thread));
+            return new ResponseEntity<>(threadData, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Forum with name " + username + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -122,8 +137,10 @@ public class ThreadApiRestController {
                 Thread thread = threadService.getThreadById(Long.parseLong(threadId));
                 if (thread.getOwner().getUsername().equals(userDetails.getUsername())
                         || userService.isAdmin(userDetails.getUsername())) {
-                    threadService.deleteThread(thread);
-                    return new ResponseEntity<>("Thread deleted", HttpStatus.OK);
+                    if (threadService.deleteThread(thread)) {
+                        return new ResponseEntity<>("Thread deleted", HttpStatus.OK);
+                    }
+                    return new ResponseEntity<>(ERROR_OCURRED, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
                 return new ResponseEntity<>(OWNER_ADMIN_AUTHORIZATION_REQUIRED, HttpStatus.UNAUTHORIZED);
             } catch (Exception e) {

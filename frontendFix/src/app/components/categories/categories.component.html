@@ -1,0 +1,12 @@
+<h2>Categories</h2>
+<div class="list-group mb-3" id="thread-container">
+  <div *ngFor="let forum of forums">
+    <a
+      [routerLink]="['/f', forum.id]"
+      class="row list-group-item list-group-item-action d-flex align-items-center"
+    >
+      <i class="col-1 d-flex justify-content-center align-items-center fas fa-{{ forum.icon }}"></i>
+      <span class="col-8">{{ forum.name }}</span>
+    </a>
+  </div>
+</div>

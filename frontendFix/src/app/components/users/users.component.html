@@ -1,0 +1,51 @@
+<div class="container mt-5 flex-grow-1 mb-3">
+  <form (ngSubmit)="searchUser(usernameInput.value)">
+    <div class="col mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Find user by username..."
+          #usernameInput
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="submit"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="users && users.length > 0; else noUserTemplate">
+    <ul class="list-group">
+      <li *ngFor="let user of users" class="list-group-item d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img [src]="'/api/users/' + user.id + '/image'" alt="User Image" class="rounded-circle me-2 user-image">
+          <span class="user-name">{{ user.username }}</span>
+        </div>
+        <div>
+          <a [routerLink]="['/user/profile/' + user?.username]" class="btn" title="View Profile">
+            <i class="fas fa-user-circle"></i>
+          </a>
+          <a [routerLink]="['/user/edit-profile/' + user?.username]" class="btn" title="Edit Profile">
+            <i class="fas fa-edit"></i>
+          </a>
+          <button class="btn" (click)="deleteUser(user?.id)" title="Delete User">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!lastPage" class="text-center mt-3">
+    <button class="btn btn-primary" (click)="getMoreUsers()">Load More</button>
+  </div>
+  <ng-template #noUserTemplate>
+    <h5 class="text-muted">No users found with that username.</h5>
+  </ng-template>
+  
+</div>
