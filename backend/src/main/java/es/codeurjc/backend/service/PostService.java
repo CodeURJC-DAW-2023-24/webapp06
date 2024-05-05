@@ -49,7 +49,8 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Post updatePost(Post existingPost, PostAddDTO newPostData, User activeUser, Blob image) throws BadRequestException {
+    public Post updatePost(Post existingPost, PostAddDTO newPostData, User activeUser, Blob image)
+            throws BadRequestException {
         Post updatedPost = new Post(existingPost.getText(), existingPost.getImageFile(), existingPost.getOwner(),
                 existingPost.getThread(), existingPost.getUserLikes(), existingPost.getUserDislikes(),
                 existingPost.getReports());
@@ -195,5 +196,39 @@ public class PostService {
     public Page<Post> getPostsByThread(Long threadId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return postRepository.findByThreadId(threadId, pageable).get();
+    }
+
+    public void transferDislikes(Long fromUserId, Long toUserId) {
+        List<Post> postsToUnlink = postRepository.findAllByDislikesUserId(fromUserId);
+        List<Post> postsToLink = postRepository.findAllByDislikesUserId(toUserId);
+
+        for (Post post : postsToUnlink) {
+            post.getUserDislikes().removeIf(user -> user.getId().equals(fromUserId));
+            postRepository.save(post);
+        }
+
+        User newUser = new User();
+        newUser.setId(toUserId);
+        for (Post post : postsToLink) {
+            post.getUserDislikes().add(newUser);
+            postRepository.save(post);
+        }
+    }
+
+    public void transferLikes(Long fromUserId, Long toUserId) {
+        List<Post> postsToUnlink = postRepository.findAllByLikesUserId(fromUserId);
+        List<Post> postsToLink = postRepository.findAllByLikesUserId(toUserId);
+
+        for (Post post : postsToUnlink) {
+            post.getUserLikes().removeIf(user -> user.getId().equals(fromUserId));
+            postRepository.save(post);
+        }
+
+        User newUser = new User(); 
+        newUser.setId(toUserId);
+        for (Post post : postsToLink) {
+            post.getUserLikes().add(newUser);
+            postRepository.save(post);
+        }
     }
 }

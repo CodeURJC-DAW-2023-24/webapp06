@@ -38,22 +38,25 @@ public class UserService {
     private PostRepository postRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PostService postService;
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
-    
 
-    public void save(User user){
+    public void save(User user) {
         userRepository.save(user);
     }
-    
+
     public Boolean deleteUser(String username) {
         try {
             User user = getUserByUsername(username);
             User deleteUser = userRepository.findByUsername("delete").orElseThrow();
             threadRepository.changeOwnerOfThreads(user.getId(), deleteUser.getId());
             postRepository.changeOwnerOfPosts(user.getId(), deleteUser.getId());
+            postService.transferLikes(user.getId(), deleteUser.getId());
+            postService.transferDislikes(user.getId(), deleteUser.getId());
             userRepository.delete(user);
             return true;
         } catch (Exception e) {
