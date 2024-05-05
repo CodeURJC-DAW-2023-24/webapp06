@@ -30,6 +30,15 @@
       <div *ngIf="threads.length === 0">
         <h1>No threads yet in this forum :(</h1>
       </div>
+      <div class="text-center mt-3" *ngIf="!lastPage">
+        <button
+          class="btn btn-primary px-5"
+          id="loadMoreButton"
+          (click)="getMoreThreads()"
+        >
+          Load More
+        </button>
+      </div>
     </div>
 
     <div class="col-md-4 mb-3">
