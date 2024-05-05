@@ -71,6 +71,12 @@ export class LoginService {
       );
   }
 
+  especialLogout() {
+    this.logged = false;
+    this.user = undefined;
+    this.loggedIn.next(false);
+  }
+
   isLogged(): boolean {
     return this.logged;
   }
