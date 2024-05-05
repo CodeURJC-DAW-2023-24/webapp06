@@ -22,7 +22,7 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String from;
 
-    final private String BASE_URL = "https://localhost:8443";
+    final private String BASE_URL = "https://10.100.139.188:8443";
 
     @Autowired
     private MustacheResourceTemplateLoader mustacheTemplateLoader;
