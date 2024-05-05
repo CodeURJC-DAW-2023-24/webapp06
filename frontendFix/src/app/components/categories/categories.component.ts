@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Forum } from '../../models/forum.model';
 import { ForumService } from '../../services/forum.service';
-import { ThreadService } from '../../services/thread.service';
 
 @Component({
   selector: 'app-categories',
@@ -12,8 +11,7 @@ export class CategoriesComponent {
   forums: Forum[] = [];
 
   constructor(
-    private forumService: ForumService,
-    private threadService: ThreadService
+    private forumService: ForumService
   ) {}
 
   ngOnInit(): void {

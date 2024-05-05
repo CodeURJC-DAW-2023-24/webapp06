@@ -4,7 +4,7 @@
     <div class="row">
         <ng-container *ngIf="$forums | async as forums">
             <div *ngFor="let forum of forums" class="col-md-4 mb-3">
-                <a [routerLink]="['/f', forum.name]" class="card text-decoration-none text-dark">
+                <a [routerLink]="['/f', forum.id]" class="card text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <i class="fas fa-{{forum.icon}} fa-3x"> </i>
                         <h5 class="card-title mt-2">{{forum.name}}</h5>
@@ -22,7 +22,7 @@
     <div class="row">
         <ng-container *ngIf="$trending | async as trending">
             <div *ngFor="let t of trending" class="col-md-4 mb-3">
-                <a [routerLink]="['/f', t.name]" class="card text-decoration-none text-dark">
+                <a [routerLink]="['/f', t.id]" class="card text-decoration-none text-dark">
                     <div class="card-body text-center">
                         <i class="fas fa-{{t.icon}} fa-3x"> </i>
                         <h5 class="card-title mt-2">{{t.name}}</h5>
