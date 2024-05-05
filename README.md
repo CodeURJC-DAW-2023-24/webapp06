@@ -569,6 +569,11 @@ To use the web, simply access in your browser to:
 
  **http://localhost:4200/**
 
+
+## Diagram
+![Class diagram](./images/phase_4/diagram.drawio.png.png)
+
+
  ## 🚀 Member participation
 
 ### Miguel Quero Prieto
