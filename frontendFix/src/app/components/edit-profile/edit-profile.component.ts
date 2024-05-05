@@ -120,9 +120,10 @@ export class EditProfileComponent {
           if (fileInput.files && fileInput.files[0]) {
             this.uploadImage(userId, formData);
           } else {
-            this.loginService.reqIsLogged();
             if (!this.isAdmin) {
-              this.router.navigate(['/user/profile/' + usernameForm]);
+              this.router.navigate(['/login']).then(() => {
+                location.reload();
+              });
             } else {
               this.router.navigate(['/users']);
             }
@@ -138,9 +139,10 @@ export class EditProfileComponent {
   uploadImage(postId: number, formData: FormData) {
     this.UserService.updateImage(postId, formData).subscribe({
       next: () => {
-        this.loginService.reqIsLogged();
         if (!this.isAdmin) {
-          this.router.navigate(['/user/profile/' + this.profileForm.get('username')?.value]);
+          this.router.navigate(['/login']).then(() => {
+            location.reload();
+          });
         } else {
           this.router.navigate(['/users']);
         }
