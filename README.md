@@ -637,3 +637,25 @@ To use the web, simply access in your browser to:
 | #3             | [navbar.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/navbar/navbar.component.ts)             |
 | #4             | [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/services/login.service.ts)                            |
 | #5             | [login.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/login/login.component.ts)                |
+
+### Jorge Carbonero Asín
+
+#### My 5 most significant commits
+
+| Commit | Description                                                      | Link                                                                                             |
+| ------ | ---------------------------------------------------------------  | ------------------------------------------------------------------------------------------------ |
+| #1     | Posts can be created                                             | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/22e69071cafb109a077ac58cf477d2d95cd4ab5c |
+| #2     | Threads are shown correctly                                      | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/41461d0485df30d86936e5749cc990c1756793d9 |
+| #3     | Post can be edited and deleted                                   | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/2a9f62635679aead40cf0f58e98c24949c35e116 |
+| #4     | Forums now go by id                                              | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/e5688249c7a7da233ace8ed2cbda540855a328ba |
+| #5     | Started working on post functionality                            | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/da40b4fa572dc27a7c7443991c135ac0b4e7435b |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                            |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Post Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/post)                   |
+| #2             | [Thread Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/thread)               |
+| #3             | [Post Modal Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/post-modal)       |
+| #4             | [Post Reported Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/post-reported) |
+| #5             | [Post Service TS](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/services/post.service.ts)  		    |
