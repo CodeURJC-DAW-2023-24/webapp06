@@ -11,8 +11,7 @@
           *ngIf="loggedIn"
           type="button"
           class="btn btn-outline-primary"
-          data-toggle="modal"
-          data-target="#uploadModal"
+          (click)="openModal()"
         >
           New thread
         </button>
@@ -27,8 +26,8 @@
           </a>
         </div>
       </div>
-      <div *ngIf="threads.length === 0">
-        <h1>No threads yet in this forum :(</h1>
+      <div *ngIf="threads.length === 0" class="text-center mt-3">
+        <h4>No threads in this forum</h4>
       </div>
       <div class="text-center mt-3" *ngIf="!lastPage">
         <button
@@ -43,62 +42,6 @@
 
     <div class="col-md-4 mb-3">
       <app-categories></app-categories>
-    </div>
-  </div>
-</div>
-
-<div
-  class="modal fade"
-  id="uploadModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="uploadModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="uploadModalLabel">Upload Thread</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form
-        id="uploadForm"
-        [formGroup]="uploadForm"
-        (ngSubmit)="uploadThread()"
-        enctype="multipart/form-data"
-      >
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="inputText">Text</label>
-            <textarea
-              class="form-control"
-              id="inputTextArea"
-              formControlName="text"
-              rows="3"
-              placeholder="Enter the thread tittle"
-              required
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-link text-decoration-none"
-            data-dismiss="modal"
-          >
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Upload</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
