@@ -659,3 +659,26 @@ To use the web, simply access in your browser to:
 | #3             | [Post Modal Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/post-modal)       |
 | #4             | [Post Reported Component](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/components/post-reported) |
 | #5             | [Post Service TS](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/main/frontendFix/src/app/services/post.service.ts)  		    |
+
+### Adrián Dueñas Minguez
+
+#### My 5 most significant commits
+
+| Commit | Descripción                                   | Link                                                                                             |
+| ------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Paginated users                               | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/2c789c5a2b035ad94e8b6daf36fd39b848921265 |
+| #2     | view and delete users                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/84829147b05470986ddc8128e9a882b9b4e59b87 |
+| #3     | Users finished                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/076fdf9da89fc734c786e16955ef5bc558ac1293 |
+| #4     | Edit profile baseline                         | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/4008f5468dadb2e59608e9bbbd19e205b08e69da |
+| #5     | Users working                                 | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/ec0e7d01e10efa326d6eb299e421be5d5e30c652 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [users.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/components/users/users.component.ts)                   |
+| #2             | [edit-profile.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/components/edit-profile/edit-profile.component.ts) |
+| #3             | [users.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/components/users/users.component.html)               |
+| #4             | [edit-profile.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/components/edit-profile/edit-profile.component.html) |
+| #5             | [user.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/services/user.service.ts)                                 |
+
