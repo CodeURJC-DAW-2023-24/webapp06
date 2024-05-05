@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent {
   userId: string = '';
   isAdmin: boolean | undefined = false;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
     this.reqIslogged();
     this.loginService.isLoggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
@@ -50,6 +51,7 @@ export class NavbarComponent {
         this.user = undefined;
         this.isAdmin = false;
         this.isLoggedIn = false;
+        this.router.navigate(['/']);
       },
       error: (error) => {},
     });
