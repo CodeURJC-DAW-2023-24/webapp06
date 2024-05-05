@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
 import es.codeurjc.backend.dto.UserDTO;
 import es.codeurjc.backend.model.User;
 import es.codeurjc.backend.service.UserService;
@@ -103,7 +102,6 @@ public class UserApiRestController {
             }
         }
     }
-
 
     @GetMapping("/{userId}/status")
     @Operation(summary = "Get user status", description = "Get the status of an user by id", responses = {
@@ -193,39 +191,42 @@ public class UserApiRestController {
     @PutMapping("/{userId}")
     @Operation(summary = "Edit user", description = "Edit user information.")
     public ResponseEntity<?> editUser(@AuthenticationPrincipal UserDetails userDetails,
-                                      @PathVariable Long userId,
-                                      @RequestBody UserDTO updatedUserInfo) {
+            @PathVariable Long userId,
+            @RequestBody UserDTO updatedUserInfo) {
         if (userDetails != null) {
             try {
-                
                 Optional<User> existingUserOptional = userService.getUserById(userId);
                 if (!existingUserOptional.isPresent()) {
                     return new ResponseEntity<>("User with id " + userId + " not found.", HttpStatus.NOT_FOUND);
                 }
-    
+
                 User existingUser = existingUserOptional.get();
-                
-                
+
                 if (existingUser.getUsername().equals(userDetails.getUsername())
                         || userService.isAdmin(userDetails.getUsername())) {
-                    
-                    
-                    existingUser.setEmail(updatedUserInfo.getEmail());
-                    
-                    
+
+                    if (updatedUserInfo.getUsername() != null) {
+                        existingUser.setUsername(updatedUserInfo.getUsername());
+                    }
+                    if (updatedUserInfo.getEmail() != null) {
+                        existingUser.setEmail(updatedUserInfo.getEmail());
+                    }
+                    if (updatedUserInfo.getPassword() != null) {
+                        existingUser.setPassword(updatedUserInfo.getPassword());
+                    }
                     userService.save(existingUser);
-    
+
                     return new ResponseEntity<>("User with id " + userId + " successfully updated.", HttpStatus.OK);
                 } else {
-                   
-                    return new ResponseEntity<>("User with id " + userId + " can only be edited by its owner or an administrator.", HttpStatus.UNAUTHORIZED);
+                    return new ResponseEntity<>(
+                            "User with id " + userId + " can only be edited by its owner or an administrator.",
+                            HttpStatus.UNAUTHORIZED);
                 }
             } catch (Exception e) {
-                
-                return new ResponseEntity<>("An error occurred while updating user with id " + userId + ".", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("An error occurred while updating user with id " + userId + ".",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
-            
             return new ResponseEntity<>("Authenticated user not found.", HttpStatus.UNAUTHORIZED);
         }
     }
@@ -239,11 +240,11 @@ public class UserApiRestController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<?> editUserImage(@AuthenticationPrincipal UserDetails userDetails,
-                                        @PathVariable Long userId,
-                                        @RequestPart MultipartFile image) {
+            @PathVariable Long userId,
+            @RequestPart MultipartFile image) {
         if (userDetails != null) {
             try {
-                
+
                 Optional<User> existingUserOptional = userService.getUserById(userId);
                 if (!existingUserOptional.isPresent()) {
                     return new ResponseEntity<>("User with id " + userId + " not found.", HttpStatus.NOT_FOUND);
@@ -251,7 +252,6 @@ public class UserApiRestController {
 
                 User existingUser = existingUserOptional.get();
 
-            
                 if (existingUser.getUsername().equals(userDetails.getUsername())
                         || userService.isAdmin(userDetails.getUsername())) {
 
@@ -260,7 +260,7 @@ public class UserApiRestController {
                     }
 
                     try {
-                        
+
                         existingUser.setImageFile(new SerialBlob(image.getBytes()));
                         userService.save(existingUser);
 
@@ -269,20 +269,22 @@ public class UserApiRestController {
                         return new ResponseEntity<>("Error updating user image.", HttpStatus.INTERNAL_SERVER_ERROR);
                     }
                 } else {
-                    
-                    return new ResponseEntity<>("User image can only be edited by its owner or an administrator.", HttpStatus.UNAUTHORIZED);
+
+                    return new ResponseEntity<>("User image can only be edited by its owner or an administrator.",
+                            HttpStatus.UNAUTHORIZED);
                 }
             } catch (Exception e) {
-            
-                return new ResponseEntity<>("An error occurred while updating user image for user with id " + userId + ".", HttpStatus.INTERNAL_SERVER_ERROR);
+
+                return new ResponseEntity<>(
+                        "An error occurred while updating user image for user with id " + userId + ".",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
-            
+
             return new ResponseEntity<>("Authenticated user not found.", HttpStatus.UNAUTHORIZED);
         }
     }
 
-    
     @GetMapping("/me")
     @Operation(summary = "Get current user", description = "Get information of the currently logged user")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
@@ -297,7 +299,6 @@ public class UserApiRestController {
         } else {
             return new ResponseEntity<>("Authenticated user not found.", HttpStatus.UNAUTHORIZED);
         }
-}
-
+    }
 
 }
