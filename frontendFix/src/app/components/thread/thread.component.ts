@@ -101,7 +101,7 @@ export class ThreadComponent {
   deleteThread() {
     this.threadService.deleteThread(this.threadId).subscribe({
       next: () => {
-        this.router.navigate(['/f', this.thread?.forum.name], {
+        this.router.navigate(['/f', this.thread?.forum.id], {
           replaceUrl: true,
         });
       },
