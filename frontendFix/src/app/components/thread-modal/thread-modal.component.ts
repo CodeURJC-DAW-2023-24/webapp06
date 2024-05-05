@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ThreadService } from '../../services/thread.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ThreadService } from '../../services/thread.service';
 
 @Component({
   selector: 'app-thread-modal',
@@ -20,8 +20,14 @@ export class ThreadModalComponent {
     public bsModalRef: BsModalRef
   ) {
     this.uploadForm = this.formBuilder.group({
-      text: ['', Validators.required],
-      forumId: [this.forumId, Validators.required],
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(255),
+        ],
+      ],
     });
   }
 
@@ -31,16 +37,18 @@ export class ThreadModalComponent {
       return;
     }
 
-    console.log(this.uploadForm);
-    this.threadService.addThread(this.uploadForm.value).subscribe({
-      next: (response) => {
-        this.threadCreated.emit(response);
-        this.resetFormAndCloseModal();
-      },
-      error: (error) => {
-        console.error('Error uploading thread', error);
-      },
-    });
+    this.threadService
+      .addThread({
+        forumId: this.forumId ? this.forumId : 0,
+        text: this.uploadForm.get('title')?.value,
+      })
+      .subscribe({
+        next: (response) => {
+          this.threadCreated.emit(response);
+          this.resetFormAndCloseModal();
+        },
+        error: () => {},
+      });
   }
 
   resetFormAndCloseModal() {

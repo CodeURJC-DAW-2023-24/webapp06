@@ -94,7 +94,7 @@ export class ForumComponent {
 
   openModal() {
     const initialState = {
-      forumId: this.forumId,
+      forumId: this.activatedRoute.snapshot.params['forumId'],
     };
     const modalRef = this.modalService.show(ThreadModalComponent, {
       initialState,

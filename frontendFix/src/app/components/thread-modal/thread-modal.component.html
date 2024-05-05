@@ -18,9 +18,9 @@
 >
   <div class="modal-body">
     <div class="form-group">
-        <label for="inputTextArea">Text</label>
+      <label for="inputTextArea">Title</label>
       <textarea
-        formControlName="text"
+        formControlName="title"
         class="form-control"
         id="inputTextArea"
         name="post-form-text"
@@ -29,6 +29,23 @@
         style="resize: none"
         required
       ></textarea>
+      <div
+        *ngIf="
+          uploadForm.get('title')?.invalid &&
+          (uploadForm.get('title')?.dirty || uploadForm.get('title')?.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="uploadForm.get('title')?.errors?.['required']">
+          Title is required.
+        </div>
+        <div *ngIf="uploadForm.get('title')?.errors?.['minlength']">
+          Minimum length should be 1 character.
+        </div>
+        <div *ngIf="uploadForm.get('title')?.errors?.['maxlength']">
+          Maximum length should be 255 characters.
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
