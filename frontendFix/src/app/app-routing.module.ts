@@ -11,10 +11,10 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportedPostsComponent } from './components/reported-posts/reported-posts.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Home' } },
-  { path: 'f/:forumName', component: ForumComponent, data: { title: 'Forum' } },
+  { path: 'f/:forumId', component: ForumComponent, data: { title: 'Forum' } },
   { path: 't/:threadId', component: ThreadComponent, data: { title: 'Thread' } },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
   { path: 'register', component: SignUpComponent, data: { title: 'Register' } },
