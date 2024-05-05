@@ -568,3 +568,31 @@ And the project will start automatically thanks to predefined settings in the fi
 To use the web, simply access in your browser to:
 
  **http://localhost:4200/**
+
+ ## 🚀 Member participation
+
+### Miguel Quero Prieto
+
+#### Text description:
+
+During this project, my focus was on enhancing both frontend and backend functionalities. I implemented various features and improvements, ensuring a seamless user experience. My contributions included visualizing Tendring Categories based on user type, completing the registration process with robust error handling, and implementing token-based user authentication. Additionally, I actively participated in refining HTML and TypeScript files for key components like Home and Sign Up, as well as contributing to backend logic in the Forum Service.
+
+#### My 5 most significant commits
+
+| Commit | Description                                                      | Link                                                                                             |
+| ------ | ---------------------------------------------------------------  | ------------------------------------------------------------------------------------------------ |
+| #1     | Visualize the Tendring Categories according to the type of user  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/367716aa97997d3a1088ff88ae087b9ed327d588 |
+| #2     | Visualize all the categories of the application                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/367716aa97997d3a1088ff88ae087b9ed327d588 |
+| #3     | Complete the registration process                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/e5688249c7a7da233ace8ed2cbda540855a328ba |
+| #4     | Error handling for the registration screen                       | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/e5688249c7a7da233ace8ed2cbda540855a328ba |
+| #5     | Get User By Token                                                | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/c20a92218cbf409115284da4ff98b3cd6e947f03 |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                                           	      |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [Home Component HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/home/home.component.html)                               |
+| #2             | [Home Component TS](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/home/home.component.ts)                                   |
+| #3             | [Sign Up Component HTML](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/sign-up/sign-up.component.html)                      |
+| #4             | [Sign Up Component TS](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/sign-up/sign-up.component.ts)                          |                     
+| #5             | [Forum Service TS](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/services/forum.service.ts)  		                                  |
