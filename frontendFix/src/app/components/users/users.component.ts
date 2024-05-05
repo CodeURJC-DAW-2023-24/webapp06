@@ -84,10 +84,14 @@ export class UsersComponent {
 
     this.userService.deleteUser(id).subscribe({
       next: () => {
-        alert('User deleted successfully');
+        this.currentPage = 0;
+        this.users = [];
+        this.searchUserPag();
       },
       error: (error) => {
-        alert('Failed to delete user');
+        this.currentPage = 0;
+        this.users = [];
+        this.searchUserPag();
       },
     });
   }
