@@ -25,6 +25,14 @@ export class UserService {
     );
   }
 
+  getUserByUsername(username: string): Observable<User | undefined> {
+    return this.getAllUsers().pipe(
+      map(users => {
+        const user = users.find(u => u.username === username);
+        return user;
+      }));
+  }
+
   getUsernamesByUsername(username: string): Observable<string[]> {
     return this.getAllUsers().pipe(
       map(users => users.filter(u => u.username.includes(username)).map(u => u.username))

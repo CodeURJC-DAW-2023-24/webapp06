@@ -12,9 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent {
-  userName: string = '';
-  userId: number | null = null;
-  imageSrc: string | ArrayBuffer | null = '';
+  user: User | undefined;
+  username: string = '';
+  imageSrc: ArrayBuffer = new ArrayBuffer(0);
+  isAdmin: boolean | undefined;
 
   constructor(
     public loginService: LoginService,
@@ -25,30 +26,35 @@ export class EditProfileComponent {
     this.reqIslogged();
   }
 
-  onFileSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files![0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => (this.imageSrc = reader.result);
-      reader.readAsDataURL(file);
+  loadFile(event: any) {
+    const file = event.target.files[0] as File;
+    const output = document.getElementById('imagePreview') as HTMLInputElement;
+
+    if (!file || !file.type.startsWith('image/')) {
+      //this.fileErrorMessage = file ? 'Invalid file type' : null;
+      //this.postForm.controls['imageFile'].setValue(null);
+      output.src = '';
+    } else {
+      //this.fileErrorMessage = null;
+      output.src = URL.createObjectURL(file);
     }
+
+    output.onload = function () {
+      URL.revokeObjectURL(output.src);
+    };
   }
 
   updateProfile(): void {}
 
   reqIslogged() {
     this.loginService.reqIsLogged().subscribe({
-      next: (isLogged) => {
-        const user: User | undefined = this.loginService.currentUser();
-        if (user != undefined) {
-          if (
-            user.username == this.activatedRoute.snapshot.params['userName']
-          ) {
-            this.getUser();
-          } else {
-            let isAdmin;
-            isAdmin = this.loginService.isAdmin();
-            if (!isAdmin) {
+      next: () => {
+        this.user = this.loginService.currentUser();
+        this.username = this.activatedRoute.snapshot.params['userName'];
+        if (this.user != undefined) {
+          if (this.user.username !== this.username) {
+            this.isAdmin = this.loginService.isAdmin();
+            if (!this.isAdmin) {
               this.router.navigate(['/accessDenied']);
             } else {
               this.getUser();
@@ -63,11 +69,9 @@ export class EditProfileComponent {
   }
 
   getUser() {
-    const userName = this.activatedRoute.snapshot.params['userName'];
-    this.userName = userName;
-    this.UserService.getUserIdByUsername(userName).subscribe((userId) => {
-      if (userId !== null) {
-        this.userId = userId;
+    this.UserService.getUserByUsername(this.username).subscribe((user) => {
+      if (user !== undefined) {
+        this.user = user;
       } else {
         this.router.navigate(['/404']);
       }

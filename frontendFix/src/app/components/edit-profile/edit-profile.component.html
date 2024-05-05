@@ -9,7 +9,7 @@
             type="text"
             class="form-control"
             id="username"
-            [(ngModel)]="userName"
+            [(ngModel)]="username"
             name="username"
             placeholder="Enter your new username"
             required
@@ -22,10 +22,10 @@
                 type="file"
                 class="form-control-file"
                 id="profilePicture"
-                (change)="onFileSelected($event)"
                 accept="image/*"
+                (change)="loadFile($event)"
               />
-            <img [src]="'/api/users/' + userId + '/image'" alt="User Image" class="rounded-circle mt-3"
+            <img id="imagePreview" [src]="'/api/users/' + user?.id + '/image'" alt="User Image" class="rounded-circle mt-3"
           style="width: 150px; height: 150px">
             </div>
           </div>
