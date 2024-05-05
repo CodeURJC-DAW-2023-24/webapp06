@@ -23,7 +23,7 @@ export class ForumComponent {
   loading: boolean = true;
   currentPage: number = 0;
   totalPages: number = 0;
-  lastPage: boolean = false;
+  lastPage: boolean = true;
 
   uploadForm!: FormGroup;
 
@@ -41,32 +41,8 @@ export class ForumComponent {
   }
 
   ngOnInit(): void {
-    this.reqForum();
     this.reqIslogged();
-  }
-
-  reqForum() {
-    this.activatedRoute.params.subscribe((params) => {
-      this.forumId = params['forumId'];
-      this.forumService.getForumById(this.forumId).subscribe({
-        next: (forum) => {
-          this.forum = forum;
-          this.reqThreads();
-        },
-        error: () => {},
-      });
-    });
-  }
-
-  reqThreads() {
-    if (this.forum) {
-      this.threadService.getThreadsByForumName(this.forum.name).subscribe({
-        next: (threads: Thread[]) => {
-          this.threads = threads;
-        },
-        error: () => {},
-      });
-    }
+    this.reqForum();
   }
 
   reqIslogged() {
@@ -81,6 +57,43 @@ export class ForumComponent {
       },
       error: () => {},
     });
+  }
+
+  reqForum() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.forumId = params['forumId'];
+      this.threads = [];
+      this.loading = true;
+      this.currentPage = 0;
+      this.totalPages = 0;
+      this.lastPage = true;
+      this.forumService.getForumById(this.forumId).subscribe({
+        next: (forum) => {
+          this.forum = forum;
+          this.reqThreads();
+        },
+        error: () => {},
+      });
+    });
+  }
+
+  reqThreads() {
+    if (this.forum) {
+      this.threadService.getThreadsByForumName(this.forum.name, this.currentPage).subscribe({
+        next: (threads) => {
+          this.threads = this.threads.concat(threads.content);
+          this.totalPages = threads.totalPages;
+          this.lastPage = threads.last;
+          this.loading = false;
+        },
+        error: () => {},
+      });
+    }
+  }
+
+  getMoreThreads() {
+    this.currentPage++;
+    this.reqThreads();
   }
 
   uploadThread() {

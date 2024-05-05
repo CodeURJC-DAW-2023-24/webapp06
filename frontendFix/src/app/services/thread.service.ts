@@ -15,10 +15,8 @@ export class ThreadService {
 
   constructor(private http: HttpClient) {}
 
-  getThreadsByForumName(forumName: string): Observable<Thread[]> {
-    return this.http
-      .get(BASE_URL + '/?forumName=' + forumName)
-      .pipe(map((response: any) => response.content)) as Observable<Thread[]>;
+  getThreadsByForumName(forumName: string, page: number): Observable<any> {
+    return this.http.get(BASE_URL + '/?forumName=' + forumName + '&page=' + page);
   }
 
   getThreadsByUser(userName: string): Observable<Thread[]> {
