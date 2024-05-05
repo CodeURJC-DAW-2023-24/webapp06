@@ -571,7 +571,7 @@ To use the web, simply access in your browser to:
 
 
 ## Diagram
-![Class diagram](./images/phase_4/diagram.drawio.png.png)
+![Class diagram](https://github.com/CodeURJC-DAW-2023-24/webapp06/tree/develop/images/phase_4)
 
 
  ## 🚀 Member participation
