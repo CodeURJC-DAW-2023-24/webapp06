@@ -55,7 +55,9 @@ export class ThreadComponent {
         }
         this.loading = false;
       },
-      error: () => {},
+      error: () => {
+        this.router.navigate(['/404']);
+      },
     });
   }
 

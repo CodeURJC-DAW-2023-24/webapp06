@@ -28,18 +28,16 @@ export class ReportedPostsComponent {
     this.loginService.reqIsLogged().subscribe({
       next: (isLogged) => {
         let isAdmin;
-        if (isLogged) {
-           isAdmin = this.loginService.isAdmin();
-        } else {
-          isAdmin = false;
-        }
+        isAdmin = this.loginService.isAdmin();
         if (!isAdmin) {
-          this.router.navigate(['/']);
-        } else {          
+          this.router.navigate(['/accessDenied']);
+        } else {
           this.reqPosts();
         }
       },
-      error: () => {},
+      error: () => {
+        this.router.navigate(['/accessDenied']);
+      },
     });
   }
 

@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { StatisticsService } from '../../services/statistics-service.service';
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
@@ -15,8 +17,24 @@ export class StatisticsComponent implements AfterViewInit {
   currentInterval: Interval = Interval.Weekly;
   Interval = Interval;
 
-  constructor(private statsService: StatisticsService) {
+  constructor(
+    private statsService: StatisticsService,
+    private loginService: LoginService,
+    private router: Router
+  ) {
+    this.reqIslogged();
     Chart.register(...registerables);
+  }
+
+  reqIslogged() {
+    this.loginService.reqIsLogged().subscribe({
+      next: (isLogged) => {
+        
+      },
+      error: () => {
+        this.router.navigate(['/accessDenied']);
+      },
+    });
   }
 
   ngAfterViewInit(): void {

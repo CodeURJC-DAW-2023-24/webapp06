@@ -21,6 +21,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostModalComponent } from './components/post-modal/post-modal.component';
 import { PostReportedComponent } from './components/post-reported/post-reported.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { PostReportedComponent } from './components/post-reported/post-reported.
     CategoriesComponent,
     PostModalComponent,
     PostReportedComponent,
+    AccessDeniedComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
