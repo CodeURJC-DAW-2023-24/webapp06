@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReportedPost } from '../../models/reportedPost.model';
 import { PostService } from '../../services/post.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-reported-posts',
@@ -15,8 +16,31 @@ export class ReportedPostsComponent {
   totalPages: number = 0;
   lastPage: boolean = false;
 
-  constructor(private postService: PostService, private router: Router) {
-    this.reqPosts();
+  constructor(
+    private postService: PostService,
+    private loginService: LoginService,
+    private router: Router
+  ) {
+    this.reqIslogged();
+  }
+
+  reqIslogged() {
+    this.loginService.reqIsLogged().subscribe({
+      next: (isLogged) => {
+        let isAdmin;
+        if (isLogged) {
+           isAdmin = this.loginService.isAdmin();
+        } else {
+          isAdmin = false;
+        }
+        if (!isAdmin) {
+          this.router.navigate(['/']);
+        } else {          
+          this.reqPosts();
+        }
+      },
+      error: () => {},
+    });
   }
 
   reqPosts() {
