@@ -41,6 +41,9 @@
       </li>
     </ul>
   </div>
+  <div *ngIf="!lastPage" class="text-center mt-3">
+    <button class="btn btn-primary" (click)="getMoreUsers()">Load More</button>
+  </div>
   <ng-template #noUserTemplate>
     <h5 class="text-muted">No users found with that username.</h5>
   </ng-template>

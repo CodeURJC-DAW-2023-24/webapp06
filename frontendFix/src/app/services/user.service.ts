@@ -12,7 +12,7 @@ export class UserService {
 
 
   getAllUsers(): Observable<User[]> {
-    return this.HttpClient.get<User[]>('http://localhost:4200/api/users/');
+    return this.HttpClient.get<User[]>('/api/users/');
   }
 
   getUserIdByUsername(username: string): Observable<number | null> {
@@ -38,7 +38,11 @@ export class UserService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.HttpClient.delete('http://localhost:4200/api/users/' + id);
+    return this.HttpClient.delete('/api/users/' + id);
+  }
+
+  getAllUsersPaginated(page: number): Observable<any> {
+    return this.HttpClient.get<User[]>('/api/users/paginated?page=' + page)
   }
 
 }
