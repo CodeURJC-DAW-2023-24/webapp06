@@ -45,6 +45,20 @@ export class UserService {
     );
   }
 
+  updateUser(text: string, userId: number): Observable<any> {
+    const options = {
+      responseType: 'text' as 'json',
+    };
+    return this.HttpClient.put('/api/users/' + userId, {username: text}, options);
+  }
+
+  updateImage(userId: number, formData: FormData): Observable<any> {
+    const options = {
+      responseType: 'text' as 'json',
+    };
+    return this.HttpClient.put('/api/users/' + userId + '/image', formData, options);
+  }
+
   deleteUser(id: number): Observable<any> {
     return this.HttpClient.delete('/api/users/' + id);
   }

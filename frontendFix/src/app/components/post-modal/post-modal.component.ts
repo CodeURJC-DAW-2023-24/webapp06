@@ -51,17 +51,6 @@ export class PostModalComponent {
     }
   }
 
-  validateFileType(control: any) {
-    const file = control.value as File;
-    if (file) {
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (!allowedTypes.includes(file.type)) {
-        return { invalidFileType: true };
-      }
-    }
-    return null;
-  }
-
   loadFile(event: any) {
     const file = event.target.files[0] as File;
     const output = document.getElementById('imagePreview') as HTMLInputElement;
