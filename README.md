@@ -682,3 +682,25 @@ To use the web, simply access in your browser to:
 | #4             | [edit-profile.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/components/edit-profile/edit-profile.component.html) |
 | #5             | [user.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/main/frontendFix/src/app/services/user.service.ts)                                 |
 
+### David Moreno Martín
+
+#### My 5 most significant commits
+
+| Commit | Description                                                     | Link                                                                                             |
+| ------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| #1     | Add new thread                                                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/fcd262518884c26a7fc8526e053092cfd034af86 |
+| #2     | User profile sinished                                           | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/9203ac8b49c6b7392a40403db11e8876dcefeb3b |
+| #3     | Profile screen logic and style                                  | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/554fc912eb5879c6aa8e2b55b01d50add4d992b9 |
+| #4     | More forum screen logic and style                               | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/00ccc77bba8ebded58a849e344843376c9008524 |
+| #5     | Angular and Rest Forum Logic                                    | https://github.com/CodeURJC-DAW-2023-24/webapp06/commit/59cae009cd99a3e6bb74188fa5920804e23c720c |
+
+#### The 5 files where I participated the most
+
+| Número fichero | Fichero                                                                                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1             | [forum.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/forum/forum.component.ts)          |
+| #2             | [forum.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/forum/forum.component.html)              |
+| #3             | [profile.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/profile/profile.component.html) |
+| #4             | [profile.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/components/profile/profile.component.ts)     |
+| #5             | [thread.service](https://github.com/CodeURJC-DAW-2023-24/webapp06/blob/develop/frontendFix/src/app/services/thread.service.ts)                       |
+
