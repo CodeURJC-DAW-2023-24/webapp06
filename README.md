@@ -586,7 +586,7 @@ To use the web, simply access in your browser to:
 
 ## Youtube
 
-![youtube](https://youtu.be/5qeUQSKib0I?si=wahx-Ob04c8AuZTq)
+[youtube](https://youtu.be/5qeUQSKib0I?si=wahx-Ob04c8AuZTq)
 
 ## Diagram
 
